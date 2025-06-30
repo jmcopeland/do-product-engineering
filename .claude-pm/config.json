@@ -1,0 +1,11 @@
+{
+  "questioningDepth": "standard",
+  "maxQuestions": 8,
+  "autoSave": true,
+  "prdTemplate": "standard",
+  "complexityScale": 5,
+  "includeImplementationNotes": true,
+  "analyzeGitHistory": true,
+  "maxGitCommits": 20,
+  "contextDepth": "standard"
+}
