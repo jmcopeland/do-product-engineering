@@ -90,7 +90,6 @@ After installation:
     configure.md          # Settings management
     status.md             # Status overview
     install.md            # Project installation
-    README.md             # Team customization guide
 
 # In your projects (after /user:pm:install):
 .claude/commands/         # Team-shared commands

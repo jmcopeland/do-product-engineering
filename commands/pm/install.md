@@ -67,13 +67,11 @@ Handle common issues:
 - Invalid project directory
 - Git conflicts with existing files
 
-## Execution Steps
+## Begin Installation
 
 1. **Verify Environment**
-   ```bash
-   # Check if we're in a project directory
-   # Look for .git, package.json, or other project indicators
-   ```
+   - Check if we're in a project directory
+   - Look for .git, package.json, or other project indicators
 
 2. **Create Directory Structure**
    ```bash

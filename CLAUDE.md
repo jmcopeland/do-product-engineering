@@ -80,8 +80,7 @@ commands/
     ├── continue.md    # Resume plan development
     ├── configure.md   # Settings management
     ├── status.md      # Status overview
-    ├── install.md     # Project installation
-    └── README.md      # Team customization guide
+    └── install.md     # Project installation
 ```
 
 Generated project structure:
@@ -103,3 +102,16 @@ Generated project structure:
 - `analyzeGitHistory`: Include git commit analysis
 
 **Domain-specific Templates**: Add custom question sets for specific industries or project types by modifying the question templates in `pm.md`.
+
+## Command Development Workflow
+
+- **Source of Truth**: Commands in `/Users/justincopeland/code/claude-pm/.claude/commands/pm*` are the authoritative source
+- **Distribution Process**:
+  1. Make changes to commands in `.claude/commands/pm*`
+  2. Update distributable versions in `commands/`
+  3. Only update user commands (`~/.claude/commands/`) when explicitly copying/installing
+- **Rationale**:
+  - This project IS the Claude PM source code
+  - Changes should be version controlled here
+  - The `commands/` directory is what gets distributed to other users
+  - The `.claude/commands/pm*` in this project is the "live" working version

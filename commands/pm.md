@@ -100,6 +100,6 @@ After creating the PRD:
 ## Session Management
 - Automatically save progress during questioning
 - Handle interruptions gracefully
-- Allow continuation via `/user:pm:continue` command
+- Allow continuation via `/pm:continue` command
 
 Begin the process now with the provided requirement: "$ARGUMENTS"

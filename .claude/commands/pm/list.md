@@ -30,7 +30,7 @@ List all existing PRD plans in the current project.
    ```
 
 4. **Provide next steps**
-   - Suggest using `/user:pm:continue [filename]` to resume a plan
-   - Suggest using `/user:pm "[requirement]"` to create a new plan
+   - Suggest using `/pm:continue [filename]` to resume a plan
+   - Suggest using `/pm "[requirement]"` to create a new plan
 
 Begin listing plans now.

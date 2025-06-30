@@ -59,9 +59,9 @@ Check PM system health:
 - ⚠️  [Any issues found]
 
 ### Quick Actions
-- `/user:pm "[requirement]"` - Create new plan
-- `/user:pm:list` - View all plans
-- `/user:pm:configure` - Update settings
+- `/pm "[requirement]"` - Create new plan
+- `/pm:list` - View all plans
+- `/pm:configure` - Update settings
 ```
 
 Begin status check now.

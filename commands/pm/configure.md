@@ -12,19 +12,19 @@ Configure PM command settings and preferences.
 ### 2. Configuration Options
 
 **Questioning Preferences:**
-- `questioningDepth`: "brief" | "standard" | "thorough"
+- `questioningDepth`: "brief" | "standard" | "thorough" (default: "standard")
 - `maxQuestions`: Number of questions to ask (default: 8)
 - `autoSave`: Save progress automatically (default: true)
 
 **Output Preferences:**
-- `prdTemplate`: "standard" | "agile" | "technical"
-- `complexityScale`: 1-5 or 1-10 scale
+- `prdTemplate`: "standard" | "agile" | "technical" (default: "standard")
+- `complexityScale`: 1-5 or 1-10 scale (default: 1-5)
 - `includeImplementationNotes`: Include technical details (default: true)
 
 **Project Context:**
 - `analyzeGitHistory`: Include git commit analysis (default: true)
 - `maxGitCommits`: Number of recent commits to analyze (default: 20)
-- `contextDepth`: "surface" | "standard" | "deep"
+- `contextDepth`: "surface" | "standard" | "deep" (default: "standard")
 
 **Team Settings (for shared configs):**
 - `teamName`: Team identifier
