@@ -1,65 +1,50 @@
 # PM List - Show Existing Plans
 
-List all existing PRD plans in the current project.
+List all existing PRD plans in the current project with optimized caching for sub-second performance.
 
-## Task: Display Plans and Sessions
+## Task: Execute Smart Cached Listing
 
-1. **Check for active sessions first**
-   - Look for `.claude-pm/sessions/` directory
-   - Find sessions with `"status": "in-progress"`
-   - Show active sessions at top of list
+### Step 1: Simple Cache Validation
+Check if cache needs updating by comparing file modification times:
 
-2. **List completed plans**
-   - Find all `.md` files in `.claude-pm/plans/`
-   - Extract key information from each plan:
-     - Plan name (from filename)
-     - Creation date and last updated
-     - Status and completion level
-     - Brief description (from Context section)
-     - Complexity estimate
-     - Questioning mode used (template vs AI-powered)
+1. **Check cache exists** - Look for `.claude-pm/.cache/list-cache.txt`
+2. **Find newest files & compare** - Use: `ls -t .claude-pm/plans/*.md .claude-pm/.cache/list-cache.txt 2>/dev/null | head -1`
+3. **Cache validation logic** - If result ends with "list-cache.txt", cache is valid and use it; otherwise rebuild cache
+4. **No time calculations** - Just direct file timestamp comparisons via ls -t sorting
 
-3. **Display formatted list**
-   Show active sessions and plans in organized format:
-   ```
-   ## Plans Overview
-   
-   **Total Plans:** [count] | **Active Sessions:** [count] | **Ready for Development:** [ready] | **Implemented:** [done]
-   
-   ---
-   
-   ## Active Sessions
-   
-   ### 🔄 [Requirement] - In Progress
-   [Brief description of what's being planned]
-   **Started:** [timestamp] | **Questions:** [N asked/~M total] | **Session ID:** [session-id]
-   
-   ---
-   
-   ## Plans
+### Step 2: Display Results (Native Claude Output)
+Based on cache validation, either:
 
-   ### [Status Icon] [Plan Name]
-   
-   [Brief description from Context section]
-   
-   **Created:** [Date] | **Updated:** [Date] | **Status:** [Status Icon] [Ready/In Development/Implemented]
+**If cache is valid:**
+- Read and display cached results with "⚡ Using cached results" message
+- Show native formatted output in Claude
 
-   ---
-   ```
+**If cache is invalid:**  
+- Count plan and session files
+- Build fresh formatted output
+- Save to cache file `.claude-pm/.cache/list-cache.txt`
+- Display results natively with "🔄 Cache updated" message
 
-4. **Plan Status Categories**
-   - **Ready for Development** 📋 - PRD complete, ready to implement
-   - **In Development** 🚧 - Currently being developed
-   - **Implemented** ✅ - Feature has been developed and deployed
-   
-5. **Show summary statistics**
-   - Total active sessions
-   - Plans by status category
-   - Most recent activity
+### Step 3: Output Format (Always Native)
+```
+⚡ Using cached results | 🔄 Cache updated
 
-6. **Provide next steps**
-   - For active sessions: `/continue [session-id]` to resume questioning
-   - For completed plans: `/continue [filename]` to modify a plan
-   - To start new: `/pm "[requirement]"` to create a new plan
+## Plans Overview
 
-Begin listing sessions and plans now.
+**Total Plans:** [count] | **Active Sessions:** [count] | **Ready for Development:** [ready] | **Implemented:** [done]
+
+---
+
+## Plans
+
+### [Status Icon] [Plan Name]
+
+[Brief description]
+
+**Created:** [Date] | **Updated:** [Date] | **Status:** [Status Icon] [Status]
+
+---
+
+```
+
+Begin smart cache validation and native display now.
