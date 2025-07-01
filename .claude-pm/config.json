@@ -2,6 +2,15 @@
   "questioningDepth": "standard",
   "maxQuestions": 8,
   "autoSave": true,
+  "questioningMode": "ai-powered",
+  "aiQuestioningOptions": {
+    "useRelevanceFiltering": true,
+    "questionsPerRound": 1,
+    "adaptiveDepth": true,
+    "includeRationale": true,
+    "allowSkipQuestioning": true,
+    "priorityThreshold": "medium"
+  },
   "prdTemplate": "standard",
   "complexityScale": 5,
   "includeImplementationNotes": true,

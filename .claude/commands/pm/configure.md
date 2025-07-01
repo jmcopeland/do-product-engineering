@@ -13,8 +13,17 @@ Configure PM command settings and preferences.
 
 **Questioning Preferences:**
 - `questioningDepth`: "brief" | "standard" | "thorough"
-- `maxQuestions`: Number of questions to ask (default: 8)
+- `maxQuestions`: Number of questions to ask (default: 8) - applies to template mode only
 - `autoSave`: Save progress automatically (default: true)
+- `questioningMode`: "template" | "ai-powered" | "hybrid" (default: "ai-powered")
+
+**AI Questioning Options** (when questioningMode is "ai-powered"):
+- `aiQuestioningOptions.useRelevanceFiltering`: AI filters questions by relevance (default: true)
+- `aiQuestioningOptions.questionsPerRound`: Questions per round (default: 1)
+- `aiQuestioningOptions.adaptiveDepth`: Adjust depth based on responses (default: true)
+- `aiQuestioningOptions.includeRationale`: Show why each question is asked (default: true)
+- `aiQuestioningOptions.allowSkipQuestioning`: Allow skip to assumptions (default: true)
+- `aiQuestioningOptions.priorityThreshold`: "low" | "medium" | "high" - minimum priority to ask (default: "medium")
 
 **Output Preferences:**
 - `prdTemplate`: "standard" | "agile" | "technical"
@@ -41,6 +50,15 @@ Present current settings and allow updates:
 - Depth: [current value]
 - Max Questions: [current value]
 - Auto-save: [current value]
+- Questioning Mode: [current value]
+
+**AI Questioning** (if enabled):
+- Use Relevance Filtering: [current value]
+- Questions Per Round: [current value]
+- Adaptive Depth: [current value]
+- Include Rationale: [current value]
+- Allow Skip: [current value]
+- Priority Threshold: [current value]
 
 **Output:**
 - PRD Template: [current value]

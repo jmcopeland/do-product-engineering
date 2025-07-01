@@ -1,30 +1,51 @@
-# Claude PM - AI Product Manager for Claude Code
+# AI Product Manager for Claude Code
 
-Transform vague requirements into detailed, actionable PRDs through interactive AI questioning.
+🤖 **v2 AI-Powered Questioning** - Transform vague requirements into detailed, actionable PRDs through intelligent, adaptive conversation.
+
+[![Version](https://img.shields.io/badge/version-2.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Overview
 
-Claude PM adds AI Product Manager capabilities to Claude Code via custom slash commands. It analyzes your project context, asks intelligent questions, and generates comprehensive Product Requirements Documents (PRDs) that Claude Code can execute.
+AI Product Manager adds intelligent product management capabilities to Claude Code via custom slash commands. It analyzes your project context, asks intelligent questions, and generates comprehensive Product Requirements Documents (PRDs) that Claude Code can execute.
 
 ## Features
 
+### 🧠 AI-Powered Questioning (v2)
+- **Smart Analysis** - Pre-answers questions by analyzing your codebase
+- **Adaptive Conversation** - Asks only relevant questions, one at a time with context
+- **User Control** - Skip questions, request explanations, or end early with "good to go"
+- **Skip Mode** - Generate PRDs with assumptions when you want speed over detail
+
+### 🏗️ Core Capabilities
 - **Context Discovery** - Automatically analyzes project structure, git history, and documentation
-- **Interactive Questioning** - Domain-specific question templates (auth, CRUD, UI, API)
-- **Session Management** - Save progress and resume questioning sessions
-- **Plan Management** - Generate structured PRDs in markdown format
-- **Team Collaboration** - Share customized commands across team projects
+- **Session Management** - Auto-saves progress, resume interrupted sessions
+- **Plan Management** - Generate structured PRDs with implementation notes
+- **Team Collaboration** - Share customized commands and question templates
 
 ## Quick Start
 
-### Individual Installation
-1. Copy all files from `commands/` to `~/.claude/commands/`
-2. Commands are immediately available as `/user:pm*` across all projects
+### 🚀 Automatic Installation
+```bash
+# Clone and install
+git clone https://github.com/jmcopeland/ai-product-manager.git
+cd ai-product-manager
+./install.sh
 
-### Team Installation
-1. Install individually first (above)
-2. In your project: `/user:pm:install`
-3. Commit `.claude/commands/pm*` files to share with team
-4. Team gets project-scoped `/pm*` commands
+# Start using immediately
+/user:pm "Add user authentication to my app"
+```
+
+### 👥 Team Installation
+```bash
+# After individual install, add to your project:
+/user:pm:install
+
+# Commit for team sharing
+git add .claude/commands/pm*
+git commit -m "Add AI Product Manager v2 for team"
+```
 
 ## Available Commands
 
@@ -37,23 +58,41 @@ Claude PM adds AI Product Manager capabilities to Claude Code via custom slash c
 - `/user:pm:install` - Copy commands to current project
 
 ### Project Commands (After Installation)
-- `/pm "requirement"` - Project-specific PRD creation
-- `/pm:list` - Show project plans
-- `/pm:continue <plan>` - Resume project plan
-- `/pm:configure` - Project settings
-- `/pm:status` - Project PM status
+- `/pm "requirement"` - AI-powered PRD creation for project
+- `/pm:list` - Show project plans and active sessions
+- `/pm:continue <plan>` - Resume plan or session
+- `/pm:configure` - Project AI questioning settings
+- `/pm:status` - System health and cleanup recommendations
 
 ## Example Usage
 
+### 🎯 AI-Powered Flow
 ```bash
-# Start requirement gathering
-/user:pm "Add user authentication to my web app"
+# Start with any requirement
+/user:pm "Add user profile management"
 
-# The system will:
-# 1. Analyze your project structure
-# 2. Ask targeted questions about auth requirements
-# 3. Generate a comprehensive PRD
-# 4. Save it in .claude-pm/plans/ for future reference
+# v2 AI system will:
+# 1. 🔍 Analyze your codebase (React? Django? existing auth?)
+# 2. 🎯 Ask ~6-10 focused questions with context
+# 3. 💬 Adapt based on your responses
+# 4. 📋 Generate comprehensive PRD with assumptions
+```
+
+### ⚡ Skip Mode for Speed
+```bash
+# Generate with assumptions only
+/user:pm "Add CRUD operations, skip questions"
+/user:pm "Add user dashboard, make assumptions"
+```
+
+### 🔄 Session Management
+```bash
+# Resume if interrupted
+/user:pm:continue user-auth-20250701-140000
+
+# Check status and cleanup
+/user:pm:status
+/user:pm:list
 ```
 
 ## Installation Instructions
@@ -64,8 +103,8 @@ Claude PM adds AI Product Manager capabilities to Claude Code via custom slash c
 mkdir -p ~/.claude/commands/pm
 
 # Copy files
-cp commands/pm.md ~/.claude/commands/
-cp commands/pm/*.md ~/.claude/commands/pm/
+cp .claude/commands/pm.md ~/.claude/commands/
+cp .claude/commands/pm/*.md ~/.claude/commands/pm/
 ```
 
 ### Team Setup
@@ -75,7 +114,7 @@ cp commands/pm/*.md ~/.claude/commands/pm/
 
 # Commit team commands
 git add .claude/commands/pm*
-git commit -m "Add Claude PM commands for team use"
+git commit -m "Add AI Product Manager commands for team use"
 ```
 
 ## Directory Structure
@@ -83,19 +122,21 @@ git commit -m "Add Claude PM commands for team use"
 After installation:
 ```
 ~/.claude/commands/
-  pm.md                    # Main PM command
+  pm.md                    # Main AI-powered PM command
   pm/
-    list.md               # List existing plans
+    list.md               # List plans and sessions
     continue.md           # Resume plan development
-    configure.md          # Settings management
-    status.md             # Status overview
+    configure.md          # AI questioning settings
+    status.md             # System health dashboard
     install.md            # Project installation
 
 # In your projects (after /user:pm:install):
 .claude/commands/         # Team-shared commands
 .claude-pm/
-  config.json            # Project settings
+  config.json            # AI questioning configuration
   plans/                 # Generated PRDs
+  sessions/              # Active AI questioning sessions
+  questions/             # Custom question templates
 ```
 
 ## Generated PRD Format
@@ -109,39 +150,99 @@ Each PRD includes:
 - **Success Metrics** - Measurement criteria
 - **TODOs** - Unresolved questions
 
-## Customization
+## Configuration
 
-### Question Templates
-Edit `pm.md` to customize questions for your domain:
-
-```markdown
-**For E-commerce Features:**
-- What payment methods should be supported?
-- How should inventory be managed?
-- What shipping options are needed?
-```
-
-### Project Settings
-Customize `.claude-pm/config.json`:
+### 🤖 AI Questioning Settings
+Configure in `.claude-pm/config.json`:
 
 ```json
 {
-  "questioningDepth": "thorough",
-  "maxQuestions": 12,
-  "prdTemplate": "agile",
-  "teamName": "Your Team"
+  "questioningMode": "ai-powered",
+  "aiQuestioningOptions": {
+    "useRelevanceFiltering": true,
+    "priorityThreshold": "medium",
+    "allowSkipQuestioning": true,
+    "includeRationale": true,
+    "adaptiveDepth": true
+  }
 }
+```
+
+### 📋 Custom Question Templates
+Create domain-specific templates in `.claude-pm/questions/`:
+
+```markdown
+# questions/ecommerce.md
+## Payment Processing
+- What payment methods should be supported?
+- How should refunds and disputes be handled?
+
+## Inventory Management  
+- How should stock levels be tracked?
+- What happens when items go out of stock?
+```
+
+### 🎛️ Quick Configuration
+```bash
+# Interactive configuration
+/user:pm:configure
+
+# Check current settings
+/user:pm:status
 ```
 
 ## Requirements
 
 - [Claude Code CLI](https://claude.ai/code) - The AI coding assistant
-- Git repository (for context analysis)
+- Git repository (recommended for context analysis)
 - Markdown support (for PRD generation)
+
+## Documentation
+
+- [📖 AI Questioning Guide](docs/AI-QUESTIONING.md) - Complete v2 feature guide
+- [🔄 Migration Guide](docs/MIGRATION.md) - Upgrading from v1
+- [🚀 Quick Start Examples](docs/EXAMPLES.md) - Common use cases
+
+## What's New in v2
+
+### 🧠 AI-Powered Questioning
+- **Smart pre-answering** from codebase analysis
+- **Relevance filtering** - no more irrelevant questions
+- **Adaptive conversation** that responds to your expertise level
+- **Skip mode** for quick PRD generation with assumptions
+
+### 🎯 Better User Experience
+- **One question at a time** with clear rationale
+- **Progress indicators** by topic, not rigid question counts
+- **User control signals** - "good to go", "skip", "explain why"
+- **Session auto-save** and recovery
+
+### ⚡ Performance Improvements
+- **Faster codebase analysis** with smart timeouts
+- **Targeted searches** for relevant patterns only
+- **Session management** for handling interruptions
+
+## Upgrading from v1
+
+Existing v1 commands work unchanged. v2 adds AI-powered mode as the new default.
+
+```bash
+# Update your installation
+git pull origin main
+./install.sh
+
+# Try AI mode
+/user:pm "Add feature X"
+
+# Or keep template mode
+/user:pm:configure  # Set questioningMode: "template"
+```
 
 ## Contributing
 
 This tool is designed to be customized per team/project. Fork and modify the command templates to match your development workflow.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
 ## License
 

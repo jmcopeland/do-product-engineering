@@ -29,9 +29,13 @@ If PM commands already exist in the project:
 
 ### 4. Post-Installation Setup
 After copying files:
-- Create `.claude-pm/` directory structure if it doesn't exist
-- Create default `.claude-pm/config.json` if it doesn't exist
-- Add `.claude-pm/plans/` directory for storing PRDs
+- Create complete `.claude-pm/` directory structure:
+  - `.claude-pm/config.json` - PM configuration
+  - `.claude-pm/plans/` - Generated PRDs
+  - `.claude-pm/sessions/` - Active AI questioning sessions
+  - `.claude-pm/questions/` - AI question templates
+- Copy question templates from user directory if they exist
+- Create default config with AI-powered questioning enabled
 
 ### 5. Team Setup Instructions
 Provide guidance for team usage:
@@ -51,9 +55,10 @@ Provide guidance for team usage:
 3. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
 
 ### Customization:
-- Edit `.claude/commands/pm.md` to customize questioning templates
+- Edit `.claude/commands/pm.md` to customize AI questioning flow
 - Modify `.claude-pm/config.json` for project-specific settings
-- Create domain-specific question templates in `.claude/commands/pm/`
+- Add custom question templates in `.claude-pm/questions/`
+- Configure AI questioning behavior (depth, filtering, skip options)
 
 ### Fallback:
 - User commands (`/user:pm*`) remain available as fallback
@@ -76,26 +81,46 @@ Handle common issues:
 2. **Create Directory Structure**
    ```bash
    mkdir -p .claude/commands/pm
-   mkdir -p .claude-pm/plans
+   mkdir -p .claude-pm/{plans,sessions,questions}
    ```
 
-3. **Copy Files**
+3. **Copy Command Files**
    ```bash
    cp ~/.claude/commands/pm.md .claude/commands/
    cp ~/.claude/commands/pm/*.md .claude/commands/pm/
    ```
 
-4. **Create Default Config**
+4. **Copy Question Templates** (for AI-powered mode)
+   ```bash
+   # Copy question templates if they exist in user directory
+   if [ -d ~/.claude-pm/questions ]; then
+     cp ~/.claude-pm/questions/*.md .claude-pm/questions/
+   else
+     echo "Note: Question templates not found in user directory"
+     echo "AI questioning will use built-in templates"
+   fi
+   ```
+
+5. **Create Default Config** (AI-powered enabled)
    ```json
    {
      "questioningDepth": "standard",
      "maxQuestions": 8,
      "autoSave": true,
+     "questioningMode": "ai-powered",
+     "aiQuestioningOptions": {
+       "useRelevanceFiltering": true,
+       "questionsPerRound": 1,
+       "adaptiveDepth": true,
+       "includeRationale": true,
+       "allowSkipQuestioning": true,
+       "priorityThreshold": "medium"
+     },
      "prdTemplate": "standard",
      "complexityScale": 5,
      "includeImplementationNotes": true,
      "analyzeGitHistory": true,
-     "maxGitCommits": 20,
+     "maxGitCommits": 10,
      "contextDepth": "standard"
    }
    ```

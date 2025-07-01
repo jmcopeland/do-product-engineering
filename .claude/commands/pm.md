@@ -1,105 +1,408 @@
 # PM - AI Product Manager
 
-Act as an AI Product Manager to transform vague requirements into detailed, actionable PRDs through interactive questioning.
+Act as an AI Product Manager to transform vague requirements into detailed, actionable PRDs through intelligent, adaptive questioning.
 
-## Task: Requirements Gathering and PRD Generation
+## Task: AI-Powered Requirements Gathering
 
 Given the user requirement: "$ARGUMENTS"
 
-Follow this structured process:
+### Step 1: Load Configuration and Check for Skip
+First, check the configuration and handle skip requests:
 
-### 1. Context Discovery
-First, analyze the current project to understand:
-- Project structure and technology stack
-- Recent development patterns from git history
-- Existing documentation and conventions
-- Related features or components
+1. **Load config** from `.claude-pm/config.json`
+   - If config missing, use sensible defaults
+   - Check if `allowSkipQuestioning` is enabled
 
-Use these tools to gather context:
-- Check for package.json, README, or other project files
-- Scan recent git commits for patterns
-- Look for relevant existing code or documentation
+2. **Check for skip signals** in the requirement:
+   - Direct skip: "skip questions", "no questions", "just generate", "use defaults"
+   - Contextual skip: "make assumptions", "best practices", "don't ask me"
+   - If skip detected and allowed, jump to Step 6 (Generate with Assumptions)
+   - If skip detected but not allowed, inform user and proceed normally
 
-### 2. Interactive Questioning
-Based on the requirement type and project context, ask 5-8 targeted questions:
+3. **Handle skip request**:
+   ```
+   I understand you'd like me to skip questioning and make assumptions.
+   I'll analyze your codebase thoroughly and use industry best practices
+   to generate a comprehensive PRD.
+   
+   Proceeding with assumption-based generation...
+   ```
 
-**For Authentication/User Management:**
-- What authentication methods should be supported?
-- Do you need role-based permissions?
-- How should user sessions be managed?
-- What user data needs to be stored?
+### Step 2: Analyze Requirement and Complexity
+Analyze the user requirement to understand what we're building:
 
-**For CRUD Operations:**
-- What data entities are involved?
-- What operations are needed (create, read, update, delete)?
-- Who can perform each operation?
-- How should data be validated?
+1. **Extract key concepts** and technical terms
+2. **Identify requirement type(s)** (can be multiple):
+   - Authentication/User Management → auth template (keywords: login, signup, user, profile, permission, role)
+   - CRUD operations → crud template (keywords: create, read, update, delete, manage, edit, list)
+   - UI/Components → ui template (keywords: component, interface, design, layout, form, button)
+   - API/Integration → api template (keywords: API, endpoint, service, integration, webhook, external)
+   - General/Other → general template (fallback for unclear requirements)
+3. **Assess complexity** based on keywords and scope:
+   - Simple: "add button", "change color", "basic", single action
+   - Medium: "authentication", "CRUD", "form", "profile", standard feature
+   - Complex: "real-time", "collaborative", "integration", "migration", multi-system feature
+4. **Determine if breakdown needed**:
+   - If complex, offer to break into smaller PRDs
+   - If user accepts breakdown, focus on one component
 
-**For UI Components:**
-- What devices/screen sizes need support?
-- Are there existing design patterns to follow?
-- What states does the component need to handle?
-- How should it integrate with existing UI?
+### Step 3: Comprehensive Codebase Analysis
+Perform deep codebase analysis to pre-answer questions:
 
-**For API Integration:**
-- What external service are you integrating with?
-- What data needs to be synchronized?
-- How should errors be handled?
-- What are the rate limits or constraints?
+1. **Project structure analysis** (fast scan):
+   - Find package.json, requirements.txt, composer.json, Cargo.toml, etc.
+   - Identify framework (React, Vue, Express, Django, Laravel, etc.)
+   - Locate main directories (src/, app/, components/, models/, etc.)
+   - Scan only top 2 levels initially for performance
 
-**General Questions:**
-- What problem does this solve for users?
-- What are the success criteria?
-- Are there any technical constraints?
-- What's the expected complexity/timeline?
+2. **Find similar existing features** (targeted search):
+   - Use Grep tool to search for requirement-related patterns
+   - Look for auth patterns: "login", "signup", "authenticate", "user"
+   - Look for CRUD patterns: "create", "update", "delete", "findBy"
+   - Look for UI patterns: "component", "form", "modal", "page"
+   - Limit search to common file extensions (.js, .ts, .py, .php, .rb)
 
-Continue asking follow-up questions based on responses. Stop when you have sufficient detail or the user signals completion with phrases like "good to go", "proceed", or "continue".
+3. **Extract technical context** (essential only):
+   - Database: Check for migrations, schema files, model definitions
+   - Auth: Look for auth middleware, user models, session handling
+   - UI: Identify component library (Material-UI, Bootstrap, Tailwind)
+   - API: Find route definitions, controller patterns
+   - Stop analysis after 30 seconds to avoid blocking
 
-### 3. Plan Creation
-Create a comprehensive PRD in the `.claude-pm/plans/` directory with this structure:
+4. **Analyze git history** (if configured and fast):
+   - Only scan last 10 commits (not 20) for performance
+   - Look for commits related to similar features (auth, user, profile, CRUD)
+   - Extract development patterns and naming conventions
+   - Skip if git log takes >10 seconds
 
-```markdown
-# [Feature Name] - PRD
+### Step 4: Load and Filter Question Templates
+Intelligently select and filter questions:
 
-**Created:** [timestamp]
-**Complexity Estimate:** [1-5 scale]
-**Status:** Ready for Development
+1. **Load relevant templates** from `.claude-pm/questions/`:
+   - Based on requirement type analysis from Step 2
+   - May load multiple templates if requirement spans categories
 
-## Context
-[Brief description of the feature and why it's needed]
+2. **Pre-answer questions from codebase**:
+   - Mark questions as "answered" if codebase analysis provides clear answers
+   - Note the source of pre-answered information (e.g., "Found React in package.json")
+   - Skip redundant questions (e.g., don't ask about auth library if already using one)
 
-## User Stories
-[3-5 user stories in "As a... I want... so that..." format]
+3. **Filter by relevance and priority**:
+   - Apply `priorityThreshold` from config (low/medium/high)
+   - Remove questions not relevant to this specific requirement
+   - Prioritize questions that can't be answered from codebase
+   - Use keyword matching to filter relevant questions only
+   - For "user profile" requirement: focus on auth + CRUD questions, skip API integration
 
-## Core Requirements
-[Detailed functional requirements organized by category]
+4. **Create question queue**:
+   - Order questions by importance and logical flow
+   - Prepare rationale for each question
+   - Set initial progress estimate (dynamic)
 
-## Acceptance Criteria
-[Specific, testable criteria for completion]
+### Step 5: AI-Guided Interactive Questioning
+Conduct intelligent, conversational questioning with dynamic flow management:
 
-## Implementation Notes
-### Files Likely to Change
-[List of files that will need modification]
+1. **Initialize session and present context**:
+   ```
+   🚀 Analyzing: "[requirement]"
+   
+   I've analyzed your codebase and found:
+   • [Framework/tech stack discovered]
+   • [Existing related features, if any]
+   • [Key patterns that inform this feature]
+   
+   I'll ask focused questions one at a time to create a detailed PRD.
+   
+   🎯 Control the conversation:
+   • Answer normally to proceed
+   • Say "good to go" when you have enough
+   • Say "skip" or "not relevant" to dismiss questions
+   • Say "skip questions" to generate with assumptions only
+   
+   Ready to start? (📝 Estimated: ~6-10 questions)
+   ```
 
-### Technical Considerations
-[Architecture decisions, performance requirements, etc.]
+2. **Create session file** with unique ID: `[requirement-slug]-[YYYYMMDD-HHMMSS].json`
+   ```json
+   {
+     "sessionId": "[requirement-slug]-[YYYYMMDD-HHMMSS]",
+     "requirement": "[original user requirement]",
+     "status": "in-progress",
+     "createdAt": "[ISO timestamp]",
+     "lastUpdated": "[ISO timestamp]",
+     "codebaseAnalysis": {
+       "framework": "[detected framework]",
+       "existingPatterns": ["pattern1", "pattern2"],
+       "techStack": ["tech1", "tech2"]
+     },
+     "templateSelection": ["auth", "crud"],
+     "questionQueue": [
+       {
+         "id": "auth-1",
+         "question": "How should users sign up?",
+         "rationale": "Determines signup flow complexity",
+         "category": "auth",
+         "priority": "high",
+         "status": "pending"
+       }
+     ],
+     "responses": [],
+     "progress": {
+       "questionsAsked": 0,
+       "estimatedTotal": "6-10",
+       "topicsCompleted": [],
+       "currentTopic": "requirements"
+     }
+   }
+   ```
 
-## Success Metrics
-[How to measure if the feature is successful]
+3. **Dynamic question presentation loop**:
+   For each question until completion or user stops:
+   
+   **a) Present question with context**:
+   ```
+   🗺️ Question [current] • [topic area] • [progress indicator]
+   
+   [The actual question]
+   
+   🧠 Context: [rationale - why this matters for the PRD]
+   ```
+   
+   **Example:**
+   ```
+   🗺️ Question 2 • User Authentication • Covered: requirements ✓ | Exploring: auth, data
+   
+   How should users sign up for accounts? (email/username, social login, etc.)
+   
+   🧠 Context: This determines the signup flow complexity and which auth libraries we'll need. Helps define the user onboarding section of the PRD.
+   ```
+   
+   **b) Wait for user response and classify it**:
+   
+   **Direct Answers** → Process and continue:
+   - Save answer to session
+   - Generate next logical question based on this response
+   - Update progress estimate
+   
+   **Completion Signals** → End questioning:
+   - Detect: "good to go", "looks good", "sounds good", "continue", "proceed", "that's enough"
+   - Confirm: "✅ Perfect! I have enough information to create a comprehensive PRD."
+   - Move to Step 6 (Generate PRD)
+   
+   **Dismissal Signals** → Skip and continue:
+   - Detect: "not relevant", "skip", "doesn't matter", "not important", "move on"
+   - Acknowledge: "👍 Understood, skipping that aspect."
+   - Mark question as dismissed in session
+   - Move to next question
+   
+   **Uncertainty Signals** → Offer options:
+   - Detect: "I don't know", "not sure", "maybe", "unclear", "help me decide"
+   - Present friendly options:
+     ```
+     🤔 No worries! Let's handle this:
+     
+     1. 📚 Explore this now (I'll explain the tradeoffs)
+     2. 📝 Defer as a TODO for later consideration  
+     3. ✨ Use a sensible default based on best practices
+     4. ⏭️ Skip this aspect entirely
+     
+     What works for you?
+     ```
+   - Handle choice and update session accordingly
+   
+   **Clarification Requests** → Provide explanation:
+   - Detect: "why are you asking", "why does this matter", "explain", "what's the point"
+   - Provide deeper rationale:
+     ```
+     💡 Great question! Here's why this matters:
+     
+     **Business impact:** [How this affects users/business]
+     **Technical impact:** [How this affects implementation]
+     **PRD impact:** [What section this helps define]
+     
+     [Re-ask the original question]
+     ```
+   
+   **c) Update session after each interaction**:
+   - Save user response and classification
+   - Update question queue and progress estimate
+   - Note any follow-up questions generated
+   - Persist session state to disk
 
-## TODOs
-[Any unresolved questions or decisions needed]
-```
+4. **Adaptive question flow management**:
+   
+   **Dynamic Progress Estimation**:
+   - Start with initial estimate from template filtering (e.g., "~6-10 questions")
+   - Adjust based on response complexity and follow-ups generated
+   - Show progress as "Question 3, exploring auth methods..." instead of "3 of 8"
+   - Provide topic-based progress: "Covered: requirements, auth ✓ | Exploring: data model, UI"
+   
+   **Follow-up Question Generation**:
+   - If answer reveals complexity, generate specific follow-ups
+   - If answer is vague, ask for clarification
+   - If answer contradicts codebase findings, explore the difference
+   
+   **Redundancy Detection**:
+   - Skip questions already answered implicitly by previous responses
+   - Cross-reference with codebase pre-answered questions
+   - Combine related questions for efficiency
+   
+   **Depth Adaptation**:
+   - For complex responses: dive deeper with follow-ups
+   - For simple responses: move to next topic quickly
+   - For expert-level responses: skip basic questions in that area
 
-### 4. Next Steps
-After creating the PRD:
-1. Save it with a timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
-2. Confirm the plan with the user
-3. Ask if they want to proceed with implementation or make adjustments
+5. **Session persistence and cleanup**:
+   - Auto-save session after every user response
+   - Include timestamp, response classification, and next question plan
+   - Handle interruptions gracefully (session can be resumed via `/continue`)
+   - Clean up session file when PRD is successfully generated
 
-## Session Management
-- Automatically save progress during questioning
-- Handle interruptions gracefully
-- Allow continuation via `/pm:continue` command
+### Step 6: Generate PRD with Collected Information
+Create comprehensive PRD using all gathered information:
 
-Begin the process now with the provided requirement: "$ARGUMENTS"
+1. **Synthesize all inputs**:
+   - User requirement and responses
+   - Codebase analysis findings
+   - Pre-answered template questions
+   - User-provided answers
+
+2. **Generate PRD sections**:
+   - **Context**: Feature background with codebase integration notes
+   - **User Stories**: Based on requirement and user responses
+   - **Core Requirements**: Detailed functional requirements by category
+   - **Acceptance Criteria**: Specific, testable criteria
+   - **Implementation Notes**: 
+     - Files likely to change (from codebase analysis)
+     - Technical considerations (integration with existing patterns)
+     - Dependencies and constraints
+   - **Success Metrics**: How to measure success
+   - **TODOs**: Unresolved questions or deferred decisions
+
+3. **Include assumptions section** (if questions were skipped or minimal questioning):
+   - **If full skip**: List comprehensive assumptions made from codebase analysis and best practices
+   - **If partial skip**: Note dismissed questions and assumed answers
+   - **If early termination**: Document what wasn't explored
+   - Note areas that may need clarification
+   - Suggest follow-up questions for future refinement
+   
+   **Assumptions format**:
+   ```markdown
+   ## Assumptions Made
+   
+   **From Codebase Analysis:**
+   - [Technology stack assumptions based on files found]
+   - [Integration patterns assumed from existing code]
+   - [Security assumptions from current implementation]
+   
+   **From Industry Best Practices:**
+   - [Standard approaches for this type of feature]
+   - [Common implementation patterns]
+   - [Typical user experience flows]
+   
+   **Areas for Future Clarification:**
+   - [Specific questions that could refine requirements]
+   - [Business decisions that may affect implementation]
+   - [User experience details that need validation]
+   ```
+
+### Step 7: Save and Present Results
+Finalize the PRD and present to user:
+
+1. **Save PRD** with timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
+2. **Clean up session** file (move to completed or archive)
+3. **Present summary**:
+   ```
+   🎉 PRD Successfully Created!
+   
+   📄 **File:** [filename]
+   📊 **Complexity:** [1-5] | **Questions Asked:** [N]
+   
+   🎯 **Key Decisions Made:**
+   • [Summary of main decisions]
+   
+   ⚠️ **Areas Flagged for Attention:**
+   • [Any TODOs or assumptions]
+   
+   🚀 **Ready for implementation?** 
+   Say "proceed" to begin development or "/pm:list" to see all plans.
+   ```
+
+## Configuration-Driven Behavior
+
+The process adapts based on `.claude-pm/config.json` settings:
+
+- **questioningMode**: "ai-powered" (use this flow) vs "template" (old flow)
+- **useRelevanceFiltering**: Filter questions by AI-determined relevance
+- **priorityThreshold**: "low"/"medium"/"high" - minimum priority to ask
+- **includeRationale**: Show reasoning for each question
+- **allowSkipQuestioning**: Enable skip option
+- **adaptiveDepth**: Adjust questioning based on response complexity
+
+## Error Handling and Fallbacks
+
+### Configuration and Setup Errors
+- **Missing config file**: Create default config and continue
+  ```
+  ⚠️  Config not found. Created default .claude-pm/config.json with AI-powered questioning.
+  ```
+- **Invalid config values**: Use sensible defaults, warn user
+  ```
+  ⚠️  Invalid config value for 'priorityThreshold'. Using 'medium' as default.
+  ```
+- **Missing question templates**: Download/recreate from defaults, or use general.md
+  ```
+  ⚠️  Question templates missing. Using built-in general questions.
+  ```
+- **Permission errors**: Inform user about directory access needs
+  ```
+  ❌ Cannot create .claude-pm directory. Check write permissions in this project.
+  ```
+
+### Session Management Errors
+- **Session file corruption**: Backup corrupted file, start fresh session
+  ```
+  ⚠️  Session file corrupted. Backed up to [filename].backup. Starting fresh session.
+  ```
+- **Concurrent sessions**: Warn about multiple active sessions, let user choose
+  ```
+  ⚠️  Found 2 active sessions. Continue existing session or start new?
+  1. Continue: "user-auth-20250701-140000" (2 questions asked)
+  2. Start new session
+  ```
+- **Session directory issues**: Create missing directories, fix permissions
+  ```
+  ✅ Created missing .claude-pm/sessions directory.
+  ```
+- **Disk space issues**: Clean up old archives, warn user
+  ```
+  ⚠️  Sessions directory large (50+ files). Run /pm:status for cleanup suggestions.
+  ```
+
+### Codebase Analysis Errors
+- **Large codebase timeout**: Limit analysis scope, continue with partial results
+- **Binary files errors**: Skip non-text files, continue analysis
+- **Git history errors**: Skip git analysis, continue with file structure only
+- **Access permission errors**: Skip restricted files, continue with accessible ones
+
+### Conversation Flow Errors
+- **User input parsing errors**: Ask for clarification, provide examples
+- **Interrupted conversations**: Auto-save state, enable clean resumption
+- **Template loading failures**: Fall back to general questions, warn user
+- **Response classification failures**: Treat as direct answer, continue
+
+### PRD Generation Errors
+- **File writing errors**: Try alternative locations, inform user
+- **Template generation errors**: Use basic template, include raw information
+- **Timestamp errors**: Use fallback timestamp format
+- **Large content errors**: Split into multiple files if needed
+
+### Recovery Strategies
+- **Graceful degradation**: Always try to provide some value even with errors
+- **User notification**: Clear error messages with suggested actions
+- **Automatic recovery**: Retry failed operations where safe
+- **Fallback modes**: Template mode if AI features fail
+
+---
+
+**Begin the AI-powered requirements gathering process now with**: "$ARGUMENTS"
