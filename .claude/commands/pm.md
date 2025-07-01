@@ -14,8 +14,8 @@ First, check the configuration and handle skip requests:
    - Check if `allowSkipQuestioning` is enabled
 
 2. **Check for skip signals** in the requirement:
-   - Direct skip: "skip questions", "no questions", "just generate", "use defaults"
-   - Contextual skip: "make assumptions", "best practices", "don't ask me"
+   - Direct skip: "skip questions", "no questions", "just generate", "use defaults", and other similar signals
+   - Contextual skip: "make assumptions", "best practices", "don't ask me", and other similar signals
    - If skip detected and allowed, jump to Step 6 (Generate with Assumptions)
    - If skip detected but not allowed, inform user and proceed normally
 
@@ -53,7 +53,7 @@ Perform deep codebase analysis to pre-answer questions:
    - Find package.json, requirements.txt, composer.json, Cargo.toml, etc.
    - Identify framework (React, Vue, Express, Django, Laravel, etc.)
    - Locate main directories (src/, app/, components/, models/, etc.)
-   - Scan only top 2 levels initially for performance
+   - Scan only top 3 levels initially for performance
 
 2. **Find similar existing features** (targeted search):
    - Use Grep tool to search for requirement-related patterns
@@ -70,7 +70,7 @@ Perform deep codebase analysis to pre-answer questions:
    - Stop analysis after 30 seconds to avoid blocking
 
 4. **Analyze git history** (if configured and fast):
-   - Only scan last 10 commits (not 20) for performance
+   - Only scan last 10 commits for performance
    - Look for commits related to similar features (auth, user, profile, CRUD)
    - Extract development patterns and naming conventions
    - Skip if git log takes >10 seconds
@@ -185,18 +185,18 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    - Update progress estimate
    
    **Completion Signals** → End questioning:
-   - Detect: "good to go", "looks good", "sounds good", "continue", "proceed", "that's enough"
+   - Detect: "good to go", "looks good", "sounds good", "continue", "proceed", "that's enough", etc.
    - Confirm: "✅ Perfect! I have enough information to create a comprehensive PRD."
    - Move to Step 6 (Generate PRD)
    
    **Dismissal Signals** → Skip and continue:
-   - Detect: "not relevant", "skip", "doesn't matter", "not important", "move on"
+   - Detect: "not relevant", "skip", "doesn't matter", "not important", "move on", etc.
    - Acknowledge: "👍 Understood, skipping that aspect."
    - Mark question as dismissed in session
    - Move to next question
    
    **Uncertainty Signals** → Offer options:
-   - Detect: "I don't know", "not sure", "maybe", "unclear", "help me decide"
+   - Detect: "I don't know", "not sure", "maybe", "unclear", "help me decide", etc.
    - Present friendly options:
      ```
      🤔 No worries! Let's handle this:
@@ -211,7 +211,7 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    - Handle choice and update session accordingly
    
    **Clarification Requests** → Provide explanation:
-   - Detect: "why are you asking", "why does this matter", "explain", "what's the point"
+   - Detect: "why are you asking", "why does this matter", "explain", "what's the point", etc.
    - Provide deeper rationale:
      ```
      💡 Great question! Here's why this matters:
@@ -310,7 +310,7 @@ Create comprehensive PRD using all gathered information:
 Finalize the PRD and present to user:
 
 1. **Save PRD** with timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
-2. **Clean up session** file (move to completed or archive)
+2. **Clean up session** file moved archive. DO NOT EVER delete session files unless explicity asked to do so.
 3. **Present summary**:
    ```
    🎉 PRD Successfully Created!
