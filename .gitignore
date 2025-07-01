@@ -1,0 +1,6 @@
+# AI Product Manager - Local State
+.claude-pm/.cache/
+.claude-pm/sessions/
+
+# Claude Code Local Settings
+.claude/settings.local.json
