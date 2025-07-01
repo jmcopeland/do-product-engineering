@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-AI Product Manager is an intelligent product management extension for Claude Code that transforms vague business requirements into detailed, actionable PRDs through AI-powered intelligent questioning. v2 introduces adaptive conversation flows, codebase analysis, and smart question filtering.
+AI Product Manager is an intelligent product management extension for Claude Code that transforms vague business requirements into detailed, actionable PRDs through AI-powered intelligent questioning. v2.1 introduces adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.
 
 ## Architecture
 

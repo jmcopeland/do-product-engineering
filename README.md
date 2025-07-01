@@ -1,8 +1,8 @@
 # AI Product Manager for Claude Code
 
-🤖 **v2 AI-Powered Questioning** - Transform vague requirements into detailed, actionable PRDs through intelligent, adaptive conversation.
+🤖 **v2.1 AI-Powered Questioning + Performance** - Transform vague requirements into detailed, actionable PRDs through intelligent conversation with lightning-fast performance.
 
-[![Version](https://img.shields.io/badge/version-2.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Version](https://img.shields.io/badge/version-2.1-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -23,6 +23,12 @@ AI Product Manager adds intelligent product management capabilities to Claude Co
 - **Session Management** - Auto-saves progress, resume interrupted sessions
 - **Plan Management** - Generate structured PRDs with implementation notes
 - **Team Collaboration** - Share customized commands and question templates
+
+### ⚡ Performance (v2.1)
+- **Sub-Second Listing** - `/pm:list` responds in <1 second (was 3+ minutes)
+- **Smart Caching** - Automatic cache invalidation when plans are modified
+- **Native Display** - Beautiful output directly in Claude Code interface
+- **Zero Friction** - No user prompts or permission requests required
 
 ## Quick Start
 
