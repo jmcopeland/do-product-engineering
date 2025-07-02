@@ -2,7 +2,7 @@
 
 **Created:** July 1, 2025 14:30:00  
 **Complexity Estimate:** 3/5  
-**Status:** Ready for Development
+**Status:** ✅ Completed
 
 ## Context
 
@@ -106,15 +106,15 @@ Users currently need to manually update AI Product Manager commands by re-runnin
 ### Technical Considerations
 
 **GitHub Integration:**
-- Use GitHub API or raw file access for version checking
-- Leverage git tags for version management
-- Handle API rate limits gracefully
-- Support both public repo access patterns
+- Use raw.githubusercontent.com for all file access (no API complexity)
+- Check main branch for latest VERSION, download from version tags
+- No rate limits with raw file access
+- Simple HTTP GET requests only
 
 **Backup Strategy:**
 - Create timestamped backup directories
 - Store backups in `.claude-pm/backups/`
-- Implement cleanup of old backups
+- Keep all backups permanently (no auto-cleanup needed)
 - Provide manual restoration instructions
 
 **Atomic Updates:**
@@ -124,9 +124,8 @@ Users currently need to manually update AI Product Manager commands by re-runnin
 - Rollback on any individual file failure
 
 **Version Tracking:**
-- Add `currentVersion` field to config.json
-- Track installation source (user vs project)
-- Maintain update history for troubleshooting
+- Add `version` and `updateRepository` fields to config.json
+- Simple tracking - current version only (no history needed)
 - Support version validation and verification
 
 **Network Resilience:**
@@ -162,17 +161,26 @@ Users currently need to manually update AI Product Manager commands by re-runnin
 
 ## TODOs
 
-### Pre-Implementation
-- [ ] Define exact GitHub API endpoints to use
-- [ ] Determine backup retention policy (how many backups to keep)
-- [ ] Specify release notes format and parsing strategy
-- [ ] Design config.json version tracking schema
+### Technical Specifications ✅
+- [x] **GitHub API Strategy**: Use raw.githubusercontent.com URLs. Check latest version from main branch, download files from version tags.
+  - Latest version: `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/main/VERSION`
+  - Download files: `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/v2.1.0/[filepath]`
+- [x] **Backup Retention**: Keep all backups permanently (files are small). No auto-cleanup.
+- [x] **Release Notes**: Parse from RELEASE-NOTES.md, extract section between current and target version.
+- [x] **Config.json Schema**: Add minimal version tracking:
+  ```json
+  {
+    "version": "2.1.0",
+    "updateRepository": "jmcopeland/ai-product-manager",
+    // ... existing config
+  }
+  ```
 
-### Implementation Questions
-- [ ] Should the command support updating from forks/different repositories?
-- [ ] How should we handle custom modifications to command files?
-- [ ] Should there be a dry-run mode to preview changes?
-- [ ] What level of logging should be implemented for troubleshooting?
+### Implementation Decisions ✅
+- [x] **Repository Support**: Official repository only (`jmcopeland/ai-product-manager`). Repository URL stored in config.json for fork customization.
+- [x] **Custom Modifications**: Always backup modified files to `.claude-pm/backups/` then overwrite with new version.
+- [x] **Dry-run Mode**: No dry-run mode - keep simple. Show release notes and require confirmation.
+- [x] **Logging Level**: Minimal logging - show success/failure only. Detailed logging may be added in future version.
 
 ### Post-Implementation
 - [ ] Create comprehensive testing scenarios for different failure modes

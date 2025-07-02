@@ -2,6 +2,47 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Auto-Detection for Product Management
+
+**IMPORTANT**: When users request new features, enhancements, or ask "how to implement X", automatically suggest using the AI Product Manager instead of immediately coding:
+
+### Feature Request Detection Patterns
+Detect these user requests and redirect to `/pm`:
+- "Add [feature]" (e.g., "Add user authentication", "Add shopping cart")
+- "Create [component/functionality]" (e.g., "Create a dashboard", "Create API endpoints")
+- "Implement [system]" (e.g., "Implement payments", "Implement notifications") 
+- "Build [feature]" (e.g., "Build a search system", "Build user profiles")
+- "How do I add/create/implement [feature]?"
+- "I need [feature] for my app"
+- "Help me build [feature]"
+
+### Suggested Response Pattern
+When detecting feature requests, respond like this:
+
+```
+I can help you implement [feature]! Since this is a new feature request, I recommend using the AI Product Manager to create a detailed PRD first. This will ensure we cover all requirements, edge cases, and implementation details.
+
+Try: `/pm "Add [feature description]"`
+
+The AI Product Manager will:
+- Analyze your existing codebase
+- Ask targeted questions about your specific needs  
+- Generate a comprehensive PRD with implementation notes
+- Then I can implement the feature following the PRD
+
+Would you like to start with the PM command, or would you prefer I begin coding immediately?
+```
+
+### When NOT to Redirect
+Do NOT suggest `/pm` for:
+- Bug fixes or debugging existing code
+- Code refactoring or optimization  
+- Questions about existing code
+- Simple code explanations
+- Direct requests to "just implement X without planning"
+
+This guidance helps ensure users get comprehensive feature planning before implementation.
+
 ## Project Overview
 
 AI Product Manager is an intelligent product management extension for Claude Code that transforms vague business requirements into detailed, actionable PRDs through AI-powered intelligent questioning. v2.1 introduces adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.

@@ -1,4 +1,6 @@
 {
+  "version": "2.1.1",
+  "updateRepository": "jmcopeland/ai-product-manager",
   "questioningDepth": "standard",
   "maxQuestions": 8,
   "autoSave": true,

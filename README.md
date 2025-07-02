@@ -1,8 +1,8 @@
 # AI Product Manager for Claude Code
 
-🤖 **v2.1 AI-Powered Questioning + Performance** - Transform vague requirements into detailed, actionable PRDs through intelligent conversation with lightning-fast performance.
+🤖 **v2.1.1 AI-Powered Questioning + Auto-Updates** - Transform vague requirements into detailed, actionable PRDs through intelligent conversation with automated update management.
 
-[![Version](https://img.shields.io/badge/version-2.1-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -23,11 +23,13 @@ AI Product Manager adds intelligent product management capabilities to Claude Co
 - **Session Management** - Auto-saves progress, resume interrupted sessions
 - **Plan Management** - Generate structured PRDs with implementation notes
 - **Team Collaboration** - Share customized commands and question templates
+- **Auto-Detection** - Claude Code automatically suggests `/pm` for feature requests
 
-### ⚡ Performance (v2.1)
+### ⚡ Performance & Updates (v2.1.1)
 - **Sub-Second Listing** - `/pm:list` responds in <1 second (was 3+ minutes)
 - **Smart Caching** - Automatic cache invalidation when plans are modified
 - **Native Display** - Beautiful output directly in Claude Code interface
+- **Auto-Updates** - Stay current with `/pm:update` command
 - **Zero Friction** - No user prompts or permission requests required
 
 ## Quick Start
@@ -43,14 +45,31 @@ cd ai-product-manager
 /user:pm "Add user authentication to my app"
 ```
 
+### 🎯 Auto-Detection Installation (Recommended)
+Enable Claude Code to automatically suggest `/pm` for feature requests:
+
+```bash
+# Install with auto-detection in current project
+./install.sh --with-auto-detection
+
+# Or add to existing project
+/user:pm:install --with-auto-detection
+```
+
+**What this does:**
+- Adds CLAUDE.md guidance to detect feature requests
+- Claude Code will suggest `/pm` when you ask for new features
+- Example: "Add user auth" → Claude suggests `/pm "Add user authentication"`
+- Improves workflow by encouraging proper planning before coding
+
 ### 👥 Team Installation
 ```bash
-# After individual install, add to your project:
-/user:pm:install
+# After individual install, add to your project with auto-detection:
+/user:pm:install --with-auto-detection
 
-# Commit for team sharing
-git add .claude/commands/pm*
-git commit -m "Add AI Product Manager v2 for team"
+# Commit for team sharing (includes CLAUDE.md auto-detection)
+git add .claude/commands/pm* CLAUDE.md
+git commit -m "Add AI Product Manager v2 with auto-detection for team"
 ```
 
 ## Available Commands
@@ -62,6 +81,7 @@ git commit -m "Add AI Product Manager v2 for team"
 - `/user:pm:configure` - Manage settings
 - `/user:pm:status` - Show current state
 - `/user:pm:install` - Copy commands to current project
+- `/user:pm:update` - Update user-scope commands to latest version
 
 ### Project Commands (After Installation)
 - `/pm "requirement"` - AI-powered PRD creation for project
@@ -69,6 +89,7 @@ git commit -m "Add AI Product Manager v2 for team"
 - `/pm:continue <plan>` - Resume plan or session
 - `/pm:configure` - Project AI questioning settings
 - `/pm:status` - System health and cleanup recommendations
+- `/pm:update` - Update commands to latest version
 
 ## Example Usage
 
@@ -209,9 +230,52 @@ Create domain-specific templates in `.claude-pm/questions/`:
 - [🔄 Migration Guide](docs/MIGRATION.md) - Upgrading from v1
 - [🚀 Quick Start Examples](docs/EXAMPLES.md) - Common use cases
 
-## What's New in v2
+## Auto-Detection Feature
 
-### 🧠 AI-Powered Questioning
+### 🎯 How Auto-Detection Works
+When enabled, Claude Code automatically detects feature requests and suggests using `/pm`:
+
+**Detected Patterns:**
+- "Add [feature]" → Suggests `/pm "Add [feature]"`
+- "Create [component]" → Suggests `/pm "Create [component]"`
+- "Implement [system]" → Suggests `/pm "Implement [system]"`
+- "How do I add/build [feature]?" → Suggests using PM workflow
+
+**User Experience:**
+```
+You: "Add user authentication to my app"
+Claude: I can help you implement user authentication! Since this is a new 
+        feature request, I recommend using the AI Product Manager to create 
+        a detailed PRD first.
+        
+        Try: /pm "Add user authentication"
+        
+        Would you like to start with the PM command, or would you prefer 
+        I begin coding immediately?
+```
+
+**What it WON'T detect:**
+- Bug fixes and debugging
+- Code refactoring 
+- Questions about existing code
+- Explicit "just code this" requests
+
+### 🛠️ Technical Implementation
+Auto-detection works via `CLAUDE.md` guidance that:
+- Trains Claude Code to recognize feature request patterns
+- Provides standardized response templates
+- Maintains user choice between planning vs immediate coding
+- Only applies to new feature development (not maintenance)
+
+## What's New in v2.1.1
+
+### 🔄 Automated Updates  
+- **`/pm:update` Command** - Keep commands current automatically
+- **Version Management** - Track and compare versions with GitHub
+- **Smart Backups** - Automatic backup and restore capabilities
+- **Scope Detection** - Updates user or project commands intelligently
+
+### 🧠 AI-Powered Questioning (v2.0)
 - **Smart pre-answering** from codebase analysis
 - **Relevance filtering** - no more irrelevant questions
 - **Adaptive conversation** that responds to your expertise level
@@ -223,10 +287,11 @@ Create domain-specific templates in `.claude-pm/questions/`:
 - **User control signals** - "good to go", "skip", "explain why"
 - **Session auto-save** and recovery
 
-### ⚡ Performance Improvements
+### ⚡ Performance Improvements (v2.1)
+- **Sub-second `/pm:list`** with intelligent caching
+- **Smart cache invalidation** when plans are modified
+- **Native Claude output** - no more collapsed bash results
 - **Faster codebase analysis** with smart timeouts
-- **Targeted searches** for relevant patterns only
-- **Session management** for handling interruptions
 
 ## Upgrading from v1
 

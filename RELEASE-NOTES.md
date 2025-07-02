@@ -1,5 +1,55 @@
 # AI Product Manager Release Notes
 
+## v2.1.1 - Update Command Release
+**Release Date**: July 2, 2025  
+**Focus**: Automated Command Updates
+
+### 🚀 New `/pm:update` Command
+Stay current with the latest features and bug fixes through automated command updates!
+
+#### Key Features
+- **Version Management**: Check current version, compare with latest from GitHub
+- **Automated Updates**: Download new command files with one command
+- **Safety First**: Automatic backups before any updates
+- **Smart Scope Detection**: Updates user scope (`~/.claude/commands/`) or project scope (`.claude/commands/`)
+- **Restore Capability**: Easy recovery from backups if needed
+
+#### Usage
+```bash
+/pm:update              # Update to latest version
+/pm:update v2.1.0       # Update to specific version  
+/pm:update --restore    # Restore from backup
+```
+
+#### Version Tracking
+- **Config Integration**: Version tracking in `.claude-pm/config.json`
+- **Repository Reference**: `updateRepository` field for fork customization
+- **VERSION File**: Central version management via GitHub
+
+#### Safety Features
+- **Automatic Backups**: Timestamped backups in `.claude-pm/backups/`
+- **Atomic Updates**: All-or-nothing file replacement
+- **Network Resilience**: Retry logic and graceful error handling
+- **Installation Verification**: Validates update success before completion
+
+### 🔧 Technical Implementation
+- **GitHub Integration**: Uses raw.githubusercontent.com for reliable file access
+- **File Management**: Downloads all core commands and question templates
+- **Error Recovery**: Comprehensive error handling with restore options
+- **User Experience**: Clear progress indicators and confirmation prompts
+
+### 📦 Configuration Updates
+Updated `.claude-pm/config.json` schema:
+```json
+{
+  "version": "2.1.1",
+  "updateRepository": "jmcopeland/ai-product-manager",
+  // ... existing configuration
+}
+```
+
+---
+
 ## v2.1.0 - Performance Optimization Release
 **Release Date**: July 1, 2025  
 **Focus**: Smart Caching & Performance

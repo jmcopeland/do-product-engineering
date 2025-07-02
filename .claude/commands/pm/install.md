@@ -1,6 +1,6 @@
 # PM Install - Copy PM Commands to Project
 
-Copy PM commands from user directory to current project for team sharing and customization.
+Copy PM commands from user directory to current project for team sharing and customization. Optionally enable auto-detection for feature requests.
 
 ## Task: Install PM Commands to Project
 
@@ -36,6 +36,10 @@ After copying files:
   - `.claude-pm/questions/` - AI question templates
 - Copy question templates from user directory if they exist
 - Create default config with AI-powered questioning enabled
+- **Auto-Detection Setup**: If `--with-auto-detection` flag detected or user confirms:
+  - Check if CLAUDE.md exists in current directory
+  - If not, copy from AI Product Manager repository
+  - Add auto-detection guidance for feature request recognition
 
 ### 5. Team Setup Instructions
 Provide guidance for team usage:
@@ -52,7 +56,8 @@ Provide guidance for team usage:
 ### Team Setup:
 1. Commit `.claude/commands/pm*` files to share with team
 2. Add `.claude-pm/config.json` to git for shared settings
-3. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
+3. Commit `CLAUDE.md` for auto-detection (if enabled)
+4. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
 
 ### Customization:
 - Edit `.claude/commands/pm.md` to customize AI questioning flow
