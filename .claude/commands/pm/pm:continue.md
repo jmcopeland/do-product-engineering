@@ -27,7 +27,7 @@ If continuing an interrupted AI questioning session:
 1. **Load session state** from `.claude-pm/sessions/[session-id].json`:
    - Original requirement and analysis
    - Codebase analysis results
-   - Questions already asked and answered
+   - **Complete questionHistory** with all questions and answers
    - Current progress and context
 
 2. **Verify session validity**:
@@ -35,26 +35,30 @@ If continuing an interrupted AI questioning session:
    - Validate session data integrity
    - Check if codebase has changed significantly
 
-3. **Resume conversation**:
+3. **Resume conversation with complete context**:
    ```
-   Resuming your session for "[requirement]"
+   🔄 Resuming your session for "[requirement]"
    
-   So far we've covered:
-   - [Summary of questions asked and key answers]
+   📋 Progress Summary:
+   Questions completed: [N] | Estimated total: [M]
    
-   Let me continue with the next question...
+   🗨️ Previous Q&A:
+   Q1: [questionText] → [brief answer summary]
+   Q2: [questionText] → [brief answer summary]
+   ...
+   
+   ⏭️ Continuing where we left off...
    ```
 
-4. **Continue AI questioning process**:
-   - Pick up from `currentQuestion` in session
-   - Use existing context and responses  
-   - Present brief summary of progress so far
-   - Resume same AI-powered questioning flow with all conversation management:
-     - Dynamic progress estimation
+4. **Continue AI questioning process with enhanced session tracking**:
+   - **Pick up from currentQuestion** in session or generate next question based on questionHistory
+   - **Use complete conversation context** from questionHistory for adaptive questioning
+   - **Resume AI-powered questioning flow** with full conversation management:
+     - Dynamic progress estimation based on previous Q&A patterns
      - User control signals (completion, dismissal, uncertainty)
-     - Adaptive question generation based on previous responses
-     - Session persistence after each interaction
-   - Update session state as conversation progresses
+     - Adaptive question generation informed by previous responses
+     - **Enhanced session persistence** after each interaction with complete question/answer tracking
+   - **Update session state** with full conversation history and metadata
 
 ### 3. Continue Existing Plan Development
 

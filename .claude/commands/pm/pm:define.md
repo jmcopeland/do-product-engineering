@@ -136,17 +136,15 @@ Conduct intelligent, conversational questioning with dynamic flow management:
        "techStack": ["tech1", "tech2"]
      },
      "templateSelection": ["auth", "crud"],
-     "questionQueue": [
-       {
-         "id": "auth-1",
-         "question": "How should users sign up?",
-         "rationale": "Determines signup flow complexity",
-         "category": "auth",
-         "priority": "high",
-         "status": "pending"
-       }
-     ],
-     "responses": [],
+     "questionHistory": [],
+     "currentQuestion": {
+       "questionId": "auth-1",
+       "questionText": "How should users sign up?",
+       "rationale": "Determines signup flow complexity",
+       "category": "auth",
+       "priority": "high",
+       "timestamp": "[ISO timestamp when asked]"
+     },
      "progress": {
        "questionsAsked": 0,
        "estimatedTotal": "6-10",
@@ -224,10 +222,23 @@ Conduct intelligent, conversational questioning with dynamic flow management:
      ```
    
    **c) Update session after each interaction**:
-   - Save user response and classification
-   - Update question queue and progress estimate
-   - Note any follow-up questions generated
-   - Persist session state to disk
+   - **Save complete question/answer pair to questionHistory**:
+     ```json
+     {
+       "questionId": "unique-id",
+       "questionText": "Complete question as presented to user",
+       "rationale": "Why this question matters for the PRD",
+       "category": "auth|crud|ui|api|general",
+       "priority": "high|medium|low",
+       "timestamp": "ISO-timestamp-when-asked",
+       "userResponse": "Complete user response exactly as provided",
+       "responseClassification": "direct_answer|skip|completion|uncertainty|clarification",
+       "responseTimestamp": "ISO-timestamp-when-answered"
+     }
+     ```
+   - **Update currentQuestion** with next question if continuing
+   - **Update progress tracking** and session metadata
+   - **Persist complete session state** to disk with full conversation history
 
 4. **Adaptive question flow management**:
    
@@ -253,10 +264,11 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    - For expert-level responses: skip basic questions in that area
 
 5. **Session persistence and cleanup**:
-   - Auto-save session after every user response
-   - Include timestamp, response classification, and next question plan
-   - Handle interruptions gracefully (session can be resumed via `/continue`)
-   - Clean up session file when PRD is successfully generated
+   - **Auto-save session after every user response** with complete question/answer data
+   - **Maintain full conversation audit trail** in questionHistory array
+   - **Include all metadata:** timestamps, classifications, rationale, categories
+   - **Handle interruptions gracefully** - session can be fully resumed via `/pm:continue`
+   - **Archive session file** when PRD is successfully generated (move to archive, don't delete)
 
 ### Step 6: Generate PRD with Collected Information
 Create comprehensive PRD using all gathered information:
