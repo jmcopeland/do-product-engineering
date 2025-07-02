@@ -20,7 +20,8 @@ Based on cache validation, either:
 - Show native formatted output in Claude
 
 **If cache is invalid:**  
-- Count plan and session files
+- Count plan files in `.claude-pm/plans/`
+- Count active session files (only top-level `.claude-pm/sessions/*.json`, not archived)
 - Build fresh formatted output
 - Save to cache file `.claude-pm/.cache/list-cache.txt`
 - Display results natively with "🔄 Cache updated" message
