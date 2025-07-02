@@ -23,7 +23,7 @@ AI Product Manager adds intelligent product management capabilities to Claude Co
 - **Session Management** - Auto-saves progress, resume interrupted sessions
 - **Plan Management** - Generate structured PRDs with implementation notes
 - **Team Collaboration** - Share customized commands and question templates
-- **Auto-Detection** - Claude Code automatically suggests `/pm` for feature requests
+- **Auto-Detection** - Claude Code automatically suggests `/pm:define` for feature requests
 
 ### ⚡ Performance & Updates (v2.1.1)
 - **Sub-Second Listing** - `/pm:list` responds in <1 second (was 3+ minutes)
@@ -42,11 +42,11 @@ cd ai-product-manager
 ./install.sh
 
 # Start using immediately
-/user:pm "Add user authentication to my app"
+/pm:define "Add user authentication to my app"
 ```
 
 ### 🎯 Auto-Detection Installation (Recommended)
-Enable Claude Code to automatically suggest `/pm` for feature requests:
+Enable Claude Code to automatically suggest `/pm:define` for feature requests:
 
 ```bash
 # Install with auto-detection in current project
@@ -58,8 +58,8 @@ Enable Claude Code to automatically suggest `/pm` for feature requests:
 
 **What this does:**
 - Adds CLAUDE.md guidance to detect feature requests
-- Claude Code will suggest `/pm` when you ask for new features
-- Example: "Add user auth" → Claude suggests `/pm "Add user authentication"`
+- Claude Code will suggest `/pm:define` when you ask for new features
+- Example: "Add user auth" → Claude suggests `/pm:define "Add user authentication"`
 - Improves workflow by encouraging proper planning before coding
 
 ### 👥 Team Installation
@@ -68,25 +68,25 @@ Enable Claude Code to automatically suggest `/pm` for feature requests:
 /user:pm:install --with-auto-detection
 
 # Commit for team sharing (includes CLAUDE.md auto-detection)
-git add .claude/commands/pm* CLAUDE.md
-git commit -m "Add AI Product Manager v2 with auto-detection for team"
+git add .claude/commands/pm/* CLAUDE.md
+git commit -m "Add AI Product Manager for team use"
 ```
 
 ## Available Commands
 
 ### User Commands (Available Everywhere)
-- `/user:pm "requirement"` - Start new PRD creation
-- `/user:pm:list` - Show existing plans
+- `/user:pm:define "requirement"` - Start new PRD creation
 - `/user:pm:continue <plan>` - Resume plan development
+- `/user:pm:list` - Show existing plans
 - `/user:pm:configure` - Manage settings
 - `/user:pm:status` - Show current state
 - `/user:pm:install` - Copy commands to current project
 - `/user:pm:update` - Update user-scope commands to latest version
 
 ### Project Commands (After Installation)
-- `/pm "requirement"` - AI-powered PRD creation for project
-- `/pm:list` - Show project plans and active sessions
+- `/pm:define "requirement"` - AI-powered PRD creation for project
 - `/pm:continue <plan>` - Resume plan or session
+- `/pm:list` - Show project plans and active sessions
 - `/pm:configure` - Project AI questioning settings
 - `/pm:status` - System health and cleanup recommendations
 - `/pm:update` - Update commands to latest version
@@ -96,7 +96,7 @@ git commit -m "Add AI Product Manager v2 with auto-detection for team"
 ### 🎯 AI-Powered Flow
 ```bash
 # Start with any requirement
-/user:pm "Add user profile management"
+/pm:define "Add user profile management"
 
 # v2 AI system will:
 # 1. 🔍 Analyze your codebase (React? Django? existing auth?)
@@ -108,18 +108,18 @@ git commit -m "Add AI Product Manager v2 with auto-detection for team"
 ### ⚡ Skip Mode for Speed
 ```bash
 # Generate with assumptions only
-/user:pm "Add CRUD operations, skip questions"
-/user:pm "Add user dashboard, make assumptions"
+/pm:define "Add CRUD operations, skip questions"
+/pm:define "Add user dashboard, make assumptions"
 ```
 
 ### 🔄 Session Management
 ```bash
 # Resume if interrupted
-/user:pm:continue user-auth-20250701-140000
+/pm:continue user-auth-20250701-140000
 
 # Check status and cleanup
-/user:pm:status
-/user:pm:list
+/pm:status
+/pm:list
 ```
 
 ## Installation Instructions
@@ -130,7 +130,6 @@ git commit -m "Add AI Product Manager v2 with auto-detection for team"
 mkdir -p ~/.claude/commands/pm
 
 # Copy files
-cp .claude/commands/pm.md ~/.claude/commands/
 cp .claude/commands/pm/*.md ~/.claude/commands/pm/
 ```
 
@@ -140,7 +139,7 @@ cp .claude/commands/pm/*.md ~/.claude/commands/pm/
 /user:pm:install
 
 # Commit team commands
-git add .claude/commands/pm*
+git add .claude/commands/pm/*
 git commit -m "Add AI Product Manager commands for team use"
 ```
 
@@ -149,21 +148,21 @@ git commit -m "Add AI Product Manager commands for team use"
 After installation:
 ```
 ~/.claude/commands/
-  pm.md                    # Main AI-powered PM command
   pm/
+    define.md              # Main AI-powered PM command
     list.md               # List plans and sessions
     continue.md           # Resume plan development
-    configure.md          # AI questioning settings
+    configure.md           # AI questioning settings
     status.md             # System health dashboard
     install.md            # Project installation
 
 # In your projects (after /user:pm:install):
 .claude/commands/         # Team-shared commands
 .claude-pm/
-  config.json            # AI questioning configuration
-  plans/                 # Generated PRDs
-  sessions/              # Active AI questioning sessions
-  questions/             # Custom question templates
+  config.json              # AI questioning configuration
+  plans/                  # Generated PRDs
+  sessions/               # Active AI questioning sessions
+  questions/              # Custom question templates
 ```
 
 ## Generated PRD Format
@@ -227,18 +226,17 @@ Create domain-specific templates in `.claude-pm/questions/`:
 ## Documentation
 
 - [📖 AI Questioning Guide](docs/AI-QUESTIONING.md) - Complete v2 feature guide
-- [🔄 Migration Guide](docs/MIGRATION.md) - Upgrading from v1
 - [🚀 Quick Start Examples](docs/EXAMPLES.md) - Common use cases
 
 ## Auto-Detection Feature
 
 ### 🎯 How Auto-Detection Works
-When enabled, Claude Code automatically detects feature requests and suggests using `/pm`:
+When enabled, Claude Code automatically detects feature requests and suggests using `/pm:define`:
 
 **Detected Patterns:**
-- "Add [feature]" → Suggests `/pm "Add [feature]"`
-- "Create [component]" → Suggests `/pm "Create [component]"`
-- "Implement [system]" → Suggests `/pm "Implement [system]"`
+- "Add [feature]" → Suggests `/pm:define "Add [feature]"`
+- "Create [component]" → Suggests `/pm:define "Create [component]"`
+- "Implement [system]" → Suggests `/pm:define "Implement [system]"`
 - "How do I add/build [feature]?" → Suggests using PM workflow
 
 **User Experience:**
@@ -248,7 +246,7 @@ Claude: I can help you implement user authentication! Since this is a new
         feature request, I recommend using the AI Product Manager to create 
         a detailed PRD first.
         
-        Try: /pm "Add user authentication"
+        Try: /pm:define "Add user authentication"
         
         Would you like to start with the PM command, or would you prefer 
         I begin coding immediately?
@@ -293,21 +291,6 @@ Auto-detection works via `CLAUDE.md` guidance that:
 - **Native Claude output** - no more collapsed bash results
 - **Faster codebase analysis** with smart timeouts
 
-## Upgrading from v1
-
-Existing v1 commands work unchanged. v2 adds AI-powered mode as the new default.
-
-```bash
-# Update your installation
-git pull origin main
-./install.sh
-
-# Try AI mode
-/user:pm "Add feature X"
-
-# Or keep template mode
-/user:pm:configure  # Set questioningMode: "template"
-```
 
 ## Contributing
 

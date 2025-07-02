@@ -20,8 +20,8 @@ If command argument is "--restore":
 
 ### Step 2: Detect Installation Scope
 Determine which command installation to update:
-1. **Check user scope** - Look for `~/.claude/commands/pm.md`
-2. **Check project scope** - Look for `.claude/commands/pm.md`
+1. **Check user scope** - Look for `~/.claude/commands/pm:define.md`
+2. **Check project scope** - Look for `.claude/commands/pm:define.md`
 3. **Handle both exist** - If both found, ask user which to update (1=both, 2=user, 3=project)
 4. **Handle none exist** - Show error and suggest running install script
 5. **Set target directory** - Store the chosen commands directory path

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **IMPORTANT**: When users request new features, enhancements, or ask "how to implement X", automatically suggest using the AI Product Manager instead of immediately coding:
 
 ### Feature Request Detection Patterns
-Detect these user requests and redirect to `/pm`:
+Detect these user requests and redirect to `/pm:define`:
 - "Add [feature]" (e.g., "Add user authentication", "Add shopping cart")
 - "Create [component/functionality]" (e.g., "Create a dashboard", "Create API endpoints")
 - "Implement [system]" (e.g., "Implement payments", "Implement notifications") 
@@ -34,7 +34,7 @@ Would you like to start with the PM command, or would you prefer I begin coding 
 ```
 
 ### When NOT to Redirect
-Do NOT suggest `/pm` for:
+Do NOT suggest `/pm:define` for:
 - Bug fixes or debugging existing code
 - Code refactoring or optimization  
 - Questions about existing code
@@ -50,8 +50,8 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ## Architecture
 
 **Command-based Architecture**: The system is built as modular slash commands stored in markdown files:
-- `commands/pm.md` - Main PM command with AI-powered questioning logic (309 lines)
-- `commands/pm/*.md` - Subcommands for specific functionality (list, continue, configure, status, install)
+- `commands/pm/define.md` - Main PM command with AI-powered questioning logic
+- `commands/pm/*.md` - Subcommands for specific functionality (list, continue, configure, status, install, update)
 - Enhanced with 7-step AI process: config → analysis → codebase scan → template selection → questioning → PRD generation → cleanup
 
 **Dual Installation Model**: 
@@ -78,7 +78,7 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ### Core Usage
 ```bash
 # Start new requirement gathering
-/user:pm "Add user authentication to my web app"
+/user:pm:define "Add user authentication to my web app"
 
 # List existing plans
 /user:pm:list
@@ -95,7 +95,7 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 
 ## Key Implementation Details
 
-**AI-Powered Questioning (v2)**: The main `pm.md` command implements intelligent questioning:
+**AI-Powered Questioning (v2)**: The main `define.md` command implements intelligent questioning:
 - **Template-guided AI**: Uses question templates as guides, not rigid structures
 - **Codebase pre-analysis**: Scans project for frameworks, patterns, existing features
 - **Smart filtering**: Pre-answers questions from code analysis, filters by relevance
@@ -135,12 +135,13 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ```
 .claude/
 ├── commands/
-│   ├── pm.md              # Main AI-powered PM command
 │   └── pm/
+│       ├── define.md       # Main AI-powered PM command
 │       ├── list.md        # Show existing plans
 │       ├── continue.md    # Resume plan development
-│       ├── configure.md   # Settings management
+│       ├── configure.md    # Settings management
 │       ├── status.md      # Status overview
+│       ├── update.md      # Update AI PM
 │       └── install.md     # Project installation
 └── settings.local.json    # Claude Code local settings
 ```
@@ -166,6 +167,7 @@ Generated project structure:
 **Team Customization**: Teams can override question templates by editing `.claude/commands/pm.md` in their project.
 
 **Configuration Options**: Modify `.claude-pm/config.json`:
+- `updateRepository`: github repo for updates
 - `questioningMode`: "ai-powered" | "template" | "hybrid"
 - `questioningDepth`: "brief" | "standard" | "thorough"
 - `maxQuestions`: Number of questions (template mode only)

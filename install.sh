@@ -21,8 +21,7 @@ mkdir -p ~/.claude-pm/{questions,sessions,plans}
 
 # Copy command files
 echo "Copying command files..."
-cp .claude/commands/pm/define.md ~/.claude/commands/pm/
-cp .claude/commands/pm/*.md ~/.claude/commands/pm/
+cp .claude/commands/pm/pm:*.md ~/.claude/commands/
 
 # Copy question templates
 echo "Setting up AI question templates..."
@@ -80,7 +79,7 @@ if [ "$AUTO_DETECTION" = true ]; then
 fi
 
 # Verify installation
-if [ -f ~/.claude/commands/pm/define.md ] && [ -f ~/.claude/commands/pm/list.md ] && [ -f ~/.claude-pm/config.json ]; then
+if [ -f ~/.claude/commands/pm:define.md ] && [ -f ~/.claude/commands/pm:list.md ] && [ -f ~/.claude-pm/config.json ]; then
     echo "✅ AI Product Manager v2 installation successful!"
     echo ""
     echo "🧠 AI-Powered Commands Available:"

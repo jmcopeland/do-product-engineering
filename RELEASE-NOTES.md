@@ -33,7 +33,6 @@ Stay current with the latest features and bug fixes through automated command up
 - **Installation Verification**: Validates update success before completion
 
 ### 🔧 Technical Implementation
-- **GitHub Integration**: Uses raw.githubusercontent.com for reliable file access
 - **File Management**: Downloads all core commands and question templates
 - **Error Recovery**: Comprehensive error handling with restore options
 - **User Experience**: Clear progress indicators and confirmation prompts
@@ -67,7 +66,6 @@ The `/pm:list` command now delivers **sub-second response times** through intell
 
 ### ⚡ Smart Caching System
 - **Intelligent Invalidation**: Cache automatically updates when plans/sessions are modified
-- **File Timestamp Comparison**: Uses `ls -t` for lightning-fast validation
 - **Native Claude Output**: No more collapsed bash script results
 - **Zero Configuration**: Works automatically without setup
 
@@ -128,8 +126,8 @@ The biggest improvement in AI Product Manager v2 is the introduction of intellig
 #### 3. Skip Questioning Mode
 Generate PRDs instantly with codebase-informed assumptions:
 ```bash
-/pm "Add user authentication, skip questions"
-/pm "Add CRUD operations, make assumptions"
+/pm:define "Add user authentication, skip questions"
+/pm:define "Add CRUD operations, make assumptions"
 ```
 
 #### 4. Enhanced Session Management
@@ -142,20 +140,10 @@ Generate PRDs instantly with codebase-informed assumptions:
 - **Clear Messaging**: Emojis and structured presentation
 - **Error Handling**: Comprehensive error messages with actionable guidance
 
-## 📈 Performance Improvements
-
-| Metric | v1 | v2 | Improvement |
-|--------|----|----|-------------|
-| Questions Asked | 20-50 | 6-10 | 70% reduction |
-| Setup Time | Instant | 5-15s | Analysis investment |
-| Relevance | Fixed template | Adapted | 100% relevant |
-| User Control | None | Full | Complete control |
-| Codebase Awareness | None | Full analysis | Smart pre-answering |
 
 ## 📦 Simplified Distribution
 
 ### Single Source of Truth
-- **Removed dual directories**: Eliminated redundant `commands/` directory
 - **Direct installation**: Install script copies directly from `.claude/commands/` structure
 - **Easier maintenance**: No more sync issues between distribution and working versions
 - **Git-friendly**: Teams can use git subtree for seamless updates
@@ -213,7 +201,6 @@ Generate PRDs instantly with codebase-informed assumptions:
 
 ### Comprehensive Guides
 - **[AI Questioning Guide](docs/AI-QUESTIONING.md)**: Complete v2 feature documentation
-- **[Migration Guide](docs/MIGRATION.md)**: Smooth upgrade from v1
 - **Updated README**: v2 features and installation
 - **Enhanced CLAUDE.md**: Latest architecture details
 
@@ -222,25 +209,6 @@ Generate PRDs instantly with codebase-informed assumptions:
 - **Default AI Config**: New installations use AI-powered mode by default
 - **Question Template Distribution**: Install command copies question templates
 
-## 🔄 Migration & Compatibility
-
-### ✅ Fully Backward Compatible
-- All existing v1 commands work unchanged
-- Existing PRDs remain fully functional
-- No breaking changes to command syntax
-- Team workflows unaffected
-
-### Migration Strategies
-1. **Gradual**: Keep template mode, try AI for new features
-2. **Immediate**: Switch to AI mode for all new PRDs
-3. **Hybrid**: Use both modes depending on feature complexity
-
-### Rollback Support
-```json
-{
-  "questioningMode": "template"  // Use v1 behavior anytime
-}
-```
 
 ## 🎯 Use Cases
 
@@ -282,14 +250,13 @@ Generate PRDs instantly with codebase-informed assumptions:
 ## 🔮 Future Roadmap
 
 ### v2.2 (Coming Soon)
-- **Custom AI Models**: Support for different questioning personalities
+- **Advanced Filtering**: ML-based question relevance scoring
 - **Team Templates**: Shared question template marketplace
-- **Analytics**: Question effectiveness and PRD quality metrics
 
 ### v2.3 (Planned)
-- **Multi-language Support**: Templates in different languages
+- **Custom AI Models**: Support for different questioning personalities
 - **Integration APIs**: Connect with project management tools
-- **Advanced Filtering**: ML-based question relevance scoring
+- **Analytics**: Question effectiveness and PRD quality metrics
 
 ## 📦 Installation
 
@@ -300,7 +267,7 @@ cd ai-product-manager
 ./install.sh
 ```
 
-### Upgrade from v1
+### Upgrade
 ```bash
 git pull origin main
 ./install.sh
@@ -313,21 +280,6 @@ git pull origin main
 git add .claude/commands/pm*
 git commit -m "Upgrade to AI Product Manager v2 with AI questioning"
 ```
-
-## 📊 Metrics
-
-### Development Statistics
-- **Total Commands**: 6 enhanced commands
-- **Lines of Code**: 833 lines across all commands
-- **Templates**: 5 question template files with 196 total questions
-- **Documentation**: 4 comprehensive guides
-- **Test Coverage**: End-to-end flow validation
-
-### Performance Benchmarks
-- **Analysis Speed**: 5-15 seconds average codebase scan
-- **Question Efficiency**: 70% fewer questions asked
-- **Session Recovery**: 100% success rate for interrupted sessions
-- **Memory Usage**: Minimal - file-based state management
 
 ## 🙏 Acknowledgments
 
@@ -362,4 +314,4 @@ v2 was built on the principle that AI should **augment human judgment**, not rep
 
 We're excited to see how AI-powered questioning transforms your product development workflow. The intelligent conversation system is designed to respect your expertise while ensuring comprehensive requirements coverage.
 
-**Try it today**: `/pm "Add your next feature"` and experience the difference! 🚀
+**Try it today**: `/pm:define "Add your next feature"` and experience the difference! 🚀
