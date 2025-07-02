@@ -51,7 +51,7 @@ Before any changes:
 Download all command files atomically:
 1. **Create temp directory** - Make `.claude-pm/temp-update/`
 2. **Download files** from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/v{VERSION}/.claude/`:
-   - `commands/pm.md`
+   - `commands/pm/define.md`
    - `commands/pm/list.md`
    - `commands/pm/continue.md`
    - `commands/pm/configure.md`

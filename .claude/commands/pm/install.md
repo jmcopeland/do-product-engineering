@@ -11,7 +11,7 @@ Copy PM commands from user directory to current project for team sharing and cus
 
 ### 2. File Copy Operations
 Copy these files from `~/.claude/commands/` to `./.claude/commands/`:
-- `pm.md` → `pm.md`
+- `pm/define.md` → `pm/define.md`
 - `pm/list.md` → `pm/list.md`
 - `pm/continue.md` → `pm/continue.md`
 - `pm/configure.md` → `pm/configure.md`
@@ -47,7 +47,7 @@ Provide guidance for team usage:
 ## PM Commands Installed Successfully!
 
 ### Project Commands Available:
-- `/pm "[requirement]"` - Create new PRD (project-scoped)
+- `/pm:define "[requirement]"` - Create new PRD (project-scoped)
 - `/pm:list` - Show project plans
 - `/pm:continue <plan>` - Resume plan development
 - `/pm:configure` - Manage project settings
@@ -60,7 +60,7 @@ Provide guidance for team usage:
 4. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
 
 ### Customization:
-- Edit `.claude/commands/pm.md` to customize AI questioning flow
+- Edit `.claude/commands/pm/define.md` to customize AI questioning flow
 - Modify `.claude-pm/config.json` for project-specific settings
 - Add custom question templates in `.claude-pm/questions/`
 - Configure AI questioning behavior (depth, filtering, skip options)
@@ -91,7 +91,7 @@ Handle common issues:
 
 3. **Copy Command Files**
    ```bash
-   cp ~/.claude/commands/pm.md .claude/commands/
+   cp ~/.claude/commands/pm/define.md .claude/commands/pm/
    cp ~/.claude/commands/pm/*.md .claude/commands/pm/
    ```
 

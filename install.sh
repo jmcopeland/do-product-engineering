@@ -21,7 +21,7 @@ mkdir -p ~/.claude-pm/{questions,sessions,plans}
 
 # Copy command files
 echo "Copying command files..."
-cp .claude/commands/pm.md ~/.claude/commands/
+cp .claude/commands/pm/define.md ~/.claude/commands/pm/
 cp .claude/commands/pm/*.md ~/.claude/commands/pm/
 
 # Copy question templates
@@ -80,11 +80,11 @@ if [ "$AUTO_DETECTION" = true ]; then
 fi
 
 # Verify installation
-if [ -f ~/.claude/commands/pm.md ] && [ -f ~/.claude/commands/pm/list.md ] && [ -f ~/.claude-pm/config.json ]; then
+if [ -f ~/.claude/commands/pm/define.md ] && [ -f ~/.claude/commands/pm/list.md ] && [ -f ~/.claude-pm/config.json ]; then
     echo "✅ AI Product Manager v2 installation successful!"
     echo ""
     echo "🧠 AI-Powered Commands Available:"
-    echo "  /user:pm \"requirement\"        - AI-powered PRD creation"
+    echo "  /user:pm:define \"requirement\"  - AI-powered PRD creation"
     echo "  /user:pm:list                 - Show plans and sessions"
     echo "  /user:pm:continue <session>   - Resume interrupted sessions"
     echo "  /user:pm:configure            - Configure AI questioning"
@@ -92,8 +92,8 @@ if [ -f ~/.claude/commands/pm.md ] && [ -f ~/.claude/commands/pm/list.md ] && [ 
     echo "  /user:pm:install              - Install to current project"
     echo ""
     echo "⚡ Quick Start Examples:"
-    echo "  /user:pm \"Add user authentication\"     # AI questioning"
-    echo "  /user:pm \"Add CRUD ops, skip questions\"  # Skip mode"
+    echo "  /user:pm:define \"Add user authentication\"     # AI questioning"
+    echo "  /user:pm:define \"Add CRUD ops, skip questions\"  # Skip mode"
     echo ""
     echo "👥 For team setup: /user:pm:install in your project directory"
     if [ "$AUTO_DETECTION" = true ]; then

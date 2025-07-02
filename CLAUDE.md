@@ -22,7 +22,7 @@ When detecting feature requests, respond like this:
 ```
 I can help you implement [feature]! Since this is a new feature request, I recommend using the AI Product Manager to create a detailed PRD first. This will ensure we cover all requirements, edge cases, and implementation details.
 
-Try: `/pm "Add [feature description]"`
+Try: `/pm:define "Add [feature description]"`
 
 The AI Product Manager will:
 - Analyze your existing codebase
