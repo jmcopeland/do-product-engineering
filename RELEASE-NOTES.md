@@ -1,5 +1,58 @@
 # AI Product Manager Release Notes
 
+## v2.3.0 - Development Lifecycle Commands
+**Release Date**: July 4, 2025  
+**Focus**: Modular Development Lifecycle & Command Architecture
+
+### 🔄 Development Lifecycle Restructure
+Introducing a clear, modular command structure that maps to the complete development lifecycle!
+
+#### New Command Architecture
+- **`/pm:plan`** - Product requirements gathering (renamed from `pm:define`)
+- **`/pm:review`** - Engineering review and technical analysis (split from `pm:implement`)  
+- **`/pm:build`** - Feature implementation (split from `pm:implement`)
+
+#### Future-Ready Structure
+This release establishes the foundation for the complete development lifecycle:
+```
+plan → design → review → build → test → ship → learn
+ 📋     🎨      🔍      💻     🧪     🚀     📊
+```
+
+### ⚡ Enhanced Workflow
+The new three-step process provides better separation of concerns:
+
+```bash
+# Step 1: Plan the feature
+/pm:plan "Add user authentication"
+
+# Step 2: Engineering review 
+/pm:review user-auth-20250704.md
+
+# Step 3: Build the feature
+/pm:build user-auth-20250704.md
+```
+
+#### Benefits of the Split
+- **Clearer responsibilities**: Product planning vs engineering review vs implementation
+- **Better resumability**: Stop and resume at any stage of the development process
+- **Modular approach**: Mix and match commands based on your workflow needs
+- **Future extensibility**: Ready to add design, test, ship, and learn commands
+
+### 🏗️ Backward Compatibility
+- All existing PRDs continue to work seamlessly
+- Configuration files automatically upgraded
+- Documentation comprehensively updated
+- Install scripts support new command structure
+
+### 📊 Technical Improvements
+- **Command modularity**: Each command has focused, single responsibility
+- **Enhanced error handling**: Better guidance for missing files and invalid states
+- **Improved documentation**: Updated examples and workflow guidance
+- **Future-proof architecture**: Ready for upcoming lifecycle commands
+
+---
+
 ## v2.2.0 - Engineering Implementation Release
 **Release Date**: July 2, 2025  
 **Focus**: Senior Engineering AI & Complete Implementation Pipeline
@@ -180,8 +233,8 @@ The biggest improvement in AI Product Manager v2 is the introduction of intellig
 #### 3. Skip Questioning Mode
 Generate PRDs instantly with codebase-informed assumptions:
 ```bash
-/pm:define "Add user authentication, skip questions"
-/pm:define "Add CRUD operations, make assumptions"
+/pm:plan "Add user authentication, skip questions"
+/pm:plan "Add CRUD operations, make assumptions"
 ```
 
 #### 4. Enhanced Session Management
@@ -302,12 +355,12 @@ Generate PRDs instantly with codebase-informed assumptions:
 
 ## 🔮 Future Roadmap
 
-### v2.2 (Coming Soon)
+### (Coming Soon)
+- **Custom AI Models**: Support for different questioning personalities (engineer, designer, etc.)
+
+### (Planned)
 - **Advanced Filtering**: ML-based question relevance scoring
 - **Team Templates**: Shared question template marketplace
-
-### v2.3 (Planned)
-- **Custom AI Models**: Support for different questioning personalities
 - **Integration APIs**: Connect with project management tools
 - **Analytics**: Question effectiveness and PRD quality metrics
 
@@ -367,4 +420,4 @@ v2 was built on the principle that AI should **augment human judgment**, not rep
 
 We're excited to see how AI-powered questioning transforms your product development workflow. The intelligent conversation system is designed to respect your expertise while ensuring comprehensive requirements coverage.
 
-**Try it today**: `/pm:define "Add your next feature"` and experience the difference! 🚀
+**Try it today**: `/pm:plan "Add your next feature"` and experience the difference! 🚀

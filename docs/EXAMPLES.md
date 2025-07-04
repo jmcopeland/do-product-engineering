@@ -6,7 +6,7 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 
 ### Authentication Feature
 ```bash
-/user:pm:define "Add user authentication to my React app"
+/user:pm:plan "Add user authentication to my React app"
 
 # AI will analyze your React codebase and ask focused questions like:
 # - "I see you're using React with no existing auth. Should users sign up with email/password or social login?"
@@ -16,7 +16,7 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 
 ### CRUD Operations
 ```bash
-/user:pm:define "Add blog post management"
+/user:pm:plan "Add blog post management"
 
 # AI detects your existing patterns and asks:
 # - "I found your user model. Should blog posts belong to users?"
@@ -26,7 +26,7 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 
 ### UI Components
 ```bash
-/user:pm:define "Add user dashboard"
+/user:pm:plan "Add user dashboard"
 
 # AI analyzes your UI framework and asks:
 # - "I see you're using Material-UI. Should the dashboard follow your existing navigation pattern?"
@@ -39,11 +39,14 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 ### End-to-End PRD to Code
 ```bash
 # Step 1: Create PRD with Product Manager AI
-/user:pm:define "Add user authentication to my React app"
+/user:pm:plan "Add user authentication to my React app"
 # → Generates: user-auth-20250702-140000.md
 
-# Step 2: Engineering review and implementation  
-/user:pm:implement user-auth-20250702-140000.md
+# Step 2: Engineering review
+/user:pm:review user-auth-20250702-140000.md
+
+# Step 3: Feature implementation
+/user:pm:build user-auth-20250702-140000.md
 
 # Senior Engineer AI will:
 # 1. Review the PRD for technical feasibility
@@ -57,8 +60,11 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 
 ### Implementation with Existing PRDs
 ```bash
-# Use any existing PRD
-/user:pm:implement blog-management-20250701.md
+# Review any existing PRD
+/user:pm:review blog-management-20250701.md
+
+# Then build the feature
+/user:pm:build blog-management-20250701.md
 
 # Engineering review covers:
 # - Database schema decisions
@@ -72,14 +78,14 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 
 ### When You Know What You Want
 ```bash
-/user:pm:define "Add delete confirmation modal, skip questions"
-/user:pm:define "Add password reset flow, make assumptions"
-/user:pm:define "Add user profile editing, use best practices"
+/user:pm:plan "Add delete confirmation modal, skip questions"
+/user:pm:plan "Add password reset flow, make assumptions"
+/user:pm:plan "Add user profile editing, use best practices"
 ```
 
 ### Rapid Prototyping
 ```bash
-/user:pm:define "Add shopping cart functionality, skip questions"
+/user:pm:plan "Add shopping cart functionality, skip questions"
 # Generates comprehensive PRD based on:
 # - Your existing e-commerce patterns
 # - Industry best practices
@@ -90,7 +96,7 @@ Real-world examples of using AI Product Manager v2.2 with AI-powered questioning
 
 ### Early Completion
 ```
-User: /user:pm:define "Add user notifications"
+User: /user:pm:plan "Add user notifications"
 AI: How should notifications be delivered? (email, in-app, push, SMS)
 User: Email and in-app notifications
 AI: Should users be able to customize notification preferences?
@@ -132,7 +138,7 @@ git add .claude/commands/pm/*
 git commit -m "Add AI Product Manager v2 for team PRD generation"
 
 # Team members can now use project commands
-/pm:define "Add feature X"  # Uses project-specific settings
+/pm:plan "Add feature X"  # Uses project-specific settings
 ```
 
 ### Custom Question Templates
@@ -194,7 +200,7 @@ EOF
 ### Resuming Interrupted Sessions
 ```bash
 # Session gets interrupted
-/user:pm:define "Add multi-tenant support"
+/user:pm:plan "Add multi-tenant support"
 # ... answers 3 questions then gets interrupted
 
 # Later, resume the session
@@ -219,22 +225,22 @@ EOF
 ### Framework Detection
 ```bash
 # In a Next.js project
-/user:pm:define "Add API endpoints"
+/user:pm:plan "Add API endpoints"
 # AI detects: "I see you're using Next.js with API routes in /pages/api/..."
 
 # In a Django project  
-/user:pm:define "Add REST API"
+/user:pm:plan "Add REST API"
 # AI detects: "I found Django REST Framework. Should we follow your existing ViewSet patterns?"
 ```
 
 ### Existing Pattern Recognition
 ```bash
 # With existing auth system
-/user:pm:define "Add user roles"
+/user:pm:plan "Add user roles"
 # AI: "I see you're already using JWT auth with a User model. Should roles be..."
 
 # With existing UI components
-/user:pm:define "Add data table"
+/user:pm:plan "Add data table"
 # AI: "I found your existing Table component in /components/. Should the new data table..."
 ```
 
@@ -301,7 +307,7 @@ Trust the codebase analysis - it often knows more than you think.
 
 ### 3. Leverage Skip Mode for Known Patterns
 ```bash
-/user:pm:define "Add standard CRUD for products, skip questions"
+/user:pm:plan "Add standard CRUD for products, skip questions"
 ```
 
 ### 4. Customize for Your Domain

@@ -1,8 +1,8 @@
-# PM Implement - Senior Engineering Implementation
+# PM Review - Senior Engineering Review
 
-Act as a Senior Software Engineer to review PRDs, ask technical clarifying questions, and implement features through AI-guided engineering analysis.
+Act as a Senior Software Engineer to review PRDs and ask technical clarifying questions to enhance them with engineering context.
 
-## Task: Engineering-Driven Implementation
+## Task: Engineering Review of PRD
 
 Given the PRD filename: "$ARGUMENTS"
 
@@ -23,7 +23,7 @@ Load and validate the specified PRD file with comprehensive error handling:
    
    💡 Options:
    • Use an existing PRD from the list above
-   • Create a new PRD with: /pm:define "[your requirement]"
+   • Create a new PRD with: /pm:plan "[your requirement]"
    • Check the exact filename and try again
    ```
 
@@ -47,13 +47,14 @@ Configure the engineering analysis process:
    - Set technical depth level (brief/standard/thorough)
 
 2. **Initialize engineering session**:
-   - Create session ID: `implement-[prd-name]-[timestamp]`
-   - Set session type as "implementation"
+   - Create session ID: `review-[prd-name]-[timestamp]`
+   - Set session type as "review"
    - Reference source PRD file path
-   - Initialize engineering context structure
+   - Set up engineering context and persona
+   - Prepare for technical questioning flow
 
-3. **Check for existing implementation sessions**:
-   - Look for active implementation sessions for this PRD
+3. **Check for existing engineering sessions**:
+   - Look for active engineering sessions for this PRD
    - Offer to resume existing session if found
    - Archive old sessions if user chooses to restart
 
@@ -118,8 +119,7 @@ Conduct senior engineering review through interactive questioning:
    • [Existing patterns relevant to this feature]
    • [Technical constraints and dependencies]
    
-   As a senior engineer, I'll ask focused technical questions to ensure 
-   robust implementation with proper architecture, security, and testing.
+   As a senior engineer, I'll ask focused technical questions to ensure robust implementation with proper architecture, security, and testing.
    
    🎯 Engineering Controls:
    • Answer normally to proceed with technical review
@@ -133,8 +133,8 @@ Conduct senior engineering review through interactive questioning:
 2. **Create implementation session file**:
    ```json
    {
-     "sessionId": "implement-[prd-name]-[timestamp]",
-     "type": "implementation",
+     "sessionId": "review-[prd-name]-[timestamp]",
+     "type": "review",
      "sourcePrd": "path/to/prd/file.md",
      "prdTitle": "[extracted title]",
      "prdSummary": "[extracted context/summary]",
@@ -256,64 +256,81 @@ Synthesize engineering analysis into structured notes:
    - Include error handling instructions
    - Set up context for Claude Code handoff
 
-### Step 7: Implementation Planning and Claude Code Handoff
-Present implementation plan and hand off to Claude Code:
+### Step 7: Engineering Review Complete and Handoff
+Present review results and provide implementation options:
 
-1. **Generate implementation plan summary**:
+1. **Generate engineering review summary**:
    ```
-   🚀 Implementation Plan Ready!
+   ✅ Engineering Review Complete!
    
-   📋 **Engineering Analysis Complete:**
-   • Architecture: [Key architectural decisions]
-   • Implementation: [High-level approach]
-   • Security: [Key security considerations]
-   • Testing: [Testing strategy summary]
+   📋 **Engineering Analysis Summary:**
+   • Architecture: [Key architectural decisions made]
+   • Implementation: [High-level technical approach determined]
+   • Security: [Security considerations and requirements]
+   • Testing: [Testing strategy and validation approach]
    
-   📄 **PRD Enhanced:** [PRD filename] now includes Engineering Notes
+   📄 **PRD Enhanced:** [PRD filename] now includes comprehensive Engineering Notes
    
-   ⚡ **Ready for Implementation:**
-   The enhanced PRD provides complete technical context for implementation.
-   Claude Code will use this context to build the feature following your
-   engineering decisions and architectural choices.
+   🚀 **Next Steps - Implementation Options:**
+   1. **Build Now** - Start implementation: `/pm:build [prd-filename]`
+   2. **Review Notes** - Examine Engineering Notes before building
+   3. **Save Progress** - Save engineering analysis for later implementation
    
-   🛠️ **Implementation Options:**
-   1. **Proceed** - Start implementation now with Claude Code
-   2. **Review** - Examine the enhanced PRD and Engineering Notes first  
-   3. **Save** - Save engineering analysis and implement later
+   The enhanced PRD is ready for the build phase with complete technical context.
    
-   What would you like to do?
+   What would you like to do next?
    ```
 
-2. **Handle user choice**:
+2. **Handle user choice and provide guidance**:
    
-   **If "Proceed" or "Start Implementation"**:
+   **If "Build Now" or "Start Implementation" or "Proceed"**:
    ```
-   🔧 Handing off to Claude Code for implementation...
+   🔧 Ready to build! Use the following command to start implementation:
    
-   **Context:** Using enhanced PRD with Engineering Notes as implementation guide
-   **Approach:** Follow architectural decisions and technical constraints documented
-   **Error Handling:** Attempt automatic fixes; escalate complex issues for guidance
-   **Testing:** Implement testing strategy as outlined in Engineering Notes
+   /pm:build [prd-filename]
    
-   Beginning implementation now...
+   The enhanced PRD includes all engineering decisions and will guide the implementation process.
    ```
    
-   Then execute Claude Code implementation with the enhanced PRD as primary context and engineering notes as technical guidance. Include clear instructions: "Please implement this feature following the PRD requirements and Engineering Notes. Attempt to fix any errors automatically, but ask for guidance if issues become complex or unclear. Ask any additional clarifying questions."
+   **If "Review Notes" or "Review"**:
+   ```
+   📋 Engineering Notes Summary:
+   
+   **Architecture Decisions:**
+   [Display key architectural choices made]
+   
+   **Implementation Approach:**
+   [Show technical strategy and file organization decisions]
+   
+   **Security & Testing:**
+   [Highlight security measures and testing strategy]
+   
+   Ready to build? Run: `/pm:build [prd-filename]`
+   ```
 
-   **If "Review"**:
-   - Display the Engineering Notes section
-   - Show key technical decisions made
-   - Ask if user wants to proceed or modify anything
+   **If "Save Progress" or "Save"**:
+   ```
+   💾 Engineering review saved successfully!
+   
+   **Status:** PRD enhanced with Engineering Notes
+   **File:** [prd-filename] (updated with technical context)
+   **Session:** Archived for future reference
+   
+   **To implement later:** `/pm:build [prd-filename]`
+   **To review notes:** Open [prd-filename] and see Engineering Notes section
+   ```
 
-   **If "Save"**:
-   - Mark session as "completed-planned"
-   - Archive session with full context preserved
-   - Provide guidance on how to resume implementation later
+3. **Session completion and cleanup**:
+   - Mark engineering session as "completed"
+   - Archive session with full engineering context preserved
+   - Update PRD metadata with engineering review timestamp
+   - Provide clear next-step guidance for `/pm:build` command
 
-3. **Clean up and archive session**:
-   - Mark session as completed
-   - Move session file to archive if implementation started
-   - Update last successful implementation timestamp
+4. **Integration notes for pm:build command**:
+   - Enhanced PRD contains all necessary technical context
+   - Engineering decisions are documented for implementation reference
+   - Session history available for troubleshooting if needed
+   - Clear handoff completed between review and build phases
 
 ## Error Handling and Recovery
 
@@ -348,4 +365,4 @@ Present implementation plan and hand off to Claude Code:
 
 ---
 
-**Begin the senior engineering implementation process now with PRD**: "$ARGUMENTS"
+**Begin the senior engineering review process now with PRD**: "$ARGUMENTS"

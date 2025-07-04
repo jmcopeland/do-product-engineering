@@ -1,4 +1,4 @@
-# PM Define - AI Product Manager
+# PM Plan - AI Product Manager
 
 Act as an AI Product Manager to transform vague requirements into detailed, actionable PRDs through intelligent, adaptive questioning.
 

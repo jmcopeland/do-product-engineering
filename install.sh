@@ -70,7 +70,7 @@ if [ "$AUTO_DETECTION" = true ]; then
         # The current working directory should be the target project
         if [ ! -f "./CLAUDE.md" ]; then
             cp CLAUDE.md ./CLAUDE.md
-            echo "✅ Auto-detection installed. Claude Code will now suggest '/pm:define' for feature requests."
+            echo "✅ Auto-detection installed. Claude Code will now suggest '/pm:plan' for feature requests."
             echo "💡 Commit CLAUDE.md to share auto-detection with your team."
         else
             echo "📝 CLAUDE.md already exists. You may want to merge auto-detection features manually."
@@ -82,12 +82,13 @@ if [ "$AUTO_DETECTION" = true ]; then
 fi
 
 # Verify installation
-if [ -f ~/.claude/commands/pm/pm:define.md ] && [ -f ~/.claude/commands/pm/pm:list.md ] && [ -f ~/.claude-pm/config.json ]; then
+if [ -f ~/.claude/commands/pm/pm:plan.md ] && [ -f ~/.claude/commands/pm/pm:list.md ] && [ -f ~/.claude-pm/config.json ]; then
     echo "✅ AI Product Manager v2 installation successful!"
     echo ""
     echo "🧠 AI-Powered Commands Available:"
-    echo "  /user:pm:define \"requirement\"  - AI-powered PRD creation"
-    echo "  /user:pm:implement <prd-file> - Senior engineering implementation"
+    echo "  /user:pm:plan \"requirement\"    - AI-powered PRD creation"
+    echo "  /user:pm:review <prd-file>     - Senior engineering review"
+    echo "  /user:pm:build <prd-file>      - Feature implementation"
     echo "  /user:pm:list                 - Show plans and sessions"
     echo "  /user:pm:continue <session>   - Resume interrupted sessions"
     echo "  /user:pm:configure            - Configure AI questioning"
@@ -95,14 +96,14 @@ if [ -f ~/.claude/commands/pm/pm:define.md ] && [ -f ~/.claude/commands/pm/pm:li
     echo "  /user:pm:install              - Install to current project"
     echo ""
     echo "⚡ Quick Start Examples:"
-    echo "  /user:pm:define \"Add user authentication\"     # AI questioning"
-    echo "  /user:pm:define \"Add CRUD ops, skip questions\"  # Skip mode"
+    echo "  /user:pm:plan \"Add user authentication\"       # AI questioning"
+    echo "  /user:pm:plan \"Add CRUD ops, skip questions\"    # Skip mode"
     echo ""
     echo "👥 For team setup: /user:pm:install in your project directory"
     if [ "$AUTO_DETECTION" = true ]; then
-        echo "🎯 Auto-detection enabled: Claude Code will suggest '/pm:define' for feature requests"
+        echo "🎯 Auto-detection enabled: Claude Code will suggest '/pm:plan' for feature requests"
     else
-        echo "💡 Tip: Use --with-auto-detection for automatic '/pm:define' suggestions"
+        echo "💡 Tip: Use --with-auto-detection for automatic '/pm:plan' suggestions"
     fi
     echo "📚 Documentation: https://github.com/jmcopeland/ai-product-manager/tree/main/docs"
 else

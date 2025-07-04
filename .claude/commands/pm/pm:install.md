@@ -11,8 +11,9 @@ Copy PM commands from user directory to current project for team sharing and cus
 
 ### 2. File Copy Operations
 Copy these files from `~/.claude/commands/pm/` to `./.claude/commands/pm/`:
-- `pm:define.md` → `pm:define.md`
-- `pm:implement.md` → `pm:implement.md`
+- `pm:plan.md` → `pm:plan.md`
+- `pm:review.md` → `pm:review.md`
+- `pm:build.md` → `pm:build.md`
 - `pm:list.md` → `pm:list.md`
 - `pm:continue.md` → `pm:continue.md`
 - `pm:configure.md` → `pm:configure.md`
@@ -49,8 +50,9 @@ Provide guidance for team usage:
 ## PM Commands Installed Successfully!
 
 ### Project Commands Available:
-- `/pm:define "[requirement]"` - Create new PRD (project-scoped)
-- `/pm:implement <prd-file>` - Senior engineering PRD review and implementation
+- `/pm:plan "[requirement]"` - Create new PRD (project-scoped)
+- `/pm:review <prd-file>` - Senior engineering PRD review
+- `/pm:build <prd-file>` - Feature implementation from enhanced PRD
 - `/pm:list` - Show project plans
 - `/pm:continue <plan>` - Resume plan development
 - `/pm:configure` - Manage project settings
@@ -63,7 +65,7 @@ Provide guidance for team usage:
 4. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
 
 ### Customization:
-- Edit `.claude/commands/pm/pm:define.md` to customize AI questioning flow
+- Edit `.claude/commands/pm/pm:plan.md` to customize AI questioning flow
 - Modify `.claude-pm/config.json` for project-specific settings
 - Add custom question templates in `.claude-pm/questions/`
 - Configure AI questioning behavior (depth, filtering, skip options)

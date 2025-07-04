@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **IMPORTANT**: When users request new features, enhancements, or ask "how to implement X", automatically suggest using the AI Product Manager instead of immediately coding:
 
 ### Feature Request Detection Patterns
-Detect these user requests and redirect to `/pm:define`:
+Detect these user requests and redirect to `/pm:plan`:
 - "Add [feature]" (e.g., "Add user authentication", "Add shopping cart")
 - "Create [component/functionality]" (e.g., "Create a dashboard", "Create API endpoints")
 - "Implement [system]" (e.g., "Implement payments", "Implement notifications") 
@@ -22,7 +22,7 @@ When detecting feature requests, respond like this:
 ```
 I can help you implement [feature]! Since this is a new feature request, I recommend using the AI Product Manager to create a detailed PRD first. This will ensure we cover all requirements, edge cases, and implementation details.
 
-Try: `/pm:define "Add [feature description]"`
+Try: `/pm:plan "Add [feature description]"`
 
 The AI Product Manager will:
 - Analyze your existing codebase
@@ -34,7 +34,7 @@ Would you like to start with the PM command, or would you prefer I begin coding 
 ```
 
 ### When NOT to Redirect
-Do NOT suggest `/pm:define` for:
+Do NOT suggest `/pm:plan` for:
 - Bug fixes or debugging existing code
 - Code refactoring or optimization  
 - Questions about existing code
@@ -50,8 +50,9 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ## Architecture
 
 **Command-based Architecture**: The system is built as modular slash commands stored in markdown files:
-- `commands/pm/define.md` - Main PM command with AI-powered questioning logic for PRD creation
-- `commands/pm/implement.md` - Engineering implementation command with technical questioning and code generation
+- `commands/pm/plan.md` - Main PM command with AI-powered questioning logic for PRD creation
+- `commands/pm/review.md` - Engineering review command with technical questioning
+- `commands/pm/build.md` - Engineering implementation command
 - `commands/pm/*.md` - Subcommands for specific functionality (list, continue, configure, status, install, update)
 - Enhanced with 7-step AI process: config → analysis → codebase scan → template selection → questioning → PRD generation → cleanup
 
@@ -79,10 +80,13 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ### Core Usage
 ```bash
 # Start new requirement gathering
-/user:pm:define "Add user authentication to my web app"
+/user:pm:plan "Add user authentication to my web app"
 
-# Implement an existing PRD with engineering guidance
-/user:pm:implement <prd-filename>
+# Review an existing PRD with engineering guidance
+/user:pm:review <prd-filename>
+
+# Build a feature from an enhanced PRD
+/user:pm:build <prd-filename>
 
 # List existing plans
 /user:pm:list
@@ -99,18 +103,18 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 
 ## Key Implementation Details
 
-**AI-Powered Questioning (v2)**: The main `define.md` command implements intelligent questioning:
+**AI-Powered Questioning (v2)**: The main `plan.md` command implements intelligent questioning:
 - **Template-guided AI**: Uses question templates as guides, not rigid structures
 - **Codebase pre-analysis**: Scans project for frameworks, patterns, existing features
 - **Smart filtering**: Pre-answers questions from code analysis, filters by relevance
 - **Adaptive flow**: Adjusts questions based on responses, allows early completion
 - **User control**: Skip questions, request explanations, or generate with assumptions
 
-**Engineering Implementation System**: The `implement.md` command provides senior-level engineering guidance:
+**Engineering Implementation System**: The `review.md` command provides senior-level engineering guidance:
 - **Senior Engineer AI Persona**: Acts as experienced software engineer reviewing PRDs for technical implementation
 - **Technical Questioning**: Covers architecture, security, testing, performance, and implementation details
 - **PRD Enhancement**: Appends structured Engineering Notes to existing PRDs without modifying original content
-- **Code Implementation**: Hands off enhanced PRD to Claude Code for actual feature implementation
+- **Code Implementation**: Hands off enhanced PRD to `build.md` command for use by Claude Code for actual feature implementation
 - **Error Handling**: Automatic fixes with user escalation for complex issues
 
 **Question Template System**: Modular templates in `.claude-pm/questions/`:
@@ -148,8 +152,9 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 .claude/
 ├── commands/
 │   └── pm/
-│       ├── define.md       # Main AI-powered PM command
-│       ├── implement.md   # Engineering implementation command
+│       ├── plan.md        # Main AI-powered PM command to create PRD
+│       ├── review.md      # AI-powered engineering review of PRD
+│       ├── build.md       # Engineering implementation command
 │       ├── list.md        # Show existing plans
 │       ├── continue.md    # Resume plan development
 │       ├── configure.md    # Settings management
