@@ -20,8 +20,8 @@ If command argument is "--restore":
 
 ### Step 2: Detect Installation Scope
 Determine which command installation to update:
-1. **Check user scope** - Look for `~/.claude/commands/pm:define.md`
-2. **Check project scope** - Look for `.claude/commands/pm:define.md`
+1. **Check user scope** - Look for `~/.claude/commands/pm/pm:define.md`
+2. **Check project scope** - Look for `.claude/commands/pm/pm:define.md`
 3. **Handle both exist** - If both found, ask user which to update (1=both, 2=user, 3=project)
 4. **Handle none exist** - Show error and suggest running install script
 5. **Set target directory** - Store the chosen commands directory path
@@ -43,7 +43,7 @@ If update is needed:
 
 ### Step 5: Create Backup
 Before any changes:
-1. **Create backup directory** - Make `.claude-pm/backups/update-YYYYMMDD-HHMMSS/<currentVersion>/`
+1. **Create backup directory** - Make `.claude-pm/backups/update-YYYYMMDD-HHMMSS/{currentVersion}/`
 2. **Copy current files** - Backup all existing command files
 3. **Log backup location** - Store path for reference
 
@@ -52,6 +52,7 @@ Download all command files atomically:
 1. **Create temp directory** - Make `.claude-pm/temp-update/`
 2. **Download files** from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/v{VERSION}/.claude/`:
    - `commands/pm/define.md`
+   - `commands/pm/implement.md`
    - `commands/pm/list.md`
    - `commands/pm/continue.md`
    - `commands/pm/configure.md`

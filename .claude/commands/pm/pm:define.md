@@ -159,7 +159,7 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    
    **a) Present question with context**:
    ```
-   🗺️ Question [current] • [topic area] • [progress indicator]
+   ❓ Question [current] • [topic area] • [progress indicator]
    
    [The actual question]
    
@@ -168,7 +168,7 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    
    **Example:**
    ```
-   🗺️ Question 2 • User Authentication • Covered: requirements ✓ | Exploring: auth, data
+   ❓ Question 2 • User Authentication • Covered: requirements ✓ | Exploring: auth, data
    
    How should users sign up for accounts? (email/username, social login, etc.)
    
@@ -344,7 +344,6 @@ Finalize the PRD and present to user:
 
 The process adapts based on `.claude-pm/config.json` settings:
 
-- **questioningMode**: "ai-powered" (use this flow) vs "template" (old flow)
 - **useRelevanceFiltering**: Filter questions by AI-determined relevance
 - **priorityThreshold**: "low"/"medium"/"high" - minimum priority to ask
 - **includeRationale**: Show reasoning for each question

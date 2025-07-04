@@ -1,8 +1,8 @@
 # AI Product Manager for Claude Code
 
-🤖 **v2.1.1 AI-Powered Questioning + Auto-Updates** - Transform vague requirements into detailed, actionable PRDs through intelligent conversation with automated update management.
+🤖 **v2.2.0 Engineering Review of PRD + AI Questioning** - Complete PRD-to-Code pipeline with Engineering PRD Review AI.
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -22,15 +22,9 @@ AI Product Manager adds intelligent product management capabilities to Claude Co
 - **Context Discovery** - Automatically analyzes project structure, git history, and documentation
 - **Session Management** - Auto-saves progress, resume interrupted sessions
 - **Plan Management** - Generate structured PRDs with implementation notes
+- **Engineering Review** - Senior engineer AI reviews PRDs and provides additional technical details
 - **Team Collaboration** - Share customized commands and question templates
 - **Auto-Detection** - Claude Code automatically suggests `/pm:define` for feature requests
-
-### ⚡ Performance & Updates (v2.1.1)
-- **Sub-Second Listing** - `/pm:list` responds in <1 second (was 3+ minutes)
-- **Smart Caching** - Automatic cache invalidation when plans are modified
-- **Native Display** - Beautiful output directly in Claude Code interface
-- **Auto-Updates** - Stay current with `/pm:update` command
-- **Zero Friction** - No user prompts or permission requests required
 
 ## Quick Start
 
@@ -76,6 +70,7 @@ git commit -m "Add AI Product Manager for team use"
 
 ### User Commands (Available Everywhere)
 - `/user:pm:define "requirement"` - Start new PRD creation
+- `/user:pm:implement <prd-file>` - Senior engineer AI review of PRD
 - `/user:pm:continue <plan>` - Resume plan development
 - `/user:pm:list` - Show existing plans
 - `/user:pm:configure` - Manage settings
@@ -85,6 +80,7 @@ git commit -m "Add AI Product Manager for team use"
 
 ### Project Commands (After Installation)
 - `/pm:define "requirement"` - AI-powered PRD creation for project
+- `/pm:implement <prd-file>` - Senior engineer AI review of PRD
 - `/pm:continue <plan>` - Resume plan or session
 - `/pm:list` - Show project plans and active sessions
 - `/pm:configure` - Project AI questioning settings
@@ -110,6 +106,18 @@ git commit -m "Add AI Product Manager for team use"
 # Generate with assumptions only
 /pm:define "Add CRUD operations, skip questions"
 /pm:define "Add user dashboard, make assumptions"
+```
+
+### 🔧 Implementation Flow
+```bash
+# After creating a PRD, implement it with engineering guidance
+/pm:implement user-profile-20250701-140000.md
+
+# Senior engineer AI will:
+# 1. 🔍 Review PRD and analyze technical context
+# 2. 🤔 Ask architecture, security, and testing questions
+# 3. 📝 Add Engineering Notes to the PRD
+# 4. 🚀 Hand off to Claude Code for implementation
 ```
 
 ### 🔄 Session Management
@@ -150,6 +158,7 @@ After installation:
 ~/.claude/commands/
   pm/
     define.md              # Main AI-powered PM command
+    implement.md          # Main AI-powered PM command
     list.md               # List plans and sessions
     continue.md           # Resume plan development
     configure.md           # AI questioning settings
@@ -183,7 +192,6 @@ Configure in `.claude-pm/config.json`:
 
 ```json
 {
-  "questioningMode": "ai-powered",
   "aiQuestioningOptions": {
     "useRelevanceFiltering": true,
     "priorityThreshold": "medium",
@@ -264,32 +272,6 @@ Auto-detection works via `CLAUDE.md` guidance that:
 - Provides standardized response templates
 - Maintains user choice between planning vs immediate coding
 - Only applies to new feature development (not maintenance)
-
-## What's New in v2.1.1
-
-### 🔄 Automated Updates  
-- **`/pm:update` Command** - Keep commands current automatically
-- **Version Management** - Track and compare versions with GitHub
-- **Smart Backups** - Automatic backup and restore capabilities
-- **Scope Detection** - Updates user or project commands intelligently
-
-### 🧠 AI-Powered Questioning (v2.0)
-- **Smart pre-answering** from codebase analysis
-- **Relevance filtering** - no more irrelevant questions
-- **Adaptive conversation** that responds to your expertise level
-- **Skip mode** for quick PRD generation with assumptions
-
-### 🎯 Better User Experience
-- **One question at a time** with clear rationale
-- **Progress indicators** by topic, not rigid question counts
-- **User control signals** - "good to go", "skip", "explain why"
-- **Session auto-save** and recovery
-
-### ⚡ Performance Improvements (v2.1)
-- **Sub-second `/pm:list`** with intelligent caching
-- **Smart cache invalidation** when plans are modified
-- **Native Claude output** - no more collapsed bash results
-- **Faster codebase analysis** with smart timeouts
 
 
 ## Contributing

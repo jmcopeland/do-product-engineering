@@ -7,11 +7,12 @@ Copy PM commands from user directory to current project for team sharing and cus
 ### 1. Pre-Installation Checks
 - Verify we're in a valid project directory (has .git or other project indicators)
 - Check if `.claude/commands/` directory exists, create if needed
-- Check if PM commands already exist in project
+- Check if PM commands already exist in project `.claude/commands/pm/`, create directory if necessary
 
 ### 2. File Copy Operations
-Copy these files from `~/.claude/commands/` to `./.claude/commands/`:
+Copy these files from `~/.claude/commands/pm/` to `./.claude/commands/pm/`:
 - `pm:define.md` → `pm:define.md`
+- `pm:implement.md` → `pm:implement.md`
 - `pm:list.md` → `pm:list.md`
 - `pm:continue.md` → `pm:continue.md`
 - `pm:configure.md` → `pm:configure.md`
@@ -49,19 +50,20 @@ Provide guidance for team usage:
 
 ### Project Commands Available:
 - `/pm:define "[requirement]"` - Create new PRD (project-scoped)
+- `/pm:implement <prd-file>` - Senior engineering PRD review and implementation
 - `/pm:list` - Show project plans
 - `/pm:continue <plan>` - Resume plan development
 - `/pm:configure` - Manage project settings
 - `/pm:status` - Show project PM status
 
 ### Team Setup:
-1. Commit `.claude/commands/pm:*` files to share with team
+1. Commit `.claude/commands/pm/pm:*` files to share with team
 2. Add `.claude-pm/config.json` to git for shared settings
 3. Commit `CLAUDE.md` for auto-detection (if enabled)
 4. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
 
 ### Customization:
-- Edit `.claude/commands/pm:define.md` to customize AI questioning flow
+- Edit `.claude/commands/pm/pm:define.md` to customize AI questioning flow
 - Modify `.claude-pm/config.json` for project-specific settings
 - Add custom question templates in `.claude-pm/questions/`
 - Configure AI questioning behavior (depth, filtering, skip options)
@@ -92,7 +94,7 @@ Handle common issues:
 
 3. **Copy Command Files**
    ```bash
-   cp ~/.claude/commands/pm:*.md .claude/commands/
+   cp ~/.claude/commands/pm/pm:*.md .claude/commands/pm/
    ```
 
 4. **Copy Question Templates** (for AI-powered mode)
@@ -102,17 +104,17 @@ Handle common issues:
      cp ~/.claude-pm/questions/*.md .claude-pm/questions/
    else
      echo "Note: Question templates not found in user directory"
-     echo "AI questioning will use built-in templates"
+     echo "AI questioning will use built-in templates" 
    fi
    ```
 
-5. **Create Default Config** (AI-powered enabled)
+5. **Create Default Config** (AI-powered)
    ```json
    {
+     "version": "<current version from VERSION file>",
+     "updateRepository": "jmcopeland/ai-product-manager",
      "questioningDepth": "standard",
-     "maxQuestions": 8,
      "autoSave": true,
-     "questioningMode": "ai-powered",
      "aiQuestioningOptions": {
        "useRelevanceFiltering": true,
        "questionsPerRound": 1,

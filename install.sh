@@ -21,7 +21,7 @@ mkdir -p ~/.claude-pm/{questions,sessions,plans}
 
 # Copy command files
 echo "Copying command files..."
-cp .claude/commands/pm/pm:*.md ~/.claude/commands/
+cp .claude/commands/pm/pm:*.md ~/.claude/commands/pm/
 
 # Copy question templates
 echo "Setting up AI question templates..."
@@ -32,12 +32,15 @@ cp .claude-pm/questions/*.md ~/.claude-pm/questions/ 2>/dev/null || {
 # Create default config
 echo "Creating default AI configuration..."
 if [ ! -f ~/.claude-pm/config.json ]; then
-    cat > ~/.claude-pm/config.json << 'EOF'
+    # Read version from VERSION file
+    VERSION=$(cat VERSION 2>/dev/null)
+    
+    cat > ~/.claude-pm/config.json << EOF
 {
+  "version": "$VERSION",
+  "updateRepository": "jmcopeland/ai-product-manager",
   "questioningDepth": "standard",
-  "maxQuestions": 8,
   "autoSave": true,
-  "questioningMode": "ai-powered",
   "aiQuestioningOptions": {
     "useRelevanceFiltering": true,
     "questionsPerRound": 1,
@@ -54,7 +57,7 @@ if [ ! -f ~/.claude-pm/config.json ]; then
   "contextDepth": "standard"
 }
 EOF
-    echo "Created default AI configuration."
+    echo "Created default AI configuration with version $VERSION."
 else
     echo "Existing config found - keeping your settings."
 fi
@@ -67,7 +70,7 @@ if [ "$AUTO_DETECTION" = true ]; then
         # The current working directory should be the target project
         if [ ! -f "./CLAUDE.md" ]; then
             cp CLAUDE.md ./CLAUDE.md
-            echo "✅ Auto-detection installed. Claude Code will now suggest /pm for feature requests."
+            echo "✅ Auto-detection installed. Claude Code will now suggest '/pm:define' for feature requests."
             echo "💡 Commit CLAUDE.md to share auto-detection with your team."
         else
             echo "📝 CLAUDE.md already exists. You may want to merge auto-detection features manually."
@@ -79,11 +82,12 @@ if [ "$AUTO_DETECTION" = true ]; then
 fi
 
 # Verify installation
-if [ -f ~/.claude/commands/pm:define.md ] && [ -f ~/.claude/commands/pm:list.md ] && [ -f ~/.claude-pm/config.json ]; then
+if [ -f ~/.claude/commands/pm/pm:define.md ] && [ -f ~/.claude/commands/pm/pm:list.md ] && [ -f ~/.claude-pm/config.json ]; then
     echo "✅ AI Product Manager v2 installation successful!"
     echo ""
     echo "🧠 AI-Powered Commands Available:"
     echo "  /user:pm:define \"requirement\"  - AI-powered PRD creation"
+    echo "  /user:pm:implement <prd-file> - Senior engineering implementation"
     echo "  /user:pm:list                 - Show plans and sessions"
     echo "  /user:pm:continue <session>   - Resume interrupted sessions"
     echo "  /user:pm:configure            - Configure AI questioning"
@@ -96,9 +100,9 @@ if [ -f ~/.claude/commands/pm:define.md ] && [ -f ~/.claude/commands/pm:list.md 
     echo ""
     echo "👥 For team setup: /user:pm:install in your project directory"
     if [ "$AUTO_DETECTION" = true ]; then
-        echo "🎯 Auto-detection enabled: Claude Code will suggest /pm for feature requests"
+        echo "🎯 Auto-detection enabled: Claude Code will suggest '/pm:define' for feature requests"
     else
-        echo "💡 Tip: Use --with-auto-detection for automatic /pm suggestions"
+        echo "💡 Tip: Use --with-auto-detection for automatic '/pm:define' suggestions"
     fi
     echo "📚 Documentation: https://github.com/jmcopeland/ai-product-manager/tree/main/docs"
 else

@@ -50,7 +50,6 @@ Configure AI questioning in `.claude-pm/config.json`:
 
 ```json
 {
-  "questioningMode": "ai-powered",
   "aiQuestioningOptions": {
     "useRelevanceFiltering": true,
     "questionsPerRound": 1,
@@ -208,13 +207,13 @@ The AI questioning system gracefully handles:
 - `/pm:configure` - Adjust AI questioning settings
 - `/pm:list` - See all sessions and their status
 
-## Migration from Template Mode
+## Upgrading to v2.2.0+
 
-If upgrading from template-based questioning:
+If upgrading from earlier versions:
 
 1. **Backup existing plans**: Copy `.claude-pm/plans/` 
-2. **Update config**: Set `questioningMode: "ai-powered"`
-3. **Try hybrid mode**: Set to "hybrid" for gradual transition
-4. **Customize templates**: Edit `.claude-pm/questions/` for your needs
+2. **Update configuration**: The system now uses AI-powered questioning by default
+3. **Customize templates**: Edit `.claude-pm/questions/` for your team's specific needs
+4. **Configure questioning depth**: Use `questioningDepth` to control thoroughness
 
-The AI mode is designed to be more efficient while maintaining the depth of template-based questioning.
+The AI-powered mode uses question templates as guides while providing intelligent filtering and adaptive conversation flow.

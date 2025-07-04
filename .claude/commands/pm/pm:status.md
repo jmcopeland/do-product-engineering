@@ -11,7 +11,7 @@ Check and display:
 - Most recent plan/session activity
 - .claude-pm directory structure
 
-### 2. Session Status (AI-Powered Mode)
+### 2. Session Status
 Show current AI questioning session information:
 - Active sessions count and details
 - Session health (recent, valid, corrupted)
@@ -23,30 +23,28 @@ Provide overview of all plans:
 - Total number of plans
 - Plans by status (Ready, In Progress, Needs Review, Completed)
 - Plans by complexity level (1-5 scale)
-- Plans by questioning mode (AI-powered vs Template)
 - Most recently created/modified plans
 
 ### 4. Configuration Status
-Display current settings with focus on AI features:
+Display current settings:
 - Active configuration source (project vs user defaults)
-- Questioning mode (template/ai-powered/hybrid)
-- AI questioning options (if enabled)
+- AI questioning options and settings
 - Template availability and health
 - Any configuration issues or recommendations
 
 ### 5. System Health
-Check PM system health with AI-specific checks:
+Check PM system health:
 - Directory structure integrity (.claude-pm/sessions/, /questions/, /plans/)
 - Template file availability and validity
 - Session file integrity
 - File permissions
 - Any corrupted or unreadable plans/sessions
 
-### 6. AI Questioning Statistics (if available)
+### 6. AI Questioning Statistics
 - Average questions asked per session
 - Most common question categories used
 - Session completion vs abandonment rate
-- Template usage statistics
+- Question template usage statistics
 
 ### 7. Cleanup Recommendations
 Show actionable items for maintaining system health:

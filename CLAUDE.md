@@ -50,7 +50,8 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ## Architecture
 
 **Command-based Architecture**: The system is built as modular slash commands stored in markdown files:
-- `commands/pm/define.md` - Main PM command with AI-powered questioning logic
+- `commands/pm/define.md` - Main PM command with AI-powered questioning logic for PRD creation
+- `commands/pm/implement.md` - Engineering implementation command with technical questioning and code generation
 - `commands/pm/*.md` - Subcommands for specific functionality (list, continue, configure, status, install, update)
 - Enhanced with 7-step AI process: config → analysis → codebase scan → template selection → questioning → PRD generation → cleanup
 
@@ -80,6 +81,9 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 # Start new requirement gathering
 /user:pm:define "Add user authentication to my web app"
 
+# Implement an existing PRD with engineering guidance
+/user:pm:implement <prd-filename>
+
 # List existing plans
 /user:pm:list
 
@@ -102,6 +106,13 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 - **Adaptive flow**: Adjusts questions based on responses, allows early completion
 - **User control**: Skip questions, request explanations, or generate with assumptions
 
+**Engineering Implementation System**: The `implement.md` command provides senior-level engineering guidance:
+- **Senior Engineer AI Persona**: Acts as experienced software engineer reviewing PRDs for technical implementation
+- **Technical Questioning**: Covers architecture, security, testing, performance, and implementation details
+- **PRD Enhancement**: Appends structured Engineering Notes to existing PRDs without modifying original content
+- **Code Implementation**: Hands off enhanced PRD to Claude Code for actual feature implementation
+- **Error Handling**: Automatic fixes with user escalation for complex issues
+
 **Question Template System**: Modular templates in `.claude-pm/questions/`:
 - `auth.md` - Authentication/User Management (24 questions)
 - `crud.md` - CRUD Operations (34 questions)
@@ -123,10 +134,11 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 - Acceptance Criteria, Implementation Notes
 - Success Metrics, TODOs
 
-**Session Persistence**: Enhanced session management with JSON format:
-- Auto-saves after every question/answer interaction
-- Includes codebase analysis, question queue, responses, and progress tracking
-- Session format: `{sessionId, requirement, status, codebaseAnalysis, questionQueue, responses, progress}`
+**Session Persistence**: Enhanced session management with complete conversation tracking:
+- Auto-saves after every question/answer interaction with full audit trail
+- Complete question/answer history with timestamps, rationale, and classifications
+- Session format: `{sessionId, requirement, status, codebaseAnalysis, questionHistory, currentQuestion, progress}`
+- Enhanced questionHistory array stores complete conversation data for perfect resumability
 - Supports resumption via `/continue <session-id>` with full context restoration
 - Automatic cleanup and archival of completed sessions
 
@@ -137,6 +149,7 @@ AI Product Manager is an intelligent product management extension for Claude Cod
 ├── commands/
 │   └── pm/
 │       ├── define.md       # Main AI-powered PM command
+│       ├── implement.md   # Engineering implementation command
 │       ├── list.md        # Show existing plans
 │       ├── continue.md    # Resume plan development
 │       ├── configure.md    # Settings management
@@ -168,9 +181,7 @@ Generated project structure:
 
 **Configuration Options**: Modify `.claude-pm/config.json`:
 - `updateRepository`: github repo for updates
-- `questioningMode`: "ai-powered" | "template" | "hybrid"
 - `questioningDepth`: "brief" | "standard" | "thorough"
-- `maxQuestions`: Number of questions (template mode only)
 - `aiQuestioningOptions`: AI-specific settings:
   - `useRelevanceFiltering`: Filter questions by AI-determined relevance
   - `questionsPerRound`: Questions per interaction (default: 1)

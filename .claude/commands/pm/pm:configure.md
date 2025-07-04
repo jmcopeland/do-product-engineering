@@ -12,12 +12,10 @@ Configure PM command settings and preferences.
 ### 2. Configuration Options
 
 **Questioning Preferences:**
-- `questioningDepth`: "brief" | "standard" | "thorough"
-- `maxQuestions`: Number of questions to ask (default: 8) - applies to template mode only
+- `questioningDepth`: "brief" | "standard" | "thorough" (default: "standard")
 - `autoSave`: Save progress automatically (default: true)
-- `questioningMode`: "template" | "ai-powered" | "hybrid" (default: "ai-powered")
 
-**AI Questioning Options** (when questioningMode is "ai-powered"):
+**AI Questioning Options:**
 - `aiQuestioningOptions.useRelevanceFiltering`: AI filters questions by relevance (default: true)
 - `aiQuestioningOptions.questionsPerRound`: Questions per round (default: 1)
 - `aiQuestioningOptions.adaptiveDepth`: Adjust depth based on responses (default: true)
@@ -26,14 +24,14 @@ Configure PM command settings and preferences.
 - `aiQuestioningOptions.priorityThreshold`: "low" | "medium" | "high" - minimum priority to ask (default: "medium")
 
 **Output Preferences:**
-- `prdTemplate`: "standard" | "agile" | "technical"
-- `complexityScale`: 1-5 or 1-10 scale
+- `prdTemplate`: "standard" | "agile" | "technical" (default: "standard")
+- `complexityScale`: 1-5 or 1-10 scale (default: 5)
 - `includeImplementationNotes`: Include technical details (default: true)
 
 **Project Context:**
 - `analyzeGitHistory`: Include git commit analysis (default: true)
-- `maxGitCommits`: Number of recent commits to analyze (default: 20)
-- `contextDepth`: "surface" | "standard" | "deep"
+- `maxGitCommits`: Number of recent commits to analyze (default: 10)
+- `contextDepth`: "surface" | "standard" | "deep" (default: "standard")
 
 **Team Settings (for shared configs):**
 - `teamName`: Team identifier
@@ -48,11 +46,9 @@ Present current settings and allow updates:
 
 **Questioning:**
 - Depth: [current value]
-- Max Questions: [current value]
 - Auto-save: [current value]
-- Questioning Mode: [current value]
 
-**AI Questioning** (if enabled):
+**AI Questioning:**
 - Use Relevance Filtering: [current value]
 - Questions Per Round: [current value]
 - Adaptive Depth: [current value]

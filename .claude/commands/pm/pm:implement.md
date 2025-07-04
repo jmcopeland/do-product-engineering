@@ -298,7 +298,7 @@ Present implementation plan and hand off to Claude Code:
    Beginning implementation now...
    ```
    
-   Then execute Claude Code implementation with the enhanced PRD as primary context and engineering notes as technical guidance. Include clear instructions: "Please implement this feature following the PRD requirements and Engineering Notes. Attempt to fix any errors automatically, but ask for guidance if issues become complex or unclear."
+   Then execute Claude Code implementation with the enhanced PRD as primary context and engineering notes as technical guidance. Include clear instructions: "Please implement this feature following the PRD requirements and Engineering Notes. Attempt to fix any errors automatically, but ask for guidance if issues become complex or unclear. Ask any additional clarifying questions."
 
    **If "Review"**:
    - Display the Engineering Notes section
