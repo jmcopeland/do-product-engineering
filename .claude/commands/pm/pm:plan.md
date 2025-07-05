@@ -6,7 +6,17 @@ Act as an AI Product Manager to transform vague requirements into detailed, acti
 
 Given the user requirement: "$ARGUMENTS"
 
-### Step 1: Load Configuration and Check for Skip
+**🚨 IMPORTANT: ALL 7 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
+
+### CRITICAL: Session Creation (MANDATORY - DO NOT SKIP)
+**IMPORTANT**: A session MUST be created for EVERY use of pm:plan. This is NOT optional.
+
+1. **Create session directory if needed**: Ensure `.claude-pm/sessions/` exists
+2. **Generate session ID**: `plan-[requirement-slug]-[YYYYMMDD-HHMMSS]`
+3. **Create initial session file** immediately with status "initializing"
+4. **If session creation fails**: STOP and report error to user
+
+### Step 1: Load Configuration and Check for Skip (MANDATORY)
 First, check the configuration and handle skip requests:
 
 1. **Load config** from `.claude-pm/config.json`
@@ -28,7 +38,7 @@ First, check the configuration and handle skip requests:
    Proceeding with assumption-based generation...
    ```
 
-### Step 2: Analyze Requirement and Complexity
+### Step 2: Analyze Requirement and Complexity (MANDATORY)
 Analyze the user requirement to understand what we're building:
 
 1. **Extract key concepts** and technical terms
@@ -46,7 +56,7 @@ Analyze the user requirement to understand what we're building:
    - If complex, offer to break into smaller PRDs
    - If user accepts breakdown, focus on one component
 
-### Step 3: Comprehensive Codebase Analysis
+### Step 3: Comprehensive Codebase Analysis (MANDATORY)
 Perform deep codebase analysis to pre-answer questions:
 
 1. **Project structure analysis** (fast scan):
@@ -75,7 +85,7 @@ Perform deep codebase analysis to pre-answer questions:
    - Extract development patterns and naming conventions
    - Skip if git log takes >10 seconds
 
-### Step 4: Load and Filter Question Templates
+### Step 4: Load and Filter Question Templates (MANDATORY)
 Intelligently select and filter questions:
 
 1. **Load relevant templates** from `.claude-pm/questions/`:
@@ -99,7 +109,7 @@ Intelligently select and filter questions:
    - Prepare rationale for each question
    - Set initial progress estimate (dynamic)
 
-### Step 5: AI-Guided Interactive Questioning
+### Step 5: AI-Guided Interactive Questioning (MANDATORY)
 Conduct intelligent, conversational questioning with dynamic flow management:
 
 1. **Initialize session and present context**:
@@ -270,7 +280,7 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    - **Handle interruptions gracefully** - session can be fully resumed via `/pm:continue`
    - **Archive session file** when PRD is successfully generated (move to archive, don't delete)
 
-### Step 6: Generate PRD with Collected Information
+### Step 6: Generate PRD with Collected Information (MANDATORY)
 Create comprehensive PRD using all gathered information:
 
 1. **Synthesize all inputs**:
@@ -318,12 +328,24 @@ Create comprehensive PRD using all gathered information:
    - [User experience details that need validation]
    ```
 
-### Step 7: Save and Present Results
+### Step 7: Save and Present Results (MANDATORY - CRITICAL - VERIFY ALL STEPS)
 Finalize the PRD and present to user:
 
-1. **Save PRD** with timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
-2. **Clean up session** file moved archive. DO NOT EVER delete session files unless explicity asked to do so.
-3. **Present summary**:
+1. **Generate PRD content** based on all collected information
+2. **Create PRD file** with timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
+   - MUST create file in `.claude-pm/plans/` directory
+   - MUST write complete PRD content to file
+   - MUST verify file was created successfully
+   - If file creation fails: STOP and report error
+3. **Verify PRD exists**:
+   - Read back the file to confirm it was written
+   - Check file size is reasonable (not empty)
+   - If verification fails: STOP and report error
+4. **Update session** with PRD filename and completion status
+5. **Archive session** to `.claude-pm/sessions/archive/`
+   - DO NOT delete original session file
+   - Copy to archive with completion timestamp
+6. **Only after verification**, present summary:
    ```
    🎉 PRD Successfully Created!
    
@@ -402,11 +424,34 @@ The process adapts based on `.claude-pm/config.json` settings:
 - **Template loading failures**: Fall back to general questions, warn user
 - **Response classification failures**: Treat as direct answer, continue
 
-### PRD Generation Errors
-- **File writing errors**: Try alternative locations, inform user
-- **Template generation errors**: Use basic template, include raw information
+### PRD Generation Errors (CRITICAL FAILURES)
+- **File creation errors**: 
+  ```
+  ❌ CRITICAL ERROR: Failed to create PRD file
+  
+  Error: [specific error message]
+  Directory: .claude-pm/plans/
+  Attempted filename: [filename]
+  
+  This is a critical failure. Please check:
+  • Directory permissions
+  • Disk space availability
+  • File system issues
+  
+  Cannot proceed without successful PRD creation.
+  ```
+- **File verification errors**:
+  ```
+  ❌ CRITICAL ERROR: PRD file creation appears to have failed
+  
+  File was not found after creation attempt: [filename]
+  
+  This indicates a serious file system issue.
+  Session has been preserved for recovery.
+  ```
+- **Content generation errors**: Use basic template, include raw Q&A data
 - **Timestamp errors**: Use fallback timestamp format
-- **Large content errors**: Split into multiple files if needed
+- **Permission errors**: Report exact permissions needed
 
 ### Recovery Strategies
 - **Graceful degradation**: Always try to provide some value even with errors

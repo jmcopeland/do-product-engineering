@@ -6,7 +6,17 @@ Act as a Senior Software Engineer to review PRDs and ask technical clarifying qu
 
 Given the PRD filename: "$ARGUMENTS"
 
-### Step 1: PRD Loading and Validation
+**🚨 IMPORTANT: ALL 7 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
+
+### CRITICAL: Session Creation (MANDATORY - DO NOT SKIP)
+**IMPORTANT**: A session MUST be created for EVERY use of pm:review. This is NOT optional.
+
+1. **Create session directory if needed**: Ensure `.claude-pm/sessions/` exists
+2. **Generate session ID**: `review-[prd-name]-[YYYYMMDD-HHMMSS]`
+3. **Create initial session file** immediately with status "initializing"
+4. **If session creation fails**: STOP and report error to user
+
+### Step 1: PRD Loading and Validation (MANDATORY)
 Load and validate the specified PRD file with comprehensive error handling:
 
 1. **Parse PRD filename and validate**:
@@ -38,7 +48,7 @@ Load and validate the specified PRD file with comprehensive error handling:
      - Restart engineering analysis
      - Append additional engineering review
 
-### Step 2: Load Configuration and Engineering Context
+### Step 2: Load Configuration and Engineering Context (MANDATORY)
 Configure the engineering analysis process:
 
 1. **Load config** from `.claude-pm/config.json`
@@ -58,7 +68,7 @@ Configure the engineering analysis process:
    - Offer to resume existing session if found
    - Archive old sessions if user chooses to restart
 
-### Step 3: Codebase Analysis for Technical Context
+### Step 3: Codebase Analysis for Technical Context (MANDATORY)
 Perform engineering-focused codebase analysis:
 
 1. **Technical architecture analysis**:
@@ -85,7 +95,7 @@ Perform engineering-focused codebase analysis:
    - Performance requirements based on current system
    - Security requirements from existing implementations
 
-### Step 4: Engineering Question Template Selection
+### Step 4: Engineering Question Template Selection (MANDATORY)
 Prepare engineering-focused questioning approach:
 
 1. **Determine engineering question categories** based on PRD analysis:
@@ -107,7 +117,7 @@ Prepare engineering-focused questioning approach:
    - Apply engineering priority threshold (focus on architectural decisions)
    - Order questions by implementation impact and logical dependency
 
-### Step 5: AI-Guided Technical Questioning
+### Step 5: AI-Guided Technical Questioning (MANDATORY)
 Conduct senior engineering review through interactive questioning:
 
 1. **Initialize engineering session** and present context:
@@ -215,7 +225,7 @@ Conduct senior engineering review through interactive questioning:
    - Maintain questionHistory for full audit trail
    - Persist session state for resumability
 
-### Step 6: Generate Engineering Notes and Update PRD
+### Step 6: Generate Engineering Notes and Update PRD (MANDATORY)
 Synthesize engineering analysis into structured notes:
 
 1. **Generate structured Engineering Notes**:
@@ -244,9 +254,13 @@ Synthesize engineering analysis into structured notes:
    [Required dependencies, setup steps, environment requirements]
    ```
 
-2. **Append Engineering Notes to original PRD**:
-   - Read original PRD content
-   - Append Engineering Notes section without modifying existing content
+2. **Append Engineering Notes to original PRD (CRITICAL - VERIFY)**:
+   - Read original PRD content successfully
+   - Generate complete Engineering Notes section
+   - Append to PRD without modifying existing content
+   - MUST write updated PRD back to file
+   - MUST verify file was updated successfully
+   - If write/verification fails: STOP and report error
    - Preserve original formatting and structure
    - Add timestamp and session reference
 
@@ -256,7 +270,7 @@ Synthesize engineering analysis into structured notes:
    - Include error handling instructions
    - Set up context for Claude Code handoff
 
-### Step 7: Engineering Review Complete and Handoff
+### Step 7: Engineering Review Complete and Handoff (MANDATORY)
 Present review results and provide implementation options:
 
 1. **Generate engineering review summary**:
