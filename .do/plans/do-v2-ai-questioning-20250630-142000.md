@@ -1,4 +1,4 @@
-# Do: AI-Powered Questioning - PRD
+# PRD: Do = AI-Powered Questioning
 
 **Created:** 2025-06-30  
 **Complexity Estimate:** 3/5  

@@ -112,8 +112,36 @@ This directory contains various Product Requirements Document (PRD) templates op
 
 3. **Override template** for specific use:
    ```bash
-   /do:plan "Add quick fix" --template one-pager
+   /do:plan "Add quick fix" --template=one-pager
+   # Note: Use --template=<name> syntax (with equals sign)
    ```
+
+### New in v2.5.0: Template Flag Override
+
+You can now override the default template using the `--template` flag:
+
+```bash
+# Override for this specific PRD
+/do:plan "Add user authentication" --template=lean
+# Shows: 🚀 Analyzing: "Add user authentication" (using lean template)
+
+# Use different templates for different scenarios
+/do:plan "Add complex API" --template=technical
+/do:plan "Quick UI fix" --template=one-pager
+/do:plan "Sprint feature" --template=agile
+```
+
+**Available template names:**
+- `standard` - Default comprehensive template
+- `agile` - Sprint-ready with story points
+- `lean` - Minimal viable PRD
+- `technical` - Architecture and implementation focus
+- `design-first` - UI/UX driven development
+- `one-pager` - Executive summary format
+- `bdd` - Behavior-driven development specs
+
+**Error handling:**
+If you specify an invalid template, Do:PE AI will show available options and let you choose.
 
 ### Manual Usage
 

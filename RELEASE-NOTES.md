@@ -1,5 +1,62 @@
 # Do:PE AI Release Notes
 
+## v2.5.0 - Template Flag Enhancement
+**Release Date**: July 6, 2025  
+**Focus**: Command-line Template Override for `/do:plan`
+
+### 🎛️ New Template Flag Feature
+Introducing command-line template selection for maximum flexibility in PRD generation!
+
+#### Enhanced `/do:plan` Command
+- **Template Override**: Use `--template=<name>` to override the default template
+- **Syntax**: `/do:plan "requirement" --template=lean`
+- **Error Handling**: Shows available templates when invalid template specified
+- **Backward Compatibility**: Maintains existing behavior when no flag provided
+- **Visual Feedback**: Shows template selection: "🚀 Analyzing: 'add auth' (using lean template)"
+
+#### Available Templates
+- **standard** - Comprehensive PRD with all sections (default)
+- **agile** - Sprint-ready with story points and acceptance criteria
+- **lean** - Minimal viable PRD for rapid development
+- **technical** - Implementation-focused with architecture details
+- **design-first** - UI/UX emphasis with design specifications
+- **one-pager** - Concise single-page format
+- **bdd** - Behavior-driven development with Given/When/Then
+
+#### Template Selection Logic
+1. **Command-line flag** takes highest precedence
+2. **Config.json `prdTemplate`** used when no flag provided
+3. **Error handling** shows available options for invalid templates
+4. **Template validation** ensures selected template exists
+
+### 🔧 Technical Implementation
+- **Argument Parsing**: Robust parsing of quoted requirements and flags
+- **Template Validation**: Early validation with user-friendly error messages
+- **Session Metadata**: Tracks template selection source (flag vs config)
+- **PRD Generation**: Uses selected template throughout entire process
+- **Questioning Strategy**: Adapts questions based on template requirements
+
+### 📋 Usage Examples
+```bash
+# Use specific template
+/do:plan "Add user authentication" --template=lean
+
+# Default behavior (uses config.json prdTemplate)
+/do:plan "Add user authentication"
+
+# Error handling
+/do:plan "Add feature" --template=invalid
+# Shows available templates and lets user choose
+```
+
+### 🏗️ Integration with Existing Workflow
+- **Full Lifecycle Support**: Template selection affects entire plan → design → review → build flow
+- **Engineering Review**: `/do:review` understands template context
+- **Implementation**: `/do:build` uses template-specific PRD structure
+- **Session Management**: Template selection preserved in session resumption
+
+---
+
 ## v2.4.0 - Universal Development Lifecycle
 **Release Date**: July 5, 2025  
 **Focus**: Complete System Rename & Universal Product Development Commands

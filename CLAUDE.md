@@ -83,6 +83,7 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 ```bash
 # Complete development lifecycle
 /user:do:plan "Add user authentication to my web app"    # Product requirements
+/user:do:plan "Add user auth" --template=lean            # With template override
 /user:do:design <prd-filename>                          # UI/UX design analysis
 /user:do:review <prd-filename>                          # Engineering review
 /user:do:build <prd-filename>                           # Implementation

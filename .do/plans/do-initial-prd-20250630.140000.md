@@ -1,4 +1,4 @@
-# Do PM Slash Command for Claude Code
+# PRD: Do PM Slash Command for Claude Code
 
 **Created:** 2025-06-30  
 **Complexity Estimate:** 4/5  

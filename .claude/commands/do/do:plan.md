@@ -1,16 +1,49 @@
 # Do Plan - AI Product Manager
 
-Act as an AI Product Manager to transform vague requirements into detailed, actionable PRDs through intelligent, adaptive questioning.
+Act as a Senior AI Product Manager to transform vague requirements into detailed, actionable PRDs through intelligent, adaptive questioning.
 
 ## Task: AI-Powered Requirements Gathering
 
 Given the user requirement: "$ARGUMENTS"
 
+### 🎛️ Argument Parsing and Template Override (Step 0)
+**Parse command arguments for template flag override:**
+
+1. **Extract requirement and template flag**:
+   - Parse `$ARGUMENTS` to separate quoted requirement from flags
+   - Look for `--template=<template_name>` after closing quote
+   - If no quotes found, treat entire string as requirement (backward compatibility)
+   
+2. **Template validation and override**:
+   ```
+   If template flag found:
+   • Validate template exists in .do/templates/ directory
+   • If invalid template: show error with available options, let user choose
+   • If valid template: override config.prdTemplate for this session
+   • Show feedback: "🚀 Analyzing: "[requirement]" (using [template] template)"
+   
+   If no template flag:
+   • Use config.prdTemplate default (backward compatibility)
+   • No additional feedback shown
+   ```
+
+3. **Argument parsing implementation**:
+   - Extract quoted requirement: match pattern `"([^"]+)"`  
+   - Extract template flag: match pattern `--template=([a-zA-Z0-9-]+)`
+   - Handle edge cases: missing quotes, malformed flags, multiple flags
+   - Graceful degradation with helpful error messages
+
+4. **Template override logic**:
+   - Load config.json to get availableTemplates list
+   - Validate specified template exists in list
+   - Override prdTemplate value for this session only
+   - Track template selection in session metadata
+
 **BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
 
 Use the TodoWrite tool to create todos for each mandatory step:
-1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
-2. "Load configuration and check for skip signals"  
+1. "🚨 CRITICAL: Parse arguments and create session file (NEVER SKIP)"
+2. "Load configuration, apply template override, and check for skip signals"  
 3. "Analyze requirement and complexity"
 4. "Perform comprehensive codebase analysis"
 5. "Load and filter question templates"
@@ -22,35 +55,70 @@ Mark each step as "in_progress" when starting and "completed" when finished.
 
 **🚨 IMPORTANT: ALL 7 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
 
-### 🚨 CRITICAL: Session Creation (MANDATORY - DO NOT SKIP) 🚨
+### 🚨 CRITICAL: Argument Parsing and Session Creation (MANDATORY - DO NOT SKIP) 🚨
 **⚠️ STOP! READ THIS FIRST! ⚠️**
 
-**SESSION CREATION IS ABSOLUTELY MANDATORY. NO EXCEPTIONS. EVER.**
+**ARGUMENT PARSING AND SESSION CREATION ARE ABSOLUTELY MANDATORY. NO EXCEPTIONS. EVER.**
 
-**YOU MUST CREATE A SESSION FILE BEFORE DOING ANYTHING ELSE.**
+**YOU MUST PARSE ARGUMENTS AND CREATE A SESSION FILE BEFORE DOING ANYTHING ELSE.**
 
-1. **Create session directory if needed**: Ensure `.do/sessions/` exists
-2. **Generate session ID**: `plan-[requirement-slug]-[YYYYMMDD-HHMMSS]`
-3. **Create initial session file** immediately with status "initializing"
-4. **If session creation fails**: STOP and report error to user
-5. **VERIFY**: Session file exists before proceeding to Step 1
+1. **Parse command arguments first**:
+   - Extract requirement from `$ARGUMENTS` (look for quoted text)
+   - Extract template flag if present: `--template=<template_name>`
+   - Handle backward compatibility for non-quoted requirements
+   - Prepare template override for Step 1
 
-**IF YOU SKIP SESSION CREATION, YOU ARE VIOLATING A CRITICAL REQUIREMENT.**
+2. **Create session directory if needed**: Ensure `.do/sessions/` exists
+3. **Generate session ID**: `plan-[requirement-slug]-[YYYYMMDD-HHMMSS]`
+4. **Create initial session file** immediately with status "initializing" and template metadata
+5. **If parsing or session creation fails**: STOP and report error to user
+6. **VERIFY**: Session file exists and arguments parsed before proceeding to Step 1
 
-### Step 1: Load Configuration and Check for Skip (MANDATORY)
-First, check the configuration and handle skip requests:
+**IF YOU SKIP ARGUMENT PARSING OR SESSION CREATION, YOU ARE VIOLATING A CRITICAL REQUIREMENT.**
+
+### Step 1: Load Configuration and Apply Template Override (MANDATORY)
+Load configuration and apply template override from parsed arguments:
 
 1. **Load config** from `.do/config.json`
    - If config missing, use sensible defaults
    - Check if `allowSkipQuestioning` is enabled
+   - Note original `prdTemplate` value for reference
 
-2. **Check for skip signals** in the requirement:
+2. **Apply template override** (if template flag was found):
+   - Validate template exists in `availableTemplates` list from config
+   - If invalid template: show error with available options, let user choose or proceed with default
+   - If valid template: override `prdTemplate` for this session
+   - Show feedback only when overriding: "🚀 Analyzing: '[requirement]' (using [template] template)"
+   - Update session file with template selection
+
+3. **Template validation error handling**:
+   ```
+   ❌ Template '[template]' not found.
+   
+   Available templates:
+   • standard (default)
+   • agile
+   • lean
+   • technical
+   • design-first
+   • one-pager
+   • bdd
+   
+   Choose an option:
+   1. Select a valid template from the list above
+   2. Proceed with default template (standard)
+   3. Restart with correct template flag
+   
+   What would you like to do?
+   ```
+
+4. **Check for skip signals** in the requirement:
    - Direct skip: "skip questions", "no questions", "just generate", "use defaults", and other similar signals
    - Contextual skip: "make assumptions", "best practices", "don't ask me", and other similar signals
    - If skip detected and allowed, jump to Step 6 (Generate with Assumptions)
    - If skip detected but not allowed, inform user and proceed normally
 
-3. **Handle skip request**:
+5. **Handle skip request**:
    ```
    I understand you'd like me to skip questioning and make assumptions.
    I'll analyze your codebase thoroughly and use industry best practices
@@ -154,10 +222,13 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    ```
 
 2. **Create session file** with unique ID: `[requirement-slug]-[YYYYMMDD-HHMMSS].json`
+   - If session file already exists, update the status to 'in-progress'.
    ```json
    {
      "sessionId": "[requirement-slug]-[YYYYMMDD-HHMMSS]",
      "requirement": "[original user requirement]",
+     "templateOverride": "[template name if flag was used]",
+     "templateSource": "flag|config",
      "status": "in-progress",
      "createdAt": "[ISO timestamp]",
      "lastUpdated": "[ISO timestamp]",
@@ -310,7 +381,7 @@ Create comprehensive PRD using all gathered information:
    - Pre-answered template questions
    - User-provided answers
 
-2. **Generate PRD sections**:
+2. **Generate PRD sections**: (should be based on the selected template - either from --template flag override or config.json `prdTemplate`. Sections below are for the `standard.md` template)
    - **Context**: Feature background with codebase integration notes
    - **User Stories**: Based on requirement and user responses
    - **Core Requirements**: Detailed functional requirements by category
@@ -352,8 +423,8 @@ Create comprehensive PRD using all gathered information:
 ### Step 7: Save and Present Results (MANDATORY - CRITICAL - VERIFY ALL STEPS)
 Finalize the PRD and present to user:
 
-1. **Generate PRD content** based on all collected information
-2. **Create PRD file** with timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
+1. **Generate PRD content** based on all collected information and the selected template (either from --template flag override or config.json `prdTemplate`)
+2. **Create PRD file** with timestamped filename: `do-[feature-name]-[YYYYMMDD-HHMMSS].md`
    - MUST create file in `.do/plans/` directory
    - MUST write complete PRD content to file
    - MUST verify file was created successfully
@@ -392,7 +463,7 @@ The process adapts based on `.do/config.json` settings:
 - **includeRationale**: Show reasoning for each question
 - **allowSkipQuestioning**: Enable skip option
 - **adaptiveDepth**: Adjust questioning based on response complexity
-- **prdTemplate**: Find the output template in the `.do/templates` directory. Adjust questioning to answer the necessary information to fill out the template. Output the file in the format specified by the template file.
+- **Template Selection**: Use the selected template (from --template flag or config.json `prdTemplate`) to find the output template in the `.do/templates` directory. Adjust questioning to answer the necessary information to fill out the template. Output the file in the format specified by the template file.
 
 ## Error Handling and Fallbacks
 
@@ -486,8 +557,8 @@ The process adapts based on `.do/config.json` settings:
 **BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
 
 Use the TodoWrite tool to create todos for each mandatory step:
-1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
-2. "Load configuration and check for skip signals"  
+1. "🚨 CRITICAL: Parse arguments and create session file (NEVER SKIP)"
+2. "Load configuration and apply template override"  
 3. "Analyze requirement and complexity"
 4. "Perform comprehensive codebase analysis"
 5. "Load and filter question templates"

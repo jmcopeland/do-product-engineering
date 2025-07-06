@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Do:PE AI v2.4 Installation Script
+# Do:PE AI v2.5 Installation Script
 # Installs AI-powered PM commands to user's home directory
 
 set -e
@@ -9,9 +9,9 @@ set -e
 AUTO_DETECTION=false
 if [[ "$1" == "--with-auto-detection" ]]; then
     AUTO_DETECTION=true
-    echo "🤖 Installing Do:PE AI v2.4 with AI-powered questioning and auto-detection..."
+    echo "🤖 Installing Do:PE AI v2.5 with AI-powered questioning and auto-detection..."
 else
-    echo "🤖 Installing Do:PE AI v2.4 with AI-powered questioning..."
+    echo "🤖 Installing Do:PE AI v2.5 with AI-powered questioning..."
 fi
 
 # Create directories
@@ -83,21 +83,22 @@ fi
 
 # Verify installation
 if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:list.md ] && [ -f ~/.do/config.json ]; then
-    echo "✅ Do:PE AI v2.4 installation successful!"
+    echo "✅ Do:PE AI v2.5 installation successful!"
     echo ""
     echo "🧠 AI-Powered Commands Available:"
-    echo "  /user:do:plan \"requirement\"    - AI-powered PRD creation"
-    echo "  /user:do:review <prd-file>     - Senior engineering review"
-    echo "  /user:do:build <prd-file>      - Feature implementation"
-    echo "  /user:do:list                 - Show plans and sessions"
-    echo "  /user:do:continue <session>   - Resume interrupted sessions"
-    echo "  /user:do:configure            - Configure AI questioning"
-    echo "  /user:do:status               - System health dashboard"
-    echo "  /user:do:install              - Install to current project"
+    echo "  /user:do:plan \"requirement\" [--template=<name>]  - AI-powered PRD creation"
+    echo "  /user:do:review <prd-file>                       - Senior engineering review"
+    echo "  /user:do:build <prd-file>                        - Feature implementation"
+    echo "  /user:do:list                                    - Show plans and sessions"
+    echo "  /user:do:continue <session>                      - Resume interrupted sessions"
+    echo "  /user:do:configure                               - Configure AI questioning"
+    echo "  /user:do:status                                  - System health dashboard"
+    echo "  /user:do:install                                 - Install to current project"
     echo ""
     echo "⚡ Quick Start Examples:"
-    echo "  /user:do:plan \"Add user authentication\"       # AI questioning"
-    echo "  /user:do:plan \"Add CRUD ops, skip questions\"    # Skip mode"
+    echo "  /user:do:plan \"Add user authentication\"         # AI questioning"
+    echo "  /user:do:plan \"Add CRUD ops, skip questions\"      # Skip mode"
+    echo "  /user:do:plan \"Add feature\" --template=lean       # Template override"
     echo ""
     echo "👥 For team setup: /user:do:install in your project directory"
     if [ "$AUTO_DETECTION" = true ]; then

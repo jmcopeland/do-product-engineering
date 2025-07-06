@@ -1,4 +1,4 @@
-# Do Update Command - PRD
+# PRD: Do Update Command
 
 **Created:** July 1, 2025 14:30:00  
 **Complexity Estimate:** 3/5  

@@ -14,6 +14,19 @@ Real-world examples of using Do:PE AI with AI-powered questioning and complete d
 # - "Do you need role-based permissions or just basic auth?"
 ```
 
+### Using Template Flags
+```bash
+# Use lean template for rapid development
+/user:do:plan "Add user authentication" --template=lean
+# 🚀 Analyzing: "Add user authentication" (using lean template)
+
+# Use technical template for implementation details
+/user:do:plan "Add API endpoints" --template=technical
+
+# Use agile template for sprint planning
+/user:do:plan "Add shopping cart" --template=agile
+```
+
 ### CRUD Operations
 ```bash
 /user:do:plan "Add blog post management"
@@ -38,9 +51,9 @@ Real-world examples of using Do:PE AI with AI-powered questioning and complete d
 
 ### End-to-End PRD to Code
 ```bash
-# Step 1: Create PRD with Product Manager AI
-/user:do:plan "Add user authentication to my React app"
-# → Generates: user-auth-20250702-140000.md
+# Step 1: Create PRD with Product Manager AI (with template override)
+/user:do:plan "Add user authentication to my React app" --template=technical
+# → Generates: user-auth-20250702-140000.md (using technical template)
 
 # Step 2: Engineering review
 /user:do:review user-auth-20250702-140000.md
@@ -166,12 +179,28 @@ EOF
 ### High-Velocity Team (Fewer Questions)
 ```json
 {
+  "prdTemplate": "lean",
   "aiQuestioningOptions": {
     "priorityThreshold": "high",
     "allowSkipQuestioning": true,
     "adaptiveDepth": false
   }
 }
+```
+
+### Template Override Examples
+```bash
+# Override default template for specific features
+/user:do:plan "Add complex feature" --template=technical
+
+# Use one-pager for simple features
+/user:do:plan "Add button component" --template=one-pager
+
+# BDD approach for testing-focused development
+/user:do:plan "Add validation system" --template=bdd
+
+# Design-first approach for UI features
+/user:do:plan "Add dashboard layout" --template=design-first
 ```
 
 ### Detailed Documentation Team (More Questions)

@@ -1,8 +1,8 @@
 # Do:PE - AI Product Engineering Lifecycle for Claude Code
 
-🤖 **v2.4.0 Universal Development Lifecycle** - `/do:plan` → `/do:design` → `/do:review` → `/do:build` workflow supporting the complete product development lifecycle.
+🤖 **v2.5.0 Template Flag Enhancement** - `/do:plan` → `/do:design` → `/do:review` → `/do:build` workflow with command-line template override support.
 
-[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -80,7 +80,7 @@ git commit -m "Add Do:PE AI for team use"
 - `/user:do:update` - Update user-scope commands to latest version
 
 ### Project Commands (After Installation)
-- `/do:plan "requirement"` - AI-powered PRD creation for project
+- `/do:plan "requirement" [--template=<name>]` - AI-powered PRD creation for project
 - `/do:review <prd-file>` - Senior engineer AI review of PRD
 - `/do:build <prd-file>` - Feature implementation from enhanced PRD
 - `/do:continue <plan>` - Resume plan or session
