@@ -1,8 +1,8 @@
-# Claude PM v2: AI-Powered Questioning - PRD
+# Do: AI-Powered Questioning - PRD
 
 **Created:** 2025-06-30  
 **Complexity Estimate:** 3/5  
-**Status:** ✅ Implemented - v2 AI-powered questioning system deployed
+**Status:** ✅ Completed
 
 ## Context
 

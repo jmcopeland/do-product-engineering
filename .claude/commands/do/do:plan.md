@@ -6,15 +6,36 @@ Act as an AI Product Manager to transform vague requirements into detailed, acti
 
 Given the user requirement: "$ARGUMENTS"
 
+**BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
+
+Use the TodoWrite tool to create todos for each mandatory step:
+1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
+2. "Load configuration and check for skip signals"  
+3. "Analyze requirement and complexity"
+4. "Perform comprehensive codebase analysis"
+5. "Load and filter question templates"
+6. "Conduct AI-guided interactive questioning"
+7. "Generate PRD with collected information"
+8. "Save results and verify session exists"
+
+Mark each step as "in_progress" when starting and "completed" when finished.
+
 **🚨 IMPORTANT: ALL 7 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
 
-### CRITICAL: Session Creation (MANDATORY - DO NOT SKIP)
-**IMPORTANT**: A session MUST be created for EVERY use of do:plan. This is NOT optional.
+### 🚨 CRITICAL: Session Creation (MANDATORY - DO NOT SKIP) 🚨
+**⚠️ STOP! READ THIS FIRST! ⚠️**
+
+**SESSION CREATION IS ABSOLUTELY MANDATORY. NO EXCEPTIONS. EVER.**
+
+**YOU MUST CREATE A SESSION FILE BEFORE DOING ANYTHING ELSE.**
 
 1. **Create session directory if needed**: Ensure `.do/sessions/` exists
 2. **Generate session ID**: `plan-[requirement-slug]-[YYYYMMDD-HHMMSS]`
 3. **Create initial session file** immediately with status "initializing"
 4. **If session creation fails**: STOP and report error to user
+5. **VERIFY**: Session file exists before proceeding to Step 1
+
+**IF YOU SKIP SESSION CREATION, YOU ARE VIOLATING A CRITICAL REQUIREMENT.**
 
 ### Step 1: Load Configuration and Check for Skip (MANDATORY)
 First, check the configuration and handle skip requests:
@@ -101,7 +122,7 @@ Intelligently select and filter questions:
    - Apply `priorityThreshold` from config (low/medium/high)
    - Remove questions not relevant to this specific requirement
    - Prioritize questions that can't be answered from codebase
-   - Use keyword matching to filter relevant questions only
+   - Use keyword matching and intent analysis to filter relevant questions only
    - For "user profile" requirement: focus on auth + CRUD questions, skip API integration
 
 4. **Create question queue**:
@@ -371,6 +392,7 @@ The process adapts based on `.do/config.json` settings:
 - **includeRationale**: Show reasoning for each question
 - **allowSkipQuestioning**: Enable skip option
 - **adaptiveDepth**: Adjust questioning based on response complexity
+- **prdTemplate**: Find the output template in the `.do/templates` directory. Adjust questioning to answer the necessary information to fill out the template. Output the file in the format specified by the template file.
 
 ## Error Handling and Fallbacks
 
@@ -460,5 +482,19 @@ The process adapts based on `.do/config.json` settings:
 - **Fallback modes**: Template mode if AI features fail
 
 ---
+
+**BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
+
+Use the TodoWrite tool to create todos for each mandatory step:
+1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
+2. "Load configuration and check for skip signals"  
+3. "Analyze requirement and complexity"
+4. "Perform comprehensive codebase analysis"
+5. "Load and filter question templates"
+6. "Conduct AI-guided interactive questioning"
+7. "Generate PRD with collected information"
+8. "Save results and verify session exists"
+
+Mark each step as "in_progress" when starting and "completed" when finished.
 
 **Begin the AI-powered requirements gathering process now with**: "$ARGUMENTS"

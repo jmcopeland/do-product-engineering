@@ -12,6 +12,7 @@
     "priorityThreshold": "medium"
   },
   "prdTemplate": "standard",
+  "availableTemplates": ["standard", "agile", "lean", "technical", "design-first", "one-pager", "bdd"],
   "complexityScale": 5,
   "includeImplementationNotes": true,
   "analyzeGitHistory": true,

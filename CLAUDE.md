@@ -138,6 +138,13 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 - Acceptance Criteria, Implementation Notes
 - Success Metrics, TODOs
 
+**🚨 CRITICAL: MANDATORY SESSION CREATION**:
+- **EVERY SINGLE USE** of `/do:plan`, `/do:design`, `/do:review`, `/do:validate` MUST create a session file
+- Session creation is **STEP 0** and is **NEVER OPTIONAL** 
+- Session must be created IMMEDIATELY at the start, before any questioning begins
+- If session creation fails, the entire command must STOP and report the error
+- Session files contain complete conversation audit trail for resumability and compliance
+
 **Session Persistence**: Enhanced session management with complete conversation tracking:
 - Auto-saves after every question/answer interaction with full audit trail
 - Complete question/answer history with timestamps, rationale, and classifications
@@ -216,3 +223,11 @@ Generated project structure:
   - Single source of truth prevents sync issues
   - Simpler installation and update processes
   - Direct git integration for team sharing
+
+## 🧠 Project Memory & Critical Requirements
+
+**CRITICAL MEMORY**: 
+- **ALWAYS provide manual override flags** for AI decisions (user control is paramount)
+- **SESSION CREATION IS NEVER OPTIONAL** - must be done for every `/do:plan`, `/do:design`, `/do:review`, `/do:validate` command
+- **Every command must verify session file exists** before proceeding with work
+- **Sessions contain complete audit trails** and are required for compliance, resumability, and support

@@ -6,15 +6,37 @@ Act as a Senior UI/UX/Product Designer to analyze PRDs and create comprehensive 
 
 Given the PRD filename: "$ARGUMENTS"
 
+**BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
+
+Use the TodoWrite tool to create todos for each mandatory step:
+1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
+2. "Load and validate PRD file"
+3. "Load configuration and design context"
+4. "Run guided configuration if needed"
+5. "Perform design system discovery"
+6. "Conduct design questioning flow"
+7. "Generate mockups and prototypes"
+8. "Create design specifications and enhance PRD"
+9. "Complete handoff and verify session exists"
+
+Mark each step as "in_progress" when starting and "completed" when finished.
+
 **🚨 IMPORTANT: ALL 8 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
 
-### CRITICAL: Session Creation (MANDATORY - DO NOT SKIP)
-**IMPORTANT**: A session MUST be created for EVERY use of do:design. This is NOT optional.
+### 🚨 CRITICAL: Session Creation (MANDATORY - DO NOT SKIP) 🚨
+**⚠️ STOP! READ THIS FIRST! ⚠️**
+
+**SESSION CREATION IS ABSOLUTELY MANDATORY. NO EXCEPTIONS. EVER.**
+
+**YOU MUST CREATE A SESSION FILE BEFORE DOING ANYTHING ELSE.**
 
 1. **Create session directory if needed**: Ensure `.do/sessions/` exists
 2. **Generate session ID**: `design-[prd-name]-[YYYYMMDD-HHMMSS]`
 3. **Create initial session file** immediately with status "initializing"
 4. **If session creation fails**: STOP and report error to user
+5. **VERIFY**: Session file exists before proceeding to Step 1
+
+**IF YOU SKIP SESSION CREATION, YOU ARE VIOLATING A CRITICAL REQUIREMENT.**
 
 ### Step 1: PRD Loading and Validation (MANDATORY)
 Load and validate the specified PRD file:
@@ -420,5 +442,20 @@ The design process adapts based on `.do/config.json` settings:
 - Browser compatibility: Note requirements
 
 ---
+
+**BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
+
+Use the TodoWrite tool to create todos for each mandatory step:
+1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
+2. "Load and validate PRD file"
+3. "Load configuration and design context"
+4. "Run guided configuration if needed"
+5. "Perform design system discovery"
+6. "Conduct design questioning flow"
+7. "Generate mockups and prototypes"
+8. "Create design specifications and enhance PRD"
+9. "Complete handoff and verify session exists"
+
+Mark each step as "in_progress" when starting and "completed" when finished.
 
 **Begin the design analysis process now with**: "$ARGUMENTS"
