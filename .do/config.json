@@ -1,6 +1,6 @@
 {
   "version": "2.6.0",
-  "updateRepository": "jmcopeland/ai-product-manager",
+  "updateRepository": "jmcopeland/do-product-engineering",
   "questioningDepth": "standard",
   "autoSave": true,
   "aiQuestioningOptions": {

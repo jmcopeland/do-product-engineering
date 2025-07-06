@@ -2,7 +2,7 @@
 
 🤖 **v2.6.0 Complete Validation Workflow** - Full development lifecycle: `/do:think` → `/do:validate` → `/do:plan` → `/do:design` → `/do:review` → `/do:build` with idea capture and lean validation methodology.
 
-[![Version](https://img.shields.io/badge/version-2.6.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Version](https://img.shields.io/badge/version-2.6.0-blue.svg)](https://github.com/jmcopeland/do-product-engineering)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -45,8 +45,8 @@ Do:PE AI adds intelligent product engineering capabilities to Claude Code via cu
 ### 🚀 Automatic Installation
 ```bash
 # Clone and install
-git clone https://github.com/jmcopeland/ai-product-manager.git
-cd ai-product-manager
+git clone https://github.com/jmcopeland/do-product-engineering.git
+cd do-product-engineering
 ./install.sh
 
 # Start using immediately - complete workflow

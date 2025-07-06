@@ -41,7 +41,7 @@ if [ ! -f ~/.do/config.json ]; then
     cat > ~/.do/config.json << EOF
 {
   "version": "$VERSION",
-  "updateRepository": "jmcopeland/ai-product-manager",
+  "updateRepository": "jmcopeland/do-product-engineering",
   "questioningDepth": "standard",
   "autoSave": true,
   "aiQuestioningOptions": {
@@ -114,7 +114,7 @@ if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:thin
         echo "💡 Tip: Use --with-auto-detection for automatic '/do:plan' suggestions"
     fi
     echo "💡 Workflow: think → validate → plan → design → review → build"
-    echo "📚 Documentation: https://github.com/jmcopeland/ai-product-manager/tree/main/docs"
+    echo "📚 Documentation: https://github.com/jmcopeland/do-product-engineering/tree/main/docs"
 else
     echo "❌ Installation failed. Please check file permissions and try again."
     exit 1

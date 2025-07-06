@@ -376,7 +376,7 @@ Updated `.do/config.json` schema:
 ```json
 {
   "version": "2.1.1",
-  "updateRepository": "jmcopeland/ai-product-manager",
+  "updateRepository": "jmcopeland/do-product-engineering",
   // ... existing configuration
 }
 ```
@@ -595,8 +595,8 @@ Generate PRDs instantly with codebase-informed assumptions:
 
 ### New Installation
 ```bash
-git clone https://github.com/jmcopeland/ai-product-manager.git
-cd ai-product-manager
+git clone https://github.com/jmcopeland/do-product-engineering.git
+cd do-product-engineering
 ./install.sh
 ```
 
@@ -637,7 +637,7 @@ v2 was built on the principle that AI should **augment human judgment**, not rep
 ## 📞 Support
 
 - **Documentation**: [docs/](docs/) directory
-- **Issues**: [GitHub Issues](https://github.com/jmcopeland/ai-product-manager/issues)
+- **Issues**: [GitHub Issues](https://github.com/jmcopeland/do-product-engineering/issues)
 - **Status Check**: `/do:status` for system health
 - **Configuration Help**: `/do:configure` for interactive setup
 
