@@ -11,7 +11,7 @@ Parse arguments from the command to determine update mode:
 
 ### Step 1: Handle Restore Mode
 If command argument is "--restore":
-1. **List backups** - Check `.claude-pm/backups/` directory for available backups
+1. **List backups** - Check `.do/backups/` directory for available backups
 2. **Show options** - Display 5 most recent backups with timestamps
 3. **Get user selection** - Ask which backup to restore
 4. **Restore files** - Copy selected backup files back to active command directory
@@ -20,14 +20,14 @@ If command argument is "--restore":
 
 ### Step 2: Detect Installation Scope
 Determine which command installation to update:
-1. **Check user scope** - Look for `~/.claude/commands/pm/pm:plan.md`
-2. **Check project scope** - Look for `.claude/commands/pm/pm:plan.md`
+1. **Check user scope** - Look for `~/.claude/commands/do/do:plan.md`
+2. **Check project scope** - Look for `.claude/commands/do/do:plan.md`
 3. **Handle both exist** - If both found, ask user which to update (1=both, 2=user, 3=project)
 4. **Handle none exist** - Show error and suggest running install script
 5. **Set target directory** - Store the chosen commands directory path
 
 ### Step 3: Version Management
-1. **Get current version** - Read 'version' from `.claude-pm/config.json`
+1. **Get current version** - Read 'version' from `.do/config.json`
 2. **Determine target version**:
    - If no argument: Fetch latest from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/main/VERSION` 
    - If version specified: Use the provided version
@@ -43,23 +43,23 @@ If update is needed:
 
 ### Step 5: Create Backup
 Before any changes:
-1. **Create backup directory** - Make `.claude-pm/backups/update-YYYYMMDD-HHMMSS/{currentVersion}/`
+1. **Create backup directory** - Make `.do/backups/update-YYYYMMDD-HHMMSS/{currentVersion}/`
 2. **Copy current files** - Backup all existing command files
 3. **Log backup location** - Store path for reference
 
 ### Step 6: Download New Files
 Download all command files atomically:
-1. **Create temp directory** - Make `.claude-pm/temp-update/`
+1. **Create temp directory** - Make `.do/temp-update/`
 2. **Download files** from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/v{VERSION}/.claude/`:
-   - `commands/pm/plan.md`
-   - `commands/pm/review.md`
-   - `commands/pm/build.md`
-   - `commands/pm/list.md`
-   - `commands/pm/continue.md`
-   - `commands/pm/configure.md`
-   - `commands/pm/status.md`
-   - `commands/pm/install.md`
-   - `commands/pm/update.md`
+   - `commands/do/plan.md`
+   - `commands/do/review.md`
+   - `commands/do/build.md`
+   - `commands/do/list.md`
+   - `commands/do/continue.md`
+   - `commands/do/configure.md`
+   - `commands/do/status.md`
+   - `commands/do/install.md`
+   - `commands/do/update.md`
    - `questions/auth.md`
    - `questions/crud.md`
    - `questions/ui.md`
@@ -95,7 +95,7 @@ Handle various failure scenarios:
 📝  Release notes:
 [Release information between versions]
 
-💾  Backup created: .claude-pm/backups/{updateDirectory}
+💾  Backup created: .do/backups/{updateDirectory}
 ⬇️  Downloaded {count} command files
 ✅  Update completed successfully!
 

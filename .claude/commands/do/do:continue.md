@@ -11,12 +11,12 @@ Target plan/session: "$ARGUMENTS"
 Check for both active sessions and existing plans:
 
 **Active Sessions Check:**
-1. Look for active sessions in `.claude-pm/sessions/`
+1. Look for active sessions in `.do/sessions/`
 2. Find sessions with `"status": "in-progress"`
 3. If no arguments provided and active session exists, offer to resume it
 
 **Existing Plans Check:**
-1. Look for completed plans in `.claude-pm/plans/`
+1. Look for completed plans in `.do/plans/`
 2. If specific filename provided, load that plan
 3. If no arguments and no active sessions, list available plans
 
@@ -24,7 +24,7 @@ Check for both active sessions and existing plans:
 
 If continuing an interrupted AI questioning session:
 
-1. **Load session state** from `.claude-pm/sessions/[session-id].json`:
+1. **Load session state** from `.do/sessions/[session-id].json`:
    - Original requirement and analysis
    - Codebase analysis results
    - **Complete questionHistory** with all questions and answers
@@ -121,9 +121,9 @@ If continuing work on a completed PRD:
 **Session cleanup and archival:**
 - Mark resumed sessions as "completed" when PRD is generated
 - Archive old session files automatically:
-  - Sessions > 7 days old → move to `.claude-pm/sessions/archive/`
+  - Sessions > 7 days old → move to `.do/sessions/archive/`
   - Completed sessions → move to archive after PRD generation
-  - Failed/corrupted sessions → move to `.claude-pm/sessions/failed/`
+  - Failed/corrupted sessions → move to `.do/sessions/failed/`
 - Clean up interrupted sessions that weren't resumed:
   - Sessions > 24 hours old with no recent activity
   - Warn user before cleanup, offer recovery option
@@ -132,7 +132,7 @@ If continuing work on a completed PRD:
 1. **Check session age and status** during continue operation
 2. **Move old files** to appropriate subdirectories:
    ```
-   .claude-pm/sessions/
+   .do/sessions/
    ├── active-session.json        # Current sessions
    ├── archive/                   # Completed/old sessions
    │   └── old-session.json

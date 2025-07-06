@@ -1,4 +1,4 @@
-# PM Review - Senior Engineering Review
+# Do Review - Senior Engineering Review
 
 Act as a Senior Software Engineer to review PRDs and ask technical clarifying questions to enhance them with engineering context.
 
@@ -9,9 +9,9 @@ Given the PRD filename: "$ARGUMENTS"
 **🚨 IMPORTANT: ALL 7 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
 
 ### CRITICAL: Session Creation (MANDATORY - DO NOT SKIP)
-**IMPORTANT**: A session MUST be created for EVERY use of pm:review. This is NOT optional.
+**IMPORTANT**: A session MUST be created for EVERY use of do:review. This is NOT optional.
 
-1. **Create session directory if needed**: Ensure `.claude-pm/sessions/` exists
+1. **Create session directory if needed**: Ensure `.do/sessions/` exists
 2. **Generate session ID**: `review-[prd-name]-[YYYYMMDD-HHMMSS]`
 3. **Create initial session file** immediately with status "initializing"
 4. **If session creation fails**: STOP and report error to user
@@ -22,18 +22,18 @@ Load and validate the specified PRD file with comprehensive error handling:
 1. **Parse PRD filename and validate**:
    - Handle both full paths and just filenames
    - Add `.md` extension if missing
-   - Check if file exists in `.claude-pm/plans/` directory
+   - Check if file exists in `.do/plans/` directory
 
 2. **Handle missing or invalid PRD files**:
    ```
    ❌ PRD file not found: [filename]
    
    Let me show you available PRDs:
-   [Run /pm:list command to show available files]
+   [Run /do:list command to show available files]
    
    💡 Options:
    • Use an existing PRD from the list above
-   • Create a new PRD with: /pm:plan "[your requirement]"
+   • Create a new PRD with: /do:plan "[your requirement]"
    • Check the exact filename and try again
    ```
 
@@ -51,7 +51,7 @@ Load and validate the specified PRD file with comprehensive error handling:
 ### Step 2: Load Configuration and Engineering Context (MANDATORY)
 Configure the engineering analysis process:
 
-1. **Load config** from `.claude-pm/config.json`
+1. **Load config** from `.do/config.json`
    - Use engineering-focused defaults if config missing
    - Check engineering questioning preferences
    - Set technical depth level (brief/standard/thorough)
@@ -286,7 +286,7 @@ Present review results and provide implementation options:
    📄 **PRD Enhanced:** [PRD filename] now includes comprehensive Engineering Notes
    
    🚀 **Next Steps - Implementation Options:**
-   1. **Build Now** - Start implementation: `/pm:build [prd-filename]`
+   1. **Build Now** - Start implementation: `/do:build [prd-filename]`
    2. **Review Notes** - Examine Engineering Notes before building
    3. **Save Progress** - Save engineering analysis for later implementation
    
@@ -301,7 +301,7 @@ Present review results and provide implementation options:
    ```
    🔧 Ready to build! Use the following command to start implementation:
    
-   /pm:build [prd-filename]
+   /do:build [prd-filename]
    
    The enhanced PRD includes all engineering decisions and will guide the implementation process.
    ```
@@ -319,7 +319,7 @@ Present review results and provide implementation options:
    **Security & Testing:**
    [Highlight security measures and testing strategy]
    
-   Ready to build? Run: `/pm:build [prd-filename]`
+   Ready to build? Run: `/do:build [prd-filename]`
    ```
 
    **If "Save Progress" or "Save"**:
@@ -330,7 +330,7 @@ Present review results and provide implementation options:
    **File:** [prd-filename] (updated with technical context)
    **Session:** Archived for future reference
    
-   **To implement later:** `/pm:build [prd-filename]`
+   **To implement later:** `/do:build [prd-filename]`
    **To review notes:** Open [prd-filename] and see Engineering Notes section
    ```
 
@@ -338,9 +338,9 @@ Present review results and provide implementation options:
    - Mark engineering session as "completed"
    - Archive session with full engineering context preserved
    - Update PRD metadata with engineering review timestamp
-   - Provide clear next-step guidance for `/pm:build` command
+   - Provide clear next-step guidance for `/do:build` command
 
-4. **Integration notes for pm:build command**:
+4. **Integration notes for do:build command**:
    - Enhanced PRD contains all necessary technical context
    - Engineering decisions are documented for implementation reference
    - Session history available for troubleshooting if needed
@@ -354,7 +354,7 @@ Present review results and provide implementation options:
 - **Missing session directory**: Create directory structure as needed
 
 ### PRD File Errors
-- **File not found**: Show `/pm:list` and offer PRD creation
+- **File not found**: Show `/do:list` and offer PRD creation
 - **Corrupted PRD**: Attempt partial parsing, offer manual review
 - **No PRD content**: Guide user to create proper PRD first
 - **Access permission errors**: Provide clear file access guidance

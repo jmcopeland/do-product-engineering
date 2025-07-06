@@ -1,14 +1,14 @@
-# AI Product Manager for Claude Code
+# Do:PE - AI Product Engineering Lifecycle for Claude Code
 
-🤖 **v2.3.0 Development Lifecycle Commands** - Plan → Review → Build workflow with modular development lifecycle commands.
+🤖 **v2.4.0 Universal Development Lifecycle** - `/do:plan` → `/do:design` → `/do:review` → `/do:build` workflow supporting the complete product development lifecycle.
 
-[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
+[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](https://github.com/jmcopeland/ai-product-manager)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Overview
 
-AI Product Manager adds intelligent product management capabilities to Claude Code via custom slash commands. It analyzes your project context, asks intelligent questions, and generates comprehensive Product Requirements Documents (PRDs) that Claude Code can execute.
+Do:PE AI adds intelligent product engineering capabilities to Claude Code via custom slash commands. It analyzes your project context, asks intelligent questions, and generates comprehensive deliverables (PRDs, Design Specs, Engineering Notes) that Claude Code can execute.
 
 ## Features
 
@@ -24,7 +24,7 @@ AI Product Manager adds intelligent product management capabilities to Claude Co
 - **Plan Management** - Generate structured PRDs with implementation notes
 - **Engineering Review** - Senior engineer AI reviews PRDs and provides additional technical details
 - **Team Collaboration** - Share customized commands and question templates
-- **Auto-Detection** - Claude Code automatically suggests `/pm:plan` for feature requests
+- **Auto-Detection** - Claude Code automatically suggests `/do:plan` for feature requests
 
 ## Quick Start
 
@@ -36,65 +36,65 @@ cd ai-product-manager
 ./install.sh
 
 # Start using immediately
-/pm:plan "Add user authentication to my app"
+/do:plan "Add user authentication to my app"
 ```
 
 ### 🎯 Auto-Detection Installation (Recommended)
-Enable Claude Code to automatically suggest `/pm:plan` for feature requests:
+Enable Claude Code to automatically suggest `/do:plan` for feature requests:
 
 ```bash
 # Install with auto-detection in current project
 ./install.sh --with-auto-detection
 
 # Or add to existing project
-/user:pm:install --with-auto-detection
+/user:do:install --with-auto-detection
 ```
 
 **What this does:**
 - Adds CLAUDE.md guidance to detect feature requests
-- Claude Code will suggest `/pm:plan` when you ask for new features
-- Example: "Add user auth" → Claude suggests `/pm:plan "Add user authentication"`
+- Claude Code will suggest `/do:plan` when you ask for new features
+- Example: "Add user auth" → Claude suggests `/do:plan "Add user authentication"`
 - Improves workflow by encouraging proper planning before coding
 
 ### 👥 Team Installation
 ```bash
 # After individual install, add to your project with auto-detection:
-/user:pm:install --with-auto-detection
+/user:do:install --with-auto-detection
 
 # Commit for team sharing (includes CLAUDE.md auto-detection)
 git add .claude/commands/pm/* CLAUDE.md
-git commit -m "Add AI Product Manager for team use"
+git commit -m "Add Do:PE AI for team use"
 ```
 
 ## Available Commands
 
 ### User Commands (Available Everywhere)
-- `/user:pm:plan "requirement"` - Start new PRD creation
-- `/user:pm:review <prd-file>` - Senior engineer AI review of PRD
-- `/user:pm:build <prd-file>` - Feature implementation from enhanced PRD
-- `/user:pm:continue <plan>` - Resume plan development
-- `/user:pm:list` - Show existing plans
-- `/user:pm:configure` - Manage settings
-- `/user:pm:status` - Show current state
-- `/user:pm:install` - Copy commands to current project
-- `/user:pm:update` - Update user-scope commands to latest version
+- `/user:do:plan "requirement"` - Start new PRD creation
+- `/user:do:review <prd-file>` - Senior engineer AI review of PRD
+- `/user:do:build <prd-file>` - Feature implementation from enhanced PRD
+- `/user:do:continue <plan>` - Resume plan development
+- `/user:do:list` - Show existing plans
+- `/user:do:configure` - Manage settings
+- `/user:do:status` - Show current state
+- `/user:do:install` - Copy commands to current project
+- `/user:do:update` - Update user-scope commands to latest version
 
 ### Project Commands (After Installation)
-- `/pm:plan "requirement"` - AI-powered PRD creation for project
-- `/pm:review <prd-file>` - Senior engineer AI review of PRD
-- `/pm:build <prd-file>` - Feature implementation from enhanced PRD
-- `/pm:continue <plan>` - Resume plan or session
-- `/pm:list` - Show project plans and active sessions
-- `/pm:configure` - Project AI questioning settings
-- `/pm:status` - System health and cleanup recommendations
-- `/pm:update` - Update commands to latest version
+- `/do:plan "requirement"` - AI-powered PRD creation for project
+- `/do:review <prd-file>` - Senior engineer AI review of PRD
+- `/do:build <prd-file>` - Feature implementation from enhanced PRD
+- `/do:continue <plan>` - Resume plan or session
+- `/do:list` - Show project plans and active sessions
+- `/do:configure` - Project AI questioning settings
+- `/do:status` - System health and cleanup recommendations
+- `/do:update` - Update commands to latest version
 
 ## Example Usage
 
 ### 🎯 AI-Powered Flow
 ```bash
 # Start with any requirement
-/pm:plan "Add user profile management"
+/do:plan "Add user profile management"
 
 # v2 AI system will:
 # 1. 🔍 Analyze your codebase (React? Django? existing auth?)
@@ -106,14 +106,14 @@ git commit -m "Add AI Product Manager for team use"
 ### ⚡ Skip Mode for Speed
 ```bash
 # Generate with assumptions only
-/pm:plan "Add CRUD operations, skip questions"
-/pm:plan "Add user dashboard, make assumptions"
+/do:plan "Add CRUD operations, skip questions"
+/do:plan "Add user dashboard, make assumptions"
 ```
 
 ### 🔧 Implementation Flow
 ```bash
 # After creating a PRD, review it with engineering guidance
-/pm:review user-profile-20250701-140000.md
+/do:review user-profile-20250701-140000.md
 
 # Senior engineer AI will:
 # 1. 🔍 Review PRD and analyze technical context
@@ -121,18 +121,18 @@ git commit -m "Add AI Product Manager for team use"
 # 3. 📝 Add Engineering Notes to the PRD
 
 # Then implement the enhanced PRD
-/pm:build user-profile-20250701-140000.md
+/do:build user-profile-20250701-140000.md
 # 4. 🚀 Implement feature using enhanced PRD context
 ```
 
 ### 🔄 Session Management
 ```bash
 # Resume if interrupted
-/pm:continue user-auth-20250701-140000
+/do:continue user-auth-20250701-140000
 
 # Check status and cleanup
-/pm:status
-/pm:list
+/do:status
+/do:list
 ```
 
 ## Installation Instructions
@@ -149,11 +149,11 @@ cp .claude/commands/pm/*.md ~/.claude/commands/pm/
 ### Team Setup
 ```bash
 # In your project directory
-/user:pm:install
+/user:do:install
 
 # Commit team commands
 git add .claude/commands/pm/*
-git commit -m "Add AI Product Manager commands for team use"
+git commit -m "Add Do:PE AI commands for team use"
 ```
 
 ## Directory Structure
@@ -171,9 +171,9 @@ After installation:
     status.md             # System health dashboard
     install.md            # Project installation
 
-# In your projects (after /user:pm:install):
+# In your projects (after /user:do:install):
 .claude/commands/         # Team-shared commands
-.claude-pm/
+.do/
   config.json              # AI questioning configuration
   plans/                  # Generated PRDs
   sessions/               # Active AI questioning sessions
@@ -194,7 +194,7 @@ Each PRD includes:
 ## Configuration
 
 ### 🤖 AI Questioning Settings
-Configure in `.claude-pm/config.json`:
+Configure in `.do/config.json`:
 
 ```json
 {
@@ -209,7 +209,7 @@ Configure in `.claude-pm/config.json`:
 ```
 
 ### 📋 Custom Question Templates
-Create domain-specific templates in `.claude-pm/questions/`:
+Create domain-specific templates in `.do/questions/`:
 
 ```markdown
 # questions/ecommerce.md
@@ -225,10 +225,10 @@ Create domain-specific templates in `.claude-pm/questions/`:
 ### 🎛️ Quick Configuration
 ```bash
 # Interactive configuration
-/user:pm:configure
+/user:do:configure
 
 # Check current settings
-/user:pm:status
+/user:do:status
 ```
 
 ## Requirements
@@ -245,22 +245,22 @@ Create domain-specific templates in `.claude-pm/questions/`:
 ## Auto-Detection Feature
 
 ### 🎯 How Auto-Detection Works
-When enabled, Claude Code automatically detects feature requests and suggests using `/pm:plan`:
+When enabled, Claude Code automatically detects feature requests and suggests using `/do:plan`:
 
 **Detected Patterns:**
-- "Add [feature]" → Suggests `/pm:plan "Add [feature]"`
-- "Create [component]" → Suggests `/pm:plan "Create [component]"`
-- "Implement [system]" → Suggests `/pm:plan "Implement [system]"`
+- "Add [feature]" → Suggests `/do:plan "Add [feature]"`
+- "Create [component]" → Suggests `/do:plan "Create [component]"`
+- "Implement [system]" → Suggests `/do:plan "Implement [system]"`
 - "How do I add/build [feature]?" → Suggests using PM workflow
 
 **User Experience:**
 ```
 You: "Add user authentication to my app"
 Claude: I can help you implement user authentication! Since this is a new 
-        feature request, I recommend using the AI Product Manager to create 
+        feature request, I recommend using Do:PE AI to create 
         a detailed PRD first.
         
-        Try: /pm:plan "Add user authentication"
+        Try: /do:plan "Add user authentication"
         
         Would you like to start with the PM command, or would you prefer 
         I begin coding immediately?

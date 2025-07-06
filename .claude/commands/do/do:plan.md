@@ -1,4 +1,4 @@
-# PM Plan - AI Product Manager
+# Do Plan - AI Product Manager
 
 Act as an AI Product Manager to transform vague requirements into detailed, actionable PRDs through intelligent, adaptive questioning.
 
@@ -9,9 +9,9 @@ Given the user requirement: "$ARGUMENTS"
 **🚨 IMPORTANT: ALL 7 STEPS BELOW ARE MANDATORY - NONE CAN BE SKIPPED**
 
 ### CRITICAL: Session Creation (MANDATORY - DO NOT SKIP)
-**IMPORTANT**: A session MUST be created for EVERY use of pm:plan. This is NOT optional.
+**IMPORTANT**: A session MUST be created for EVERY use of do:plan. This is NOT optional.
 
-1. **Create session directory if needed**: Ensure `.claude-pm/sessions/` exists
+1. **Create session directory if needed**: Ensure `.do/sessions/` exists
 2. **Generate session ID**: `plan-[requirement-slug]-[YYYYMMDD-HHMMSS]`
 3. **Create initial session file** immediately with status "initializing"
 4. **If session creation fails**: STOP and report error to user
@@ -19,7 +19,7 @@ Given the user requirement: "$ARGUMENTS"
 ### Step 1: Load Configuration and Check for Skip (MANDATORY)
 First, check the configuration and handle skip requests:
 
-1. **Load config** from `.claude-pm/config.json`
+1. **Load config** from `.do/config.json`
    - If config missing, use sensible defaults
    - Check if `allowSkipQuestioning` is enabled
 
@@ -88,7 +88,7 @@ Perform deep codebase analysis to pre-answer questions:
 ### Step 4: Load and Filter Question Templates (MANDATORY)
 Intelligently select and filter questions:
 
-1. **Load relevant templates** from `.claude-pm/questions/`:
+1. **Load relevant templates** from `.do/questions/`:
    - Based on requirement type analysis from Step 2
    - May load multiple templates if requirement spans categories
 
@@ -277,7 +277,7 @@ Conduct intelligent, conversational questioning with dynamic flow management:
    - **Auto-save session after every user response** with complete question/answer data
    - **Maintain full conversation audit trail** in questionHistory array
    - **Include all metadata:** timestamps, classifications, rationale, categories
-   - **Handle interruptions gracefully** - session can be fully resumed via `/pm:continue`
+   - **Handle interruptions gracefully** - session can be fully resumed via `/do:continue`
    - **Archive session file** when PRD is successfully generated (move to archive, don't delete)
 
 ### Step 6: Generate PRD with Collected Information (MANDATORY)
@@ -333,7 +333,7 @@ Finalize the PRD and present to user:
 
 1. **Generate PRD content** based on all collected information
 2. **Create PRD file** with timestamped filename: `[feature-name]-[YYYYMMDD-HHMMSS].md`
-   - MUST create file in `.claude-pm/plans/` directory
+   - MUST create file in `.do/plans/` directory
    - MUST write complete PRD content to file
    - MUST verify file was created successfully
    - If file creation fails: STOP and report error
@@ -342,7 +342,7 @@ Finalize the PRD and present to user:
    - Check file size is reasonable (not empty)
    - If verification fails: STOP and report error
 4. **Update session** with PRD filename and completion status
-5. **Archive session** to `.claude-pm/sessions/archive/`
+5. **Archive session** to `.do/sessions/archive/`
    - DO NOT delete original session file
    - Copy to archive with completion timestamp
 6. **Only after verification**, present summary:
@@ -359,12 +359,12 @@ Finalize the PRD and present to user:
    • [Any TODOs or assumptions]
    
    🚀 **Ready for implementation?** 
-   Say "proceed" to begin development or "/pm:list" to see all plans.
+   Say "proceed" to begin development or "/do:list" to see all plans.
    ```
 
 ## Configuration-Driven Behavior
 
-The process adapts based on `.claude-pm/config.json` settings:
+The process adapts based on `.do/config.json` settings:
 
 - **useRelevanceFiltering**: Filter questions by AI-determined relevance
 - **priorityThreshold**: "low"/"medium"/"high" - minimum priority to ask
@@ -377,7 +377,7 @@ The process adapts based on `.claude-pm/config.json` settings:
 ### Configuration and Setup Errors
 - **Missing config file**: Create default config and continue
   ```
-  ⚠️  Config not found. Created default .claude-pm/config.json with AI-powered questioning.
+  ⚠️  Config not found. Created default .do/config.json with AI-powered questioning.
   ```
 - **Invalid config values**: Use sensible defaults, warn user
   ```
@@ -389,7 +389,7 @@ The process adapts based on `.claude-pm/config.json` settings:
   ```
 - **Permission errors**: Inform user about directory access needs
   ```
-  ❌ Cannot create .claude-pm directory. Check write permissions in this project.
+  ❌ Cannot create .do directory. Check write permissions in this project.
   ```
 
 ### Session Management Errors
@@ -405,11 +405,11 @@ The process adapts based on `.claude-pm/config.json` settings:
   ```
 - **Session directory issues**: Create missing directories, fix permissions
   ```
-  ✅ Created missing .claude-pm/sessions directory.
+  ✅ Created missing .do/sessions directory.
   ```
 - **Disk space issues**: Clean up old archives, warn user
   ```
-  ⚠️  Sessions directory large (50+ files). Run /pm:status for cleanup suggestions.
+  ⚠️  Sessions directory large (50+ files). Run /do:status for cleanup suggestions.
   ```
 
 ### Codebase Analysis Errors
@@ -430,7 +430,7 @@ The process adapts based on `.claude-pm/config.json` settings:
   ❌ CRITICAL ERROR: Failed to create PRD file
   
   Error: [specific error message]
-  Directory: .claude-pm/plans/
+  Directory: .do/plans/
   Attempted filename: [filename]
   
   This is a critical failure. Please check:

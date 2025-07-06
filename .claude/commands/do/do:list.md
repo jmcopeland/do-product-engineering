@@ -7,8 +7,8 @@ List all existing PRD plans in the current project with optimized caching for su
 ### Step 1: Simple Cache Validation
 Check if cache needs updating by comparing file modification times:
 
-1. **Check cache exists** - Look for `.claude-pm/.cache/list-cache.txt`
-2. **Find newest files & compare** - Use: `ls -t .claude-pm/plans/*.md .claude-pm/.cache/list-cache.txt 2>/dev/null | head -1`
+1. **Check cache exists** - Look for `.do/.cache/list-cache.txt`
+2. **Find newest files & compare** - Use: `ls -t .do/plans/*.md .do/.cache/list-cache.txt 2>/dev/null | head -1`
 3. **Cache validation logic** - If result ends with "list-cache.txt", cache is valid and use it; otherwise rebuild cache
 4. **No time calculations** - Just direct file timestamp comparisons via ls -t sorting
 
@@ -20,10 +20,10 @@ Based on cache validation, either:
 - Show native formatted output in Claude
 
 **If cache is invalid:**  
-- Count plan files in `.claude-pm/plans/`
-- Count active session files (only top-level `.claude-pm/sessions/*.json`, not archived)
+- Count plan files in `.do/plans/`
+- Count active session files (only top-level `.do/sessions/*.json`, not archived)
 - Build fresh formatted output
-- Save to cache file `.claude-pm/.cache/list-cache.txt`
+- Save to cache file `.do/.cache/list-cache.txt`
 - Display results natively with "🔄 Cache updated" message
 
 ### Step 3: Output Format (Always Native)

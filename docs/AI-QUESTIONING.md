@@ -1,6 +1,6 @@
 # AI-Powered Questioning Guide
 
-AI Product Manager v2 introduces intelligent, adaptive questioning that transforms vague requirements into detailed PRDs through conversation.
+Do:PE AI introduces intelligent, adaptive questioning that transforms vague requirements into detailed PRDs through conversation.
 
 ## Overview
 
@@ -13,7 +13,7 @@ The AI-powered questioning system combines:
 ## How It Works
 
 ### 1. Requirement Analysis
-When you run `/pm "Add user profile management"`, AI Product Manager:
+When you run `/do "Add user profile management"`, Do:PE AI:
 - Analyzes your requirement for complexity and type
 - Identifies relevant question categories (auth, CRUD, UI, API)
 - Scans your codebase for existing patterns and technologies
@@ -46,7 +46,7 @@ You control the conversation flow:
 
 ## Configuration Options
 
-Configure AI questioning in `.claude-pm/config.json`:
+Configure AI questioning in `.do/config.json`:
 
 ```json
 {
@@ -75,16 +75,16 @@ Configure AI questioning in `.claude-pm/config.json`:
 For quick PRD generation, you can skip questioning entirely:
 
 ```bash
-/pm "Add user authentication, skip questions"
+/do "Add user authentication, skip questions"
 ```
 
 or 
 
 ```bash
-/pm "Add CRUD operations, make assumptions"
+/do "Add CRUD operations, make assumptions"
 ```
 
-When questions are skipped, AI Product Manager:
+When questions are skipped, Do:PE AI:
 - Analyzes your codebase thoroughly
 - Uses industry best practices
 - Documents all assumptions made
@@ -92,7 +92,7 @@ When questions are skipped, AI Product Manager:
 
 ## Question Templates
 
-AI questioning uses template guides in `.claude-pm/questions/`:
+AI questioning uses template guides in `.do/questions/`:
 
 - **auth.md** - Authentication and user management (24 questions)
 - **crud.md** - Create, read, update, delete operations (34 questions)
@@ -108,7 +108,7 @@ These templates **guide** the AI but don't limit it. The AI can:
 
 ## Codebase Analysis
 
-Before asking questions, AI Product Manager scans your project for:
+Before asking questions, Do:PE AI scans your project for:
 
 ### Project Structure
 - Framework detection (React, Vue, Django, Laravel, etc.)
@@ -129,11 +129,11 @@ Before asking questions, AI Product Manager scans your project for:
 
 ## Session Management
 
-AI questioning sessions are automatically saved to `.claude-pm/sessions/`:
+AI questioning sessions are automatically saved to `.do/sessions/`:
 
 ### Session Persistence
 - Auto-saves after every question/answer
-- Can be resumed if interrupted: `/pm:continue [session-id]`
+- Can be resumed if interrupted: `/do:continue [session-id]`
 - Includes progress tracking and conversation history
 
 ### Session Format
@@ -167,8 +167,8 @@ The AI questioning system gracefully handles:
 ## Best Practices
 
 ### For Teams
-1. **Commit templates**: Add `.claude-pm/questions/` to git for shared question sets
-2. **Configure project settings**: Set `priorityThreshold` and other options in `.claude-pm/config.json`
+1. **Commit templates**: Add `.do/questions/` to git for shared question sets
+2. **Configure project settings**: Set `priorityThreshold` and other options in `.do/config.json`
 3. **Custom templates**: Create domain-specific questions for your industry
 
 ### For Individuals
@@ -194,26 +194,26 @@ The AI questioning system gracefully handles:
 **"Analysis takes too long"**
 - Large codebases are limited to 30-second analysis
 - Git history analysis limited to 10 recent commits
-- Use `/pm:configure` to disable git analysis if needed
+- Use `/do:configure` to disable git analysis if needed
 
 **"Session lost/corrupted"**
 - Sessions auto-backup on corruption
-- Use `/pm:status` to see session health
+- Use `/do:status` to see session health
 - Archive old sessions with cleanup recommendations
 
 ### Getting Help
 
-- `/pm:status` - Check system health and recommendations
-- `/pm:configure` - Adjust AI questioning settings
-- `/pm:list` - See all sessions and their status
+- `/do:status` - Check system health and recommendations
+- `/do:configure` - Adjust AI questioning settings
+- `/do:list` - See all sessions and their status
 
 ## Upgrading to v2.2.0+
 
 If upgrading from earlier versions:
 
-1. **Backup existing plans**: Copy `.claude-pm/plans/` 
+1. **Backup existing plans**: Copy `.do/plans/` 
 2. **Update configuration**: The system now uses AI-powered questioning by default
-3. **Customize templates**: Edit `.claude-pm/questions/` for your team's specific needs
+3. **Customize templates**: Edit `.do/questions/` for your team's specific needs
 4. **Configure questioning depth**: Use `questioningDepth` to control thoroughness
 
 The AI-powered mode uses question templates as guides while providing intelligent filtering and adaptive conversation flow.

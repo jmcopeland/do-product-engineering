@@ -7,10 +7,10 @@ Copy PM commands from user directory to current project for team sharing and cus
 ### 1. Pre-Installation Checks
 - Verify we're in a valid project directory (has .git or other project indicators)
 - Check if `.claude/commands/` directory exists, create if needed
-- Check if PM commands already exist in project `.claude/commands/pm/`, create directory if necessary
+- Check if PM commands already exist in project `.claude/commands/do/`, create directory if necessary
 
 ### 2. File Copy Operations
-Copy these files from `~/.claude/commands/pm/` to `./.claude/commands/pm/`:
+Copy these files from `~/.claude/commands/do/` to `./.claude/commands/do/`:
 - `pm:plan.md` → `pm:plan.md`
 - `pm:review.md` → `pm:review.md`
 - `pm:build.md` → `pm:build.md`
@@ -32,11 +32,11 @@ If PM commands already exist in the project:
 
 ### 4. Post-Installation Setup
 After copying files:
-- Create complete `.claude-pm/` directory structure:
-  - `.claude-pm/config.json` - PM configuration
-  - `.claude-pm/plans/` - Generated PRDs
-  - `.claude-pm/sessions/` - Active AI questioning sessions
-  - `.claude-pm/questions/` - AI question templates
+- Create complete `.do/` directory structure:
+  - `.do/config.json` - PM configuration
+  - `.do/plans/` - Generated PRDs
+  - `.do/sessions/` - Active AI questioning sessions
+  - `.do/questions/` - AI question templates
 - Copy question templates from user directory if they exist
 - Create default config with AI-powered questioning enabled
 - **Auto-Detection Setup**: If `--with-auto-detection` flag detected or user confirms:
@@ -50,24 +50,24 @@ Provide guidance for team usage:
 ## PM Commands Installed Successfully!
 
 ### Project Commands Available:
-- `/pm:plan "[requirement]"` - Create new PRD (project-scoped)
-- `/pm:review <prd-file>` - Senior engineering PRD review
-- `/pm:build <prd-file>` - Feature implementation from enhanced PRD
-- `/pm:list` - Show project plans
-- `/pm:continue <plan>` - Resume plan development
-- `/pm:configure` - Manage project settings
-- `/pm:status` - Show project PM status
+- `/do:plan "[requirement]"` - Create new PRD (project-scoped)
+- `/do:review <prd-file>` - Senior engineering PRD review
+- `/do:build <prd-file>` - Feature implementation from enhanced PRD
+- `/do:list` - Show project plans
+- `/do:continue <plan>` - Resume plan development
+- `/do:configure` - Manage project settings
+- `/do:status` - Show project PM status
 
 ### Team Setup:
-1. Commit `.claude/commands/pm/pm:*` files to share with team
-2. Add `.claude-pm/config.json` to git for shared settings
+1. Commit `.claude/commands/do/do:*` files to share with team
+2. Add `.do/config.json` to git for shared settings
 3. Commit `CLAUDE.md` for auto-detection (if enabled)
-4. Consider adding `.claude-pm/plans/` to .gitignore if PRDs are sensitive
+4. Consider adding `.do/plans/` to .gitignore if PRDs are sensitive
 
 ### Customization:
-- Edit `.claude/commands/pm/pm:plan.md` to customize AI questioning flow
-- Modify `.claude-pm/config.json` for project-specific settings
-- Add custom question templates in `.claude-pm/questions/`
+- Edit `.claude/commands/do/do:plan.md` to customize AI questioning flow
+- Modify `.do/config.json` for project-specific settings
+- Add custom question templates in `.do/questions/`
 - Configure AI questioning behavior (depth, filtering, skip options)
 
 ### Fallback:
@@ -91,19 +91,19 @@ Handle common issues:
 2. **Create Directory Structure**
    ```bash
    mkdir -p .claude/commands/pm
-   mkdir -p .claude-pm/{plans,sessions,questions}
+   mkdir -p .do/{plans,sessions,questions}
    ```
 
 3. **Copy Command Files**
    ```bash
-   cp ~/.claude/commands/pm/pm:*.md .claude/commands/pm/
+   cp ~/.claude/commands/do/do:*.md .claude/commands/do/
    ```
 
 4. **Copy Question Templates** (for AI-powered mode)
    ```bash
    # Copy question templates if they exist in user directory
-   if [ -d ~/.claude-pm/questions ]; then
-     cp ~/.claude-pm/questions/*.md .claude-pm/questions/
+   if [ -d ~/.do/questions ]; then
+     cp ~/.do/questions/*.md .do/questions/
    else
      echo "Note: Question templates not found in user directory"
      echo "AI questioning will use built-in templates" 

@@ -1,4 +1,4 @@
-# PM Build - Feature Implementation
+# Do Build - Feature Implementation
 
 Implement features based on enhanced PRDs with engineering context from the review phase.
 
@@ -12,29 +12,29 @@ Load the enhanced PRD file with engineering context:
 1. **Parse PRD filename and validate**:
    - Handle both full paths and just filenames
    - Add `.md` extension if missing
-   - Check if file exists in `.claude-pm/plans/` directory
+   - Check if file exists in `.do/plans/` directory
 
 2. **Handle missing or invalid PRD files**:
    ```
    ❌ PRD file not found: [filename]
    
    Let me show you available PRDs:
-   [Run /pm:list command to show available files]
+   [Run /do:list command to show available files]
    
    💡 Options:
    • Use an existing PRD from the list above
-   • Create a new PRD with: /pm:plan "[your requirement]"
-   • Review an existing PRD with: /pm:review [prd-filename]
+   • Create a new PRD with: /do:plan "[your requirement]"
+   • Review an existing PRD with: /do:review [prd-filename]
    ```
 
 3. **Validate PRD has engineering context**:
    - Check for "Engineering Notes" section
-   - If missing, suggest running /pm:review first:
+   - If missing, suggest running /do:review first:
      ```
      ⚠️ This PRD hasn't been reviewed by engineering yet.
      
      For best results, run the engineering review first:
-     /pm:review [prd-filename]
+     /do:review [prd-filename]
      
      This will add technical context and implementation guidance.
      
@@ -174,7 +174,7 @@ Provide implementation summary and suggest next steps:
    • Security: [Security validation]
    
    🚀 **Next Steps:**
-   1. **Test** - Run comprehensive testing with: /pm:test [feature-name]
+   1. **Test** - Run comprehensive testing with: /do:test [feature-name]
    2. **Review** - Code review and quality validation
    3. **Ship** - Prepare for deployment when ready
    
@@ -189,7 +189,7 @@ Provide implementation summary and suggest next steps:
 
 ## Configuration-Driven Behavior
 
-The implementation process adapts based on `.claude-pm/config.json` settings:
+The implementation process adapts based on `.do/config.json` settings:
 
 - **implementationDepth**: Controls thoroughness of implementation
 - **autoTesting**: Automatically run tests after implementation
@@ -200,7 +200,7 @@ The implementation process adapts based on `.claude-pm/config.json` settings:
 
 ### PRD Loading Errors
 - **File not found**: Show available PRDs and suggest alternatives
-- **Missing engineering context**: Suggest running /pm:review first
+- **Missing engineering context**: Suggest running /do:review first
 - **Invalid format**: Provide guidance on PRD structure requirements
 
 ### Implementation Errors

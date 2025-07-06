@@ -9,7 +9,7 @@ Check and display:
 - Current project PM configuration and mode
 - Number of existing plans and active sessions
 - Most recent plan/session activity
-- .claude-pm directory structure
+- .do directory structure
 
 ### 2. Session Status
 Show current AI questioning session information:
@@ -34,7 +34,7 @@ Display current settings:
 
 ### 5. System Health
 Check PM system health:
-- Directory structure integrity (.claude-pm/sessions/, /questions/, /plans/)
+- Directory structure integrity (.do/sessions/, /questions/, /plans/)
 - Template file availability and validity
 - Session file integrity
 - File permissions
@@ -88,8 +88,8 @@ Show actionable items for maintaining system health:
 
 ### Quick Actions
 - `/pm "[requirement]"` - Create new plan
-- `/pm:list` - View all plans
-- `/pm:configure` - Update settings
+- `/do:list` - View all plans
+- `/do:configure` - Update settings
 ```
 
 Begin status check now.

@@ -1,4 +1,119 @@
-# AI Product Manager Release Notes
+# Do:PE AI Release Notes
+
+## v2.4.0 - Universal Development Lifecycle
+**Release Date**: July 5, 2025  
+**Focus**: Complete System Rename & Universal Product Development Commands
+
+### 🚀 Major System Transformation
+Complete evolution from product management tool to universal development lifecycle platform!
+
+#### Universal Command Structure
+- **Complete Rename**: All `pm:` commands renamed to `do:` for broader applicability
+- **Directory Migration**: `.claude-pm/` moved to `.do/` for cleaner project structure
+- **Universal Scope**: Beyond product management to complete development lifecycle
+
+#### New Command Names
+| Old Command | New Command | Purpose |
+|-------------|-------------|---------|
+| `/pm:plan` | `/do:plan` | Product requirements gathering |
+| `/pm:review` | `/do:review` | Engineering review and technical analysis |
+| `/pm:build` | `/do:build` | Feature implementation |
+| `/pm:design` | `/do:design` | UI/UX design analysis |
+| `/pm:list` | `/do:list` | Show existing plans and sessions |
+| `/pm:continue` | `/do:continue` | Resume plan or session |
+| `/pm:configure` | `/do:configure` | Configuration management |
+| `/pm:status` | `/do:status` | System health and status |
+
+#### Directory Structure Changes
+```
+# Before (v2.3.0)
+.claude-pm/
+├── config.json
+├── plans/
+└── sessions/
+
+# After (v2.4.0)  
+.do/
+├── config.json
+├── plans/
+└── sessions/
+```
+
+### 🎨 New `/do:design` Command
+Introducing comprehensive UI/UX design analysis with senior designer AI persona!
+
+#### Design Analysis Features
+- **Design System Discovery**: Analyzes existing UI patterns and component libraries
+- **Mockup Generation**: Creates detailed wireframes and UI specifications
+- **Accessibility Review**: Ensures WCAG compliance and inclusive design
+- **Responsive Design**: Multi-device layout considerations
+- **User Experience Flow**: Journey mapping and interaction design
+
+#### Design-Enhanced PRDs
+- **Structured Design Notes**: Appends comprehensive design context to existing PRDs
+- **Component Specifications**: Detailed UI component requirements
+- **Design System Integration**: Leverages existing design patterns
+- **Implementation Guidance**: Clear design-to-code translation notes
+
+#### Complete Design Lifecycle
+```bash
+# Full development lifecycle now possible
+/do:plan "Add user dashboard"     # Product Manager AI creates PRD
+/do:design user-dashboard.md      # Senior Designer AI adds design specs  
+/do:review user-dashboard.md      # Senior Engineer AI adds technical notes
+/do:build user-dashboard.md       # Implement with complete context
+```
+
+### 🔧 Technical Improvements
+- **Mandatory Step Execution**: All workflow steps marked as MANDATORY to prevent skipping
+- **Enhanced Session Management**: Improved session creation and tracking across all commands
+- **Comprehensive Documentation**: All references updated to new command structure
+- **Backward Compatibility**: Automatic migration support for existing .claude-pm directories
+
+### 📦 Updated Installation
+- **Auto-Detection Integration**: Updated CLAUDE.md guidance for new command names
+- **Clean Migration**: Install script handles directory migration seamlessly
+- **Team Sharing**: Git-friendly migration for team collaboration
+
+### 🏗️ Architecture Evolution
+This release represents a fundamental evolution in scope:
+
+#### Before: Product Management Focus
+- Limited to PM-specific workflows
+- PM-centric terminology and structure
+- Focused on requirements gathering
+
+#### After: Universal Development Lifecycle
+- Complete development lifecycle support
+- Universal terminology suitable for all roles
+- Comprehensive design → development → deployment pipeline
+
+### 📊 Migration Guide
+For existing v2.3.0 users:
+
+```bash
+# Automatic migration via install
+./install.sh
+
+# Commands automatically redirect
+/pm:plan   → /do:plan  
+/pm:review → /do:review
+/pm:build  → /do:build
+```
+
+### 🎯 Future Vision
+This release establishes the foundation for the complete development lifecycle:
+```
+plan → design → review → build → test → ship → learn
+ 📋     🎨      🔍      💻     🧪     🚀     📊
+```
+
+With `plan`, `design`, `review`, and `build` now implemented, upcoming releases will add:
+- **`/do:test`** - Automated testing strategy and implementation
+- **`/do:ship`** - Deployment and release management  
+- **`/do:learn`** - Analytics, monitoring, and feedback collection
+
+---
 
 ## v2.3.0 - Development Lifecycle Commands
 **Release Date**: July 4, 2025  
@@ -8,9 +123,9 @@
 Introducing a clear, modular command structure that maps to the complete development lifecycle!
 
 #### New Command Architecture
-- **`/pm:plan`** - Product requirements gathering (renamed from `pm:define`)
-- **`/pm:review`** - Engineering review and technical analysis (split from `pm:implement`)  
-- **`/pm:build`** - Feature implementation (split from `pm:implement`)
+- **`/do:plan`** - Product requirements gathering (renamed from `pm:define`)
+- **`/do:review`** - Engineering review and technical analysis (split from `pm:implement`)  
+- **`/do:build`** - Feature implementation (split from `pm:implement`)
 
 #### Future-Ready Structure
 This release establishes the foundation for the complete development lifecycle:
@@ -24,13 +139,13 @@ The new three-step process provides better separation of concerns:
 
 ```bash
 # Step 1: Plan the feature
-/pm:plan "Add user authentication"
+/do:plan "Add user authentication"
 
 # Step 2: Engineering review 
-/pm:review user-auth-20250704.md
+/do:review user-auth-20250704.md
 
 # Step 3: Build the feature
-/pm:build user-auth-20250704.md
+/do:build user-auth-20250704.md
 ```
 
 #### Benefits of the Split
@@ -57,7 +172,7 @@ The new three-step process provides better separation of concerns:
 **Release Date**: July 2, 2025  
 **Focus**: Senior Engineering AI & Complete Implementation Pipeline
 
-### 🔧 New `/pm:implement` Command
+### 🔧 New `/do:implement` Command
 Bridge the gap between PRD creation and feature implementation with senior-level engineering guidance!
 
 #### Senior Engineering AI Persona
@@ -75,8 +190,8 @@ Bridge the gap between PRD creation and feature implementation with senior-level
 #### Seamless Implementation Flow
 ```bash
 # Complete PRD-to-Code pipeline
-/pm:define "Add user authentication"     # Product Manager AI creates PRD
-/pm:implement user-auth-20250702.md     # Senior Engineer AI reviews & implements
+/do:define "Add user authentication"     # Product Manager AI creates PRD
+/do:implement user-auth-20250702.md     # Senior Engineer AI reviews & implements
 ```
 
 #### Advanced Session Management
@@ -95,9 +210,9 @@ Complete overhaul of session management across all PM commands:
 - **Simplified Format**: Single `questionHistory` array replaces complex dual-format system
 
 #### Updated Commands
-- **`/pm:define`**: Enhanced question/answer tracking for PRD creation
-- **`/pm:continue`**: Improved session resumption with complete conversation context
-- **`/pm:implement`**: Engineering session management with technical question tracking
+- **`/do:define`**: Enhanced question/answer tracking for PRD creation
+- **`/do:continue`**: Improved session resumption with complete conversation context
+- **`/do:implement`**: Engineering session management with technical question tracking
 
 ### 🏗️ Architecture Improvements
 - **Command Integration**: Seamless integration with existing PM command suite
@@ -111,7 +226,7 @@ Complete overhaul of session management across all PM commands:
 **Release Date**: July 2, 2025  
 **Focus**: Automated Command Updates
 
-### 🚀 New `/pm:update` Command
+### 🚀 New `/do:update` Command
 Stay current with the latest features and bug fixes through automated command updates!
 
 #### Key Features
@@ -123,18 +238,18 @@ Stay current with the latest features and bug fixes through automated command up
 
 #### Usage
 ```bash
-/pm:update              # Update to latest version
-/pm:update v2.1.0       # Update to specific version  
-/pm:update --restore    # Restore from backup
+/do:update              # Update to latest version
+/do:update v2.1.0       # Update to specific version  
+/do:update --restore    # Restore from backup
 ```
 
 #### Version Tracking
-- **Config Integration**: Version tracking in `.claude-pm/config.json`
+- **Config Integration**: Version tracking in `.do/config.json`
 - **Repository Reference**: `updateRepository` field for fork customization
 - **VERSION File**: Central version management via GitHub
 
 #### Safety Features
-- **Automatic Backups**: Timestamped backups in `.claude-pm/backups/`
+- **Automatic Backups**: Timestamped backups in `.do/backups/`
 - **Atomic Updates**: All-or-nothing file replacement
 - **Network Resilience**: Retry logic and graceful error handling
 - **Installation Verification**: Validates update success before completion
@@ -145,7 +260,7 @@ Stay current with the latest features and bug fixes through automated command up
 - **User Experience**: Clear progress indicators and confirmation prompts
 
 ### 📦 Configuration Updates
-Updated `.claude-pm/config.json` schema:
+Updated `.do/config.json` schema:
 ```json
 {
   "version": "2.1.1",
@@ -161,7 +276,7 @@ Updated `.claude-pm/config.json` schema:
 **Focus**: Smart Caching & Performance
 
 ### 🚀 Major Performance Breakthrough
-The `/pm:list` command now delivers **sub-second response times** through intelligent caching!
+The `/do:list` command now delivers **sub-second response times** through intelligent caching!
 
 #### Performance Improvements
 | Metric | Before | After | Improvement |
@@ -177,10 +292,10 @@ The `/pm:list` command now delivers **sub-second response times** through intell
 - **Zero Configuration**: Works automatically without setup
 
 ### 🔧 Technical Details
-- **Cache Location**: `.claude-pm/.cache/list-cache.txt`
+- **Cache Location**: `.do/.cache/list-cache.txt`
 - **Validation Method**: Direct file modification time comparison
 - **Cache Logic**: If cache is newer than all monitored files, use cache; otherwise rebuild
-- **Monitored Files**: All `.md` files in `.claude-pm/plans/` and `.json` files in `.claude-pm/sessions/`
+- **Monitored Files**: All `.md` files in `.do/plans/` and `.json` files in `.do/sessions/`
 
 ### 🎯 User Experience
 - **Instant Results**: Most list operations now return in milliseconds
@@ -189,7 +304,7 @@ The `/pm:list` command now delivers **sub-second response times** through intell
 - **No Interruptions**: Zero user prompts or permission requests
 
 ### 📦 Updated Commands
-- **Enhanced `/pm:list`**: Smart caching with native output
+- **Enhanced `/do:list`**: Smart caching with native output
 - **Updated Documentation**: Clear cache validation instructions
 - **Improved Error Handling**: Graceful fallbacks if cache system unavailable
 
@@ -202,7 +317,7 @@ The `/pm:list` command now delivers **sub-second response times** through intell
 ## 🎉 What's New
 
 ### 🧠 AI-Powered Questioning System
-The biggest improvement in AI Product Manager v2 is the introduction of intelligent, adaptive questioning that learns from your codebase and asks only relevant questions.
+The biggest improvement in Do:PE AI is the introduction of intelligent, adaptive questioning that learns from your codebase and asks only relevant questions.
 
 #### Before (v1):
 - Fixed 20-50 template questions per category
@@ -233,8 +348,8 @@ The biggest improvement in AI Product Manager v2 is the introduction of intellig
 #### 3. Skip Questioning Mode
 Generate PRDs instantly with codebase-informed assumptions:
 ```bash
-/pm:plan "Add user authentication, skip questions"
-/pm:plan "Add CRUD operations, make assumptions"
+/do:plan "Add user authentication, skip questions"
+/do:plan "Add CRUD operations, make assumptions"
 ```
 
 #### 4. Enhanced Session Management
@@ -263,7 +378,7 @@ Generate PRDs instantly with codebase-informed assumptions:
 
 ## 🔧 Configuration Enhancements
 
-### New AI Options in `.claude-pm/config.json`:
+### New AI Options in `.do/config.json`:
 ```json
 {
   "aiQuestioningOptions": {
@@ -279,7 +394,7 @@ Generate PRDs instantly with codebase-informed assumptions:
 
 ### New Directory Structure:
 ```
-.claude-pm/
+.do/
 ├── sessions/         # AI questioning sessions
 └── questions/        # Custom question templates
     ├── auth.md      # Authentication (24 questions)
@@ -382,9 +497,9 @@ git pull origin main
 
 ### Team Installation
 ```bash
-/user:pm:install
+/user:do:install
 git add .claude/commands/pm*
-git commit -m "Upgrade to AI Product Manager v2 with AI questioning"
+git commit -m "Upgrade to Do:PE AI with AI questioning"
 ```
 
 ## 🙏 Acknowledgments
@@ -403,7 +518,7 @@ v2 was built on the principle that AI should **augment human judgment**, not rep
 - **Git History**: Limited to 10 recent commits for performance
 
 ### Workarounds
-- Use `/pm:configure` to disable git analysis for faster startup
+- Use `/do:configure` to disable git analysis for faster startup
 - Set `contextDepth: "surface"` for very large projects
 - Use skip mode for rapid iteration on familiar features
 
@@ -411,13 +526,13 @@ v2 was built on the principle that AI should **augment human judgment**, not rep
 
 - **Documentation**: [docs/](docs/) directory
 - **Issues**: [GitHub Issues](https://github.com/jmcopeland/ai-product-manager/issues)
-- **Status Check**: `/pm:status` for system health
-- **Configuration Help**: `/pm:configure` for interactive setup
+- **Status Check**: `/do:status` for system health
+- **Configuration Help**: `/do:configure` for interactive setup
 
 ---
 
-## 🎊 Welcome to AI Product Manager v2!
+## 🎊 Welcome to Do:PE AI!
 
 We're excited to see how AI-powered questioning transforms your product development workflow. The intelligent conversation system is designed to respect your expertise while ensuring comprehensive requirements coverage.
 
-**Try it today**: `/pm:plan "Add your next feature"` and experience the difference! 🚀
+**Try it today**: `/do:plan "Add your next feature"` and experience the difference! 🚀
