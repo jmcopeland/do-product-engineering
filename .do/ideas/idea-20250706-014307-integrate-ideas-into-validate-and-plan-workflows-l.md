@@ -1,0 +1,1 @@
+integrate ideas into validate and plan workflows like '/do:plan <idea_file>' or '/do:validate <idea_file>'

@@ -20,18 +20,27 @@ Detect these user requests and redirect to `/do:plan`:
 When detecting feature requests, respond like this:
 
 ```
-I can help you implement [feature]! Since this is a new feature request, I recommend using Do:PE AI to create a detailed PRD first. This will ensure we cover all requirements, edge cases, and implementation details.
+I can help you implement [feature]! Since this is a new feature request, I recommend using Do:PE AI for the complete development lifecycle. This ensures we capture, validate, and plan the idea before implementation.
 
-Try: `/do:plan "Add [feature description]"`
+Complete workflow:
+1. `/do:think "Add [feature description]"` - Capture and organize the idea
+2. `/do:validate idea-file.md` - Validate if this should be built
+3. `/do:plan validation-file.md` - Create detailed PRD from validation
+4. Implementation with full context
+
+Quick options:
+- Skip to validation: `/do:validate "Add [feature description]"`
+- Skip to planning: `/do:plan "Add [feature description]"`
 
 Do:PE AI will:
+- Capture and organize your ideas for future reference
+- Validate business value and user need (validation step)
 - Analyze your existing codebase
 - Ask targeted questions about your specific needs  
-- Generate a comprehensive PRD with implementation notes
-- Pass off the PRD to Design and Engineering personas for additional clarification
-- Then I can implement the feature following the enhanced PRD
+- Generate comprehensive PRD with implementation notes
+- Enable design and engineering review for additional clarity
 
-Would you like to start with the Do command, or would you prefer I begin coding immediately?
+Would you like to start with idea capture, validation, planning, or prefer I begin coding immediately?
 ```
 
 ### When NOT to Redirect
@@ -46,11 +55,13 @@ This guidance helps ensure users get comprehensive feature planning before imple
 
 ## Project Overview
 
-Do:PE AI is an intelligent product engineering extension for Claude Code that transforms vague business requirements into detailed, actionable deliverables through AI-powered intelligent questioning. v2.4 introduces universal development lifecycle commands: plan → design → review → build, with adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.
+Do:PE AI is an intelligent product engineering extension for Claude Code that transforms vague business requirements into detailed, actionable deliverables through AI-powered intelligent questioning. v2.6 introduces the complete development lifecycle with idea capture: think → validate → plan → design → review → build, featuring rapid idea capture, lean validation methodology, adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.
 
 ## Architecture
 
 **Command-based Architecture**: The system is built as modular slash commands stored in markdown files:
+- `commands/do/think.md` - Rapid idea capture command with dual-mode operation (capture/list)
+- `commands/do/validate.md` - Feature validation command with lean methodology for go/no-go decisions
 - `commands/do/plan.md` - Main planning command with AI-powered questioning logic for PRD creation
 - `commands/do/design.md` - UI/UX design analysis command with design specifications
 - `commands/do/review.md` - Engineering review command with technical questioning
@@ -64,9 +75,12 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 
 **File-based State Management**: Uses `.do/` directory structure:
 - `config.json` - Project settings including AI questioning options
+- `ideas/` - Captured ideas with central list and individual files for workflow integration
+- `validations/` - Generated Lean Validation Documents (LVDs) with scoring and recommendations
 - `plans/` - Generated PRDs with timestamped filenames
 - `sessions/` - Active AI questioning sessions with auto-save
-- `questions/` - Custom AI question templates (auth.md, crud.md, ui.md, api.md, general.md)
+- `questions/` - Custom AI question templates (auth.md, crud.md, ui.md, api.md, general.md, validate_product.md, validate_feature.md)
+- `templates/` - Configurable scoring systems and output templates
 
 ## Common Commands
 
@@ -81,18 +95,28 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 
 ### Core Usage
 ```bash
-# Complete development lifecycle
-/user:do:plan "Add user authentication to my web app"    # Product requirements
-/user:do:plan "Add user auth" --template=lean            # With template override
-/user:do:design <prd-filename>                          # UI/UX design analysis
-/user:do:review <prd-filename>                          # Engineering review
-/user:do:build <prd-filename>                           # Implementation
+# Complete development lifecycle (NEW v2.6: Full workflow with idea capture)
+/user:do:think "Add user authentication to my web app"     # Rapid idea capture (NEW in v2.6)
+/user:do:validate idea-file.md                             # Feature validation from captured idea
+/user:do:plan validation-file.md                           # Product requirements from validation
+/user:do:design <prd-filename>                             # UI/UX design analysis
+/user:do:review <prd-filename>                             # Engineering review
+/user:do:build <prd-filename>                              # Implementation
+
+# Idea capture workflow (NEW in v2.6)
+/user:do:think "your idea here"                            # Capture new ideas
+/user:do:think                                             # List all captured ideas
+/user:do:validate idea-filename.md                         # Validate captured ideas
+
+# Validation workflow (NEW in v2.6)
+/user:do:validate "feature idea" --type=feature            # Feature validation with type override
+/user:do:plan "Add user auth" --template=lean              # Direct planning with template override
 
 # Session management
-/user:do:list                                           # List existing plans
-/user:do:continue <session-id-or-plan-filename>         # Resume session
-/user:do:configure                                      # Configure settings
-/user:do:status                                         # Check status
+/user:do:list                                              # List existing plans
+/user:do:continue <session-id-or-plan-filename>            # Resume session
+/user:do:configure                                         # Configure settings
+/user:do:status                                            # Check status
 ```
 
 ## Key Implementation Details
@@ -160,33 +184,44 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 .claude/
 ├── commands/
 │   └── do/
-│       ├── plan.md        # Main AI-powered planning command to create PRD
-│       ├── design.md      # AI-powered UI/UX design analysis
-│       ├── review.md      # AI-powered engineering review of PRD
-│       ├── build.md       # Engineering implementation command
-│       ├── list.md        # Show existing plans
-│       ├── continue.md    # Resume plan development
-│       ├── configure.md    # Settings management
-│       ├── status.md      # Status overview
-│       ├── update.md      # Update Do commands
-│       └── install.md     # Project installation
-└── settings.local.json    # Claude Code local settings
+│       ├── do:think.md      # NEW v2.6: Rapid idea capture with dual-mode operation
+│       ├── do:validate.md   # NEW v2.6: Feature validation with lean methodology
+│       ├── do:plan.md       # Main AI-powered planning command to create PRD
+│       ├── do:design.md     # AI-powered UI/UX design analysis
+│       ├── do:review.md     # AI-powered engineering review of PRD
+│       ├── do:build.md      # Engineering implementation command
+│       ├── do:list.md       # Show existing plans
+│       ├── do:continue.md   # Resume plan development
+│       ├── do:configure.md  # Settings management
+│       ├── do:status.md     # Status overview
+│       ├── do:update.md     # Update Do commands
+│       └── do:install.md    # Project installation
+└── settings.local.json      # Claude Code local settings
 ```
 
 Generated project structure:
 ```
 .do/
-├── config.json       # Project configuration with AI options
-├── plans/            # Generated PRDs
+├── config.json         # Project configuration with AI options
+├── ideas/              # NEW v2.6: Captured ideas for workflow integration
+│   ├── ideas.md        # Central list of all captured ideas
+│   └── idea-[timestamp]-[slug].md  # Individual idea files
+├── validations/        # NEW v2.6: Lean Validation Documents (LVDs)
+│   └── [feature-name]-validation-[timestamp].md
+├── plans/              # Generated PRDs
 │   └── [feature-name]-[timestamp].md
-├── sessions/         # Active AI questioning sessions
+├── sessions/           # Active AI questioning sessions
 │   └── [requirement-slug]-[timestamp].json
-└── questions/        # Custom question templates
-    ├── auth.md       # Authentication questions
-    ├── crud.md       # CRUD operation questions
-    ├── ui.md         # UI component questions
-    ├── api.md        # API integration questions
-    └── general.md    # General feature questions
+├── questions/          # Custom question templates
+│   ├── auth.md         # Authentication questions
+│   ├── crud.md         # CRUD operation questions
+│   ├── ui.md           # UI component questions
+│   ├── api.md          # API integration questions
+│   ├── general.md      # General feature questions
+│   ├── validate_product.md  # NEW v2.6: Product validation questions
+│   └── validate_feature.md  # NEW v2.6: Feature validation questions
+└── templates/          # NEW v2.6: Configurable templates
+    └── validation_score.md  # Validation scoring framework
 ```
 
 ## Customization

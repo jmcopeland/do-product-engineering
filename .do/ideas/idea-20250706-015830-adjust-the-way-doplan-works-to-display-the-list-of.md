@@ -1,0 +1,1 @@
+adjust the way '/do:plan' works to display the list of ideas and plans. essentialy port '/do:list' to this new location and then remove the '/do:list' file.

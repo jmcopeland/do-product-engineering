@@ -1,8 +1,18 @@
-# PRD Templates for Do:PE AI
+# Templates for Do:PE AI
 
-This directory contains various Product Requirements Document (PRD) templates optimized for different use cases and methodologies. Each template is designed to capture the right level of detail for specific contexts.
+This directory contains Product Requirements Document (PRD) templates and validation frameworks optimized for different use cases and methodologies. Each template is designed to capture the right level of detail for specific contexts.
+
+## Template Categories
+
+### 📋 PRD Templates
+Product Requirements Document templates for various development approaches.
+
+### ✅ Validation Templates (NEW v2.6)
+Lean validation frameworks and scoring systems for feature validation.
 
 ## Available Templates
+
+## PRD Templates
 
 ### 📋 Standard Template (`standard.md`)
 **Best for**: Comprehensive feature documentation, enterprise projects, complex features
@@ -93,9 +103,45 @@ This directory contains various Product Requirements Document (PRD) templates op
 
 **Sections**: Feature Description, Scenarios (Gherkin), Test Data, Automation Guidelines
 
+---
+
+## Validation Templates (NEW v2.6)
+
+### ✅ Validation Scoring Framework (`validation_score.md`)
+**Best for**: Consistent go/no-go decisions, team alignment on validation criteria
+
+**Use when**:
+- You need objective validation criteria
+- Multiple stakeholders make validation decisions
+- Want to track validation effectiveness over time
+- Need customizable scoring for different contexts
+
+**Features**:
+- **5 Configurable Criteria**: Problem Severity, Solution Confidence, Strategic Alignment, Resource Efficiency, Market Opportunity
+- **Weighted Scoring**: Customize weights based on team priorities
+- **Decision Thresholds**: Clear go/no-go recommendations with confidence levels
+- **Team Customization**: Modify criteria and weights for different industries or contexts
+
+**Scoring Criteria**:
+- Problem Severity (25%): How critical is the problem being solved?
+- Solution Confidence (25%): How confident are you in the proposed solution?
+- Strategic Alignment (20%): How well does this align with business strategy?
+- Resource Efficiency (15%): What's the effort-to-impact ratio?
+- Market Opportunity (15%): How large is the addressable market?
+
+**Decision Thresholds**:
+- 4.0-5.0: Strong Go (high confidence)
+- 3.0-3.9: Conditional Go (proceed with caution)
+- 2.0-2.9: Weak No (significant concerns)
+- 1.0-1.9: Strong No (do not proceed)
+
+---
+
 ## How to Use Templates
 
 ### With Do:PE AI Commands
+
+#### PRD Templates
 
 1. **Configure your preferred template** in `.do/config.json`:
    ```json
@@ -116,9 +162,47 @@ This directory contains various Product Requirements Document (PRD) templates op
    # Note: Use --template=<name> syntax (with equals sign)
    ```
 
-### New in v2.5.0: Template Flag Override
+#### Validation Templates (NEW v2.6)
 
-You can now override the default template using the `--template` flag:
+1. **Configure validation scoring** in `.do/config.json`:
+   ```json
+   {
+     "validationThreshold": 3.0,
+     "scoringWeights": {
+       "problemSeverity": 25,
+       "solutionConfidence": 25,
+       "strategicAlignment": 20,
+       "resourceEfficiency": 15,
+       "marketOpportunity": 15
+     }
+   }
+   ```
+
+2. **Use validation with default scoring**:
+   ```bash
+   /do:validate "Add user authentication"
+   # Uses default validation_score.md framework
+   ```
+
+3. **Customize validation for your team**:
+   - Edit `.do/templates/validation_score.md` to modify criteria
+   - Adjust weights for your industry or context
+   - Add custom criteria specific to your business
+
+### New in v2.6.0: Complete Workflow Integration
+
+Templates now work seamlessly across the complete development lifecycle:
+
+```bash
+# Complete workflow with templates
+/do:think "Add user authentication"           # Capture idea
+/do:validate idea-file.md                     # Validate with scoring framework
+/do:plan validation-file.md --template=agile  # Plan with specific template
+```
+
+### Template Flag Override (v2.5.0)
+
+You can override the default template using the `--template` flag:
 
 ```bash
 # Override for this specific PRD

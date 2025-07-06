@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Do:PE AI v2.5 Installation Script
-# Installs AI-powered PM commands to user's home directory
+# Do:PE AI v2.6 Installation Script
+# Installs complete development lifecycle commands with idea capture and validation
 
 set -e
 
@@ -9,24 +9,27 @@ set -e
 AUTO_DETECTION=false
 if [[ "$1" == "--with-auto-detection" ]]; then
     AUTO_DETECTION=true
-    echo "🤖 Installing Do:PE AI v2.5 with AI-powered questioning and auto-detection..."
+    echo "🤖 Installing Do:PE AI v2.6 with complete development lifecycle and auto-detection..."
 else
-    echo "🤖 Installing Do:PE AI v2.5 with AI-powered questioning..."
+    echo "🤖 Installing Do:PE AI v2.6 with complete development lifecycle..."
 fi
 
 # Create directories
 echo "Creating directories..."
-mkdir -p ~/.claude/commands/pm
-mkdir -p ~/.do/{questions,sessions,plans}
+mkdir -p ~/.claude/commands/do
+mkdir -p ~/.do/{questions,sessions,plans,ideas,validations,templates}
 
 # Copy command files
 echo "Copying command files..."
 cp .claude/commands/do/do:*.md ~/.claude/commands/do/
 
-# Copy question templates
-echo "Setting up AI question templates..."
+# Copy question templates and validation templates
+echo "Setting up AI question templates and validation system..."
 cp .do/questions/*.md ~/.do/questions/ 2>/dev/null || {
     echo "Note: Question templates not found in source. Using built-in templates."
+}
+cp .do/templates/*.md ~/.do/templates/ 2>/dev/null || {
+    echo "Note: Validation templates not found in source. Using built-in templates."
 }
 
 # Create default config
@@ -82,11 +85,14 @@ if [ "$AUTO_DETECTION" = true ]; then
 fi
 
 # Verify installation
-if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:list.md ] && [ -f ~/.do/config.json ]; then
-    echo "✅ Do:PE AI v2.5 installation successful!"
+if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:think.md ] && [ -f ~/.claude/commands/do/do:validate.md ] && [ -f ~/.do/config.json ]; then
+    echo "✅ Do:PE AI v2.6 installation successful!"
     echo ""
-    echo "🧠 AI-Powered Commands Available:"
+    echo "🚀 Complete Development Lifecycle Commands Available:"
+    echo "  /user:do:think \"idea\"                             - NEW: Rapid idea capture"
+    echo "  /user:do:validate \"requirement\" [--type=<type>]    - NEW: Lean validation methodology"
     echo "  /user:do:plan \"requirement\" [--template=<name>]  - AI-powered PRD creation"
+    echo "  /user:do:design <prd-file>                       - UI/UX design analysis"
     echo "  /user:do:review <prd-file>                       - Senior engineering review"
     echo "  /user:do:build <prd-file>                        - Feature implementation"
     echo "  /user:do:list                                    - Show plans and sessions"
@@ -95,10 +101,11 @@ if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:list
     echo "  /user:do:status                                  - System health dashboard"
     echo "  /user:do:install                                 - Install to current project"
     echo ""
-    echo "⚡ Quick Start Examples:"
-    echo "  /user:do:plan \"Add user authentication\"         # AI questioning"
-    echo "  /user:do:plan \"Add CRUD ops, skip questions\"      # Skip mode"
-    echo "  /user:do:plan \"Add feature\" --template=lean       # Template override"
+    echo "⚡ Complete Workflow Examples:"
+    echo "  /user:do:think \"Add user authentication\"         # Capture idea"
+    echo "  /user:do:validate idea-file.md                   # Validate business case"
+    echo "  /user:do:plan validation-file.md                 # Create detailed PRD"
+    echo "  /user:do:plan \"Add feature\" --template=lean       # Direct planning with template"
     echo ""
     echo "👥 For team setup: /user:do:install in your project directory"
     if [ "$AUTO_DETECTION" = true ]; then
@@ -106,6 +113,7 @@ if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:list
     else
         echo "💡 Tip: Use --with-auto-detection for automatic '/do:plan' suggestions"
     fi
+    echo "💡 Workflow: think → validate → plan → design → review → build"
     echo "📚 Documentation: https://github.com/jmcopeland/ai-product-manager/tree/main/docs"
 else
     echo "❌ Installation failed. Please check file permissions and try again."

@@ -6,12 +6,25 @@ Act as a Senior AI Product Manager to transform vague requirements into detailed
 
 Given the user requirement: "$ARGUMENTS"
 
-### 🎛️ Argument Parsing and Template Override (Step 0)
-**Parse command arguments for template flag override:**
+### 🎛️ Argument Parsing, File Detection, and Template Override (Step 0)
+**Parse command arguments, detect idea files, and handle template flag override:**
 
-1. **Extract requirement and template flag**:
-   - Parse `$ARGUMENTS` to separate quoted requirement from flags
-   - Look for `--template=<template_name>` after closing quote
+1. **Extract template flag first (preserve flags before file resolution)**:
+   - Parse original `$ARGUMENTS` to extract any `--template=<template_name>` flag
+   - Store template flag separately to preserve it through file resolution
+   - Remove template flag from arguments for cleaner file detection
+
+2. **File Detection and Content Resolution**:
+   - Check if remaining arguments appear to be a file reference (ends with .md or is a valid file path)
+   - If file reference detected, resolve using smart path logic:
+     - If absolute path (/...) or relative path (./...): use directly
+     - Otherwise: check `.do/ideas/$ARGUMENTS` first, then `$ARGUMENTS` in current directory
+   - If file found: read content and use as the requirement text
+   - If file not found: show helpful error with available alternatives
+   - Combine file content (or original text) with preserved template flag
+
+3. **Extract requirement from resolved content**:
+   - Parse final `$ARGUMENTS` to separate quoted requirement from any flags
    - If no quotes found, treat entire string as requirement (backward compatibility)
    
 2. **Template validation and override**:
@@ -28,6 +41,32 @@ Given the user requirement: "$ARGUMENTS"
    ```
 
 3. **Argument parsing implementation**:
+   ```bash
+   # Step 1: Extract and preserve template flag from original arguments
+   TEMPLATE_FLAG=""
+   if [[ "$ARGUMENTS" =~ --template=([a-zA-Z0-9-]+) ]]; then
+     TEMPLATE_FLAG="--template=${BASH_REMATCH[1]}"
+     # Remove template flag for cleaner file detection
+     CLEAN_ARGS="${ARGUMENTS//$TEMPLATE_FLAG/}"
+     CLEAN_ARGS="${CLEAN_ARGS%% }" # Trim trailing space
+   else
+     CLEAN_ARGS="$ARGUMENTS"
+   fi
+   
+   # Step 2: Detect and resolve file reference
+   if [[ "$CLEAN_ARGS" == *.md ]] || [[ -f "$CLEAN_ARGS" ]]; then
+     # File detection logic here...
+     FILE_CONTENT=$(cat "$FILE_PATH")
+     # Reconstruct arguments with file content + preserved template flag
+     if [[ -n "$TEMPLATE_FLAG" ]]; then
+       ARGUMENTS="\"$FILE_CONTENT\" $TEMPLATE_FLAG"
+     else
+       ARGUMENTS="\"$FILE_CONTENT\""
+     fi
+   fi
+   
+   # Step 3: Continue with normal parsing of reconstructed arguments
+   ```
    - Extract quoted requirement: match pattern `"([^"]+)"`  
    - Extract template flag: match pattern `--template=([a-zA-Z0-9-]+)`
    - Handle edge cases: missing quotes, malformed flags, multiple flags
@@ -63,8 +102,14 @@ Mark each step as "in_progress" when starting and "completed" when finished.
 **YOU MUST PARSE ARGUMENTS AND CREATE A SESSION FILE BEFORE DOING ANYTHING ELSE.**
 
 1. **Parse command arguments first**:
-   - Extract requirement from `$ARGUMENTS` (look for quoted text)
-   - Extract template flag if present: `--template=<template_name>`
+   - **Extract template flag FIRST**: Parse original `$ARGUMENTS` for `--template=<template_name>`
+   - **Store template flag**: Keep template flag separate from file/requirement detection
+   - **File Detection**: Check if remaining arguments appear to be a file reference
+   - **Smart File Resolution**: Use `.do/ideas/` priority with fallback to direct paths
+   - **Content Loading**: If file found, read content as requirement text
+   - **Combine components**: Reconstruct `$ARGUMENTS` with file content + preserved template flag
+   - **Error Handling**: If file not found, show helpful error with alternatives
+   - Extract requirement from final `$ARGUMENTS` (look for quoted text)
    - Handle backward compatibility for non-quoted requirements
    - Prepare template override for Step 1
 
@@ -551,6 +596,71 @@ The process adapts based on `.do/config.json` settings:
 - **User notification**: Clear error messages with suggested actions
 - **Automatic recovery**: Retry failed operations where safe
 - **Fallback modes**: Template mode if AI features fail
+
+### File Detection Implementation Details
+Complete implementation for preserving template flags during file resolution:
+
+```bash
+# Step 1: Extract and preserve template flag
+TEMPLATE_FLAG=""
+if [[ "$ARGUMENTS" =~ --template=([a-zA-Z0-9-]+) ]]; then
+  TEMPLATE_FLAG="--template=${BASH_REMATCH[1]}"
+  # Remove template flag for cleaner file detection
+  CLEAN_ARGS="${ARGUMENTS//$TEMPLATE_FLAG/}"
+  CLEAN_ARGS="${CLEAN_ARGS%% }" # Trim trailing space
+else
+  CLEAN_ARGS="$ARGUMENTS"
+fi
+
+# Step 2: Detect and resolve file reference
+if [[ "$CLEAN_ARGS" == *.md ]] || [[ -f "$CLEAN_ARGS" ]]; then
+  # Likely a file reference
+  if [[ "$CLEAN_ARGS" == /* ]] || [[ "$CLEAN_ARGS" == ./* ]]; then
+    # Absolute or relative path - use directly
+    FILE_PATH="$CLEAN_ARGS"
+  else
+    # Simple filename - check .do/ideas/ first
+    if [[ -f ".do/ideas/$CLEAN_ARGS" ]]; then
+      FILE_PATH=".do/ideas/$CLEAN_ARGS"
+    elif [[ -f "$CLEAN_ARGS" ]]; then
+      FILE_PATH="$CLEAN_ARGS"
+    else
+      # File not found - show error
+      echo "❌ Idea file not found: $CLEAN_ARGS"
+      echo ""
+      echo "Searched locations:"
+      echo "• .do/ideas/$CLEAN_ARGS"
+      echo "• ./$CLEAN_ARGS"
+      echo ""
+      echo "💡 Options:"
+      echo "• Check available ideas: /do:think"
+      echo "• Use full path: /do:plan /path/to/file.md"
+      echo "• Input directly: /do:plan \"your requirement here\""
+      exit 1
+    fi
+  fi
+  
+  # Read file content
+  FILE_CONTENT=$(cat "$FILE_PATH" 2>/dev/null)
+  if [[ -z "$FILE_CONTENT" ]]; then
+    echo "⚠️ File is empty or unreadable: $FILE_PATH"
+    echo ""
+    echo "Would you like to input the requirement manually instead?"
+    exit 1
+  fi
+  
+  # Reconstruct arguments with file content + preserved template flag
+  if [[ -n "$TEMPLATE_FLAG" ]]; then
+    ARGUMENTS="\"$FILE_CONTENT\" $TEMPLATE_FLAG"
+  else
+    ARGUMENTS="\"$FILE_CONTENT\""
+  fi
+fi
+
+# Step 3: Continue with normal argument parsing
+# Extract requirement and template flag from final ARGUMENTS
+# (existing parsing logic continues here...)
+```
 
 ---
 

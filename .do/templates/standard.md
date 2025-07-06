@@ -3,7 +3,7 @@
 **Generated**: [Date]  
 **Requirement**: "[Original Requirement]"  
 **Complexity**: [X/5]  
-**Status**: Ready for Development
+**Status**: [Status]
 
 ## Context
 

@@ -1,5 +1,60 @@
 # Do:PE AI Release Notes
 
+## v2.6.0 - Complete Validation Workflow and Idea Capture
+**Release Date**: July 6, 2025  
+**Focus**: Full Development Lifecycle with Idea Capture and Lean Validation
+
+### 🎉 Major Features
+Introducing the complete development lifecycle: **think → validate → plan → design → review → build**
+
+#### 💡 NEW: `/do:think` Command - Rapid Idea Capture
+- **Dual-Mode Operation**: Capture new ideas (`/do:think "idea"`) or list existing ideas (`/do:think`)
+- **Intelligent File Management**: Creates `.do/ideas/` with central list and individual timestamped files
+- **Workflow Integration**: Captured ideas work directly with `/do:validate` and `/do:plan`
+
+#### ✅ NEW: `/do:validate` Command - Lean Validation Methodology
+- **Smart Type Detection**: Auto-detects product vs feature validation with codebase analysis
+- **Configurable Scoring**: 5-criteria framework with customizable weights (Problem Severity, Solution Confidence, Strategic Alignment, Resource Efficiency, Market Opportunity)
+- **Comprehensive Templates**: 48 product validation questions, 50 feature validation questions
+- **Go/No-Go Recommendations**: Clear decision thresholds with scoring breakdown
+
+### 🔗 Complete Workflow Integration
+- **Seamless File Handoffs**: `/do:think` → `/do:validate` → `/do:plan` with preserved context
+- **Template Flag Preservation**: Maintains `--template=` flags during file processing
+- **Smart File Resolution**: Checks `.do/ideas/` first, then absolute/relative paths
+
+### 📊 Enhanced File Structure
+```
+.do/
+├── ideas/                   # NEW: Captured ideas with central list
+├── validations/             # NEW: Lean Validation Documents (LVDs)
+├── plans/                   # Enhanced: Generated PRDs
+├── questions/               # NEW: validate_product.md, validate_feature.md
+└── templates/               # NEW: validation_score.md framework
+```
+
+### 🛠️ Technical Improvements
+- **Enhanced Argument Processing**: Robust file detection with template flag preservation
+- **Session Management**: Complete conversation tracking across all workflow stages
+- **Error Handling**: Comprehensive error recovery with actionable guidance
+- **Performance**: Atomic file operations with retry logic
+
+### 🔧 Configuration
+New validation settings in `.do/config.json`:
+```json
+{
+  "validationDepth": "standard",
+  "autoTypeDetection": true,
+  "validationThreshold": 3.0,
+  "scoringWeights": { ... }
+}
+```
+
+### 🐛 Key Fixes
+- **Fixed**: Template flags lost when processing idea files
+- **Fixed**: File path resolution inconsistencies  
+- **Fixed**: Session creation race conditions
+
 ## v2.5.0 - Template Flag Enhancement
 **Release Date**: July 6, 2025  
 **Focus**: Command-line Template Override for `/do:plan`
