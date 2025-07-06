@@ -186,7 +186,7 @@ This feature bridges that gap by introducing `/pm:implement <prd_filename>` - a 
 ## Implementation Notes
 
 ### File Integration
-- **Command file location:** `/Users/justincopeland/code/ai-product-manager/.claude/commands/pm/pm:implement.md`
+- **Command file location:** `/Users/justincopeland/code/do-product-engineering/.claude/commands/pm/pm:implement.md`
 - **Follow existing PM command structure** with 7-step process adapted for engineering focus
 - **Reuse session management utilities** from `pm:define.md` and `pm:continue.md`
 - **Integrate with existing error handling patterns** from current PM commands
@@ -324,7 +324,7 @@ This feature bridges that gap by introducing `/pm:implement <prd_filename>` - a 
 4. **Testing Phase:** End-to-end validation with real PRDs
 
 **File Organization:**
-- **Main Command:** `/Users/justincopeland/code/ai-product-manager/.claude/commands/pm/pm:implement.md`
+- **Main Command:** `/Users/justincopeland/code/do-product-engineering/.claude/commands/pm/pm:implement.md`
 - **Sessions:** `.claude-pm/sessions/implement-[prd-name]-[timestamp].json`
 - **Enhanced PRDs:** Original files in `.claude-pm/plans/` with appended Engineering Notes
 

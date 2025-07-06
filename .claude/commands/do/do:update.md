@@ -29,14 +29,14 @@ Determine which command installation to update:
 ### Step 3: Version Management
 1. **Get current version** - Read 'version' from `.do/config.json`
 2. **Determine target version**:
-   - If no argument: Fetch latest from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/main/VERSION` 
+   - If no argument: Fetch latest from `https://raw.githubusercontent.com/jmcopeland/do-product-engineering/main/VERSION` 
    - If version specified: Use the provided version
 3. **Compare versions** - Check if update is needed
 4. **Early exit** - If already on target version, show success and exit
 
 ### Step 4: Show Release Information
 If update is needed:
-1. **Fetch release notes** - Download from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/main/RELEASE-NOTES.md`
+1. **Fetch release notes** - Download from `https://raw.githubusercontent.com/jmcopeland/do-product-engineering/main/RELEASE-NOTES.md`
 2. **Parse relevant changes** - Show release notes for versions between current and target
 3. **List files to update** - Show which command files will be updated
 4. **Get confirmation** - Ask user to confirm proceeding with update
@@ -50,7 +50,7 @@ Before any changes:
 ### Step 6: Download New Files
 Download all command files atomically:
 1. **Create temp directory** - Make `.do/temp-update/`
-2. **Download files** from `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/v{VERSION}/.claude/`:
+2. **Download files** from `https://raw.githubusercontent.com/jmcopeland/do-product-engineering/v{VERSION}/.claude/`:
    - `commands/do/plan.md`
    - `commands/do/review.md`
    - `commands/do/build.md`

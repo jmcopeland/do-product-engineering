@@ -163,21 +163,21 @@ Users currently need to manually update AI Product Manager commands by re-runnin
 
 ### Technical Specifications ✅
 - [x] **GitHub API Strategy**: Use raw.githubusercontent.com URLs. Check latest version from main branch, download files from version tags.
-  - Latest version: `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/main/VERSION`
-  - Download files: `https://raw.githubusercontent.com/jmcopeland/ai-product-manager/v2.1.0/[filepath]`
+  - Latest version: `https://raw.githubusercontent.com/jmcopeland/do-product-engineering/main/VERSION`
+  - Download files: `https://raw.githubusercontent.com/jmcopeland/do-product-engineering/v2.1.0/[filepath]`
 - [x] **Backup Retention**: Keep all backups permanently (files are small). No auto-cleanup.
 - [x] **Release Notes**: Parse from RELEASE-NOTES.md, extract section between current and target version.
 - [x] **Config.json Schema**: Add minimal version tracking:
   ```json
   {
     "version": "2.1.0",
-    "updateRepository": "jmcopeland/ai-product-manager",
+    "updateRepository": "jmcopeland/do-product-engineering",
     // ... existing config
   }
   ```
 
 ### Implementation Decisions ✅
-- [x] **Repository Support**: Official repository only (`jmcopeland/ai-product-manager`). Repository URL stored in config.json for fork customization.
+- [x] **Repository Support**: Official repository only (`jmcopeland/do-product-engineering`). Repository URL stored in config.json for fork customization.
 - [x] **Custom Modifications**: Always backup modified files to `.claude-pm/backups/` then overwrite with new version.
 - [x] **Dry-run Mode**: No dry-run mode - keep simple. Show release notes and require confirmation.
 - [x] **Logging Level**: Minimal logging - show success/failure only. Detailed logging may be added in future version.

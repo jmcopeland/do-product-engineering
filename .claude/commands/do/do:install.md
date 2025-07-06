@@ -114,7 +114,7 @@ Handle common issues:
    ```json
    {
      "version": "<current version from VERSION file>",
-     "updateRepository": "jmcopeland/ai-product-manager",
+     "updateRepository": "jmcopeland/do-product-engineering",
      "questioningDepth": "standard",
      "autoSave": true,
      "aiQuestioningOptions": {
