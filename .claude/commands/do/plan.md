@@ -667,7 +667,7 @@ fi
 **BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
 
 Use the TodoWrite tool to create todos for each mandatory step:
-1. "🚨 CRITICAL: Parse arguments and create session file (NEVER SKIP)"
+1. "Parse arguments and create session file"
 2. "Load configuration and apply template override"  
 3. "Analyze requirement and complexity"
 4. "Perform comprehensive codebase analysis"

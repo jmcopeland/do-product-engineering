@@ -21,7 +21,8 @@ mkdir -p ~/.do/{questions,sessions,plans,ideas,validations,templates}
 
 # Copy command files
 echo "Copying command files..."
-cp .claude/commands/do/do:*.md ~/.claude/commands/do/
+cp .claude/commands/do.md ~/.claude/commands/do.md
+cp .claude/commands/do/*.md ~/.claude/commands/do/
 
 # Copy question templates and validation templates
 echo "Setting up AI question templates and validation system..."
@@ -85,29 +86,29 @@ if [ "$AUTO_DETECTION" = true ]; then
 fi
 
 # Verify installation
-if [ -f ~/.claude/commands/do/do:plan.md ] && [ -f ~/.claude/commands/do/do:think.md ] && [ -f ~/.claude/commands/do/do:validate.md ] && [ -f ~/.do/config.json ]; then
+if [ -f ~/.claude/commands/do.md ] && [ -f ~/.claude/commands/do/plan.md ] && [ -f ~/.claude/commands/do/think.md ] && [ -f ~/.claude/commands/do/validate.md ] && [ -f ~/.do/config.json ]; then
     echo "✅ Do:PE AI v2.6 installation successful!"
     echo ""
     echo "🚀 Complete Development Lifecycle Commands Available:"
-    echo "  /user:do:think \"idea\"                             - NEW: Rapid idea capture"
-    echo "  /user:do:validate \"requirement\" [--type=<type>]    - NEW: Lean validation methodology"
-    echo "  /user:do:plan \"requirement\" [--template=<name>]  - AI-powered PRD creation"
-    echo "  /user:do:design <prd-file>                       - UI/UX design analysis"
-    echo "  /user:do:review <prd-file>                       - Senior engineering review"
-    echo "  /user:do:build <prd-file>                        - Feature implementation"
-    echo "  /user:do:list                                    - Show plans and sessions"
-    echo "  /user:do:continue <session>                      - Resume interrupted sessions"
-    echo "  /user:do:configure                               - Configure AI questioning"
-    echo "  /user:do:status                                  - System health dashboard"
-    echo "  /user:do:install                                 - Install to current project"
+    echo "  /do:think \"idea\"                              - Rapid idea capture"
+    echo "  /do:validate \"requirement\" [--type=<type>]    - Lean validation methodology"
+    echo "  /do:plan \"requirement\" [--template=<name>]    - AI-powered PRD creation"
+    echo "  /do:design <prd-file>                            - UI/UX design analysis"
+    echo "  /do:review <prd-file>                            - Senior engineering review"
+    echo "  /do:build <prd-file>                             - Feature implementation"
+    echo "  /do:list                                        - Show plans and sessions"
+    echo "  /do:continue <session>                          - Resume interrupted sessions"
+    echo "  /do:configure                                    - Configure AI questioning"
+    echo "  /do:status                                      - System health dashboard"
+    echo "  /do:install                                     - Install to current project"
     echo ""
     echo "⚡ Complete Workflow Examples:"
-    echo "  /user:do:think \"Add user authentication\"         # Capture idea"
-    echo "  /user:do:validate idea-file.md                   # Validate business case"
-    echo "  /user:do:plan validation-file.md                 # Create detailed PRD"
-    echo "  /user:do:plan \"Add feature\" --template=lean       # Direct planning with template"
+    echo "  /do:think \"Add user authentication\"           # Capture idea"
+    echo "  /do:validate idea-file.md                        # Validate business case"
+    echo "  /do:plan validation-file.md                      # Create detailed PRD"
+    echo "  /do:plan \"Add feature\" --template=lean        # Direct planning with template"
     echo ""
-    echo "👥 For team setup: /user:do:install in your project directory"
+    echo "👥 For team setup: /do:install in your project directory"
     if [ "$AUTO_DETECTION" = true ]; then
         echo "🎯 Auto-detection enabled: Claude Code will suggest '/do:plan' for feature requests"
     else

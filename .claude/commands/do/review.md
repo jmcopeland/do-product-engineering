@@ -403,7 +403,7 @@ Present review results and provide implementation options:
 **BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
 
 Use the TodoWrite tool to create todos for each mandatory step:
-1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
+1. "Create session file"
 2. "Load and validate PRD file"
 3. "Load configuration and technical context"
 4. "Perform comprehensive technical analysis"

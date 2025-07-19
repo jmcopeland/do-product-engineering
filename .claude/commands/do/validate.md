@@ -69,7 +69,7 @@ Given the user requirement: "$ARGUMENTS"
 **BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
 
 Use the TodoWrite tool to create todos for each mandatory step:
-1. "🚨 CRITICAL: Create validation session file (NEVER SKIP)"
+1. "Create validation session file"
 2. "Detect validation type (product vs feature)"
 3. "Determine validation depth (lightweight vs full)"
 4. "Load appropriate question template"
