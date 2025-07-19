@@ -357,7 +357,18 @@ Present review results and provide implementation options:
 
 3. **Session completion and cleanup**:
    - Mark engineering session as "completed"
-   - Archive session with full engineering context preserved
+   - Archive session with full engineering context preserved:
+   ```bash
+   # Create archive directory if needed
+   mkdir -p .do/sessions/archive
+   
+   # Move completed session to archive with completion timestamp
+   SESSION_FILE=".do/sessions/review-session-[session-id].json"
+   if [[ -f "$SESSION_FILE" ]]; then
+       ARCHIVE_NAME="$(basename "$SESSION_FILE" .json)-completed-$(date +%Y%m%d-%H%M%S).json"
+       mv "$SESSION_FILE" ".do/sessions/archive/$ARCHIVE_NAME"
+   fi
+   ```
    - Update PRD metadata with engineering review timestamp
    - Provide clear next-step guidance for `/do:build` command
 

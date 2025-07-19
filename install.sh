@@ -96,7 +96,7 @@ if [ -f ~/.claude/commands/do.md ] && [ -f ~/.claude/commands/do/plan.md ] && [ 
     echo "  /do:design <prd-file>                            - UI/UX design analysis"
     echo "  /do:review <prd-file>                            - Senior engineering review"
     echo "  /do:build <prd-file>                             - Feature implementation"
-    echo "  /do:list                                        - Show plans and sessions"
+    echo "  /do:plan                                        - Show plans and sessions (no arguments)"
     echo "  /do:continue <session>                          - Resume interrupted sessions"
     echo "  /do:configure                                    - Configure AI questioning"
     echo "  /do:status                                      - System health dashboard"

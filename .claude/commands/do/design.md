@@ -384,6 +384,17 @@ Finalize design phase and prepare for next steps:
 1. **Update session** status to "completed"
 
 2. **Archive session** to `.do/sessions/archive/`
+   ```bash
+   # Create archive directory if needed
+   mkdir -p .do/sessions/archive
+   
+   # Move completed session to archive with completion timestamp
+   SESSION_FILE=".do/sessions/design-session-[session-id].json"
+   if [[ -f "$SESSION_FILE" ]]; then
+       ARCHIVE_NAME="$(basename "$SESSION_FILE" .json)-completed-$(date +%Y%m%d-%H%M%S).json"
+       mv "$SESSION_FILE" ".do/sessions/archive/$ARCHIVE_NAME"
+   fi
+   ```
 
 3. **Present completion summary**:
    ```

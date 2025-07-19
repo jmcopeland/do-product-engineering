@@ -121,7 +121,7 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 /do:plan "Add user auth" --template=lean             # Direct planning with template override
 
 # Session management
-/do:list                                             # List existing plans
+/do:plan                                             # List existing plans (no arguments) or create new plans
 /do:continue <session-id-or-plan-filename>            # Resume session
 /do:configure                                         # Configure settings
 /do:status                                           # Check status

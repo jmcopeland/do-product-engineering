@@ -100,7 +100,7 @@ git commit -m "Add Do:PE AI for team use"
 - `/do:review <prd-file>` - Senior engineer AI review of PRD
 - `/do:build <prd-file>` - Feature implementation from enhanced PRD
 - `/do:continue <plan>` - Resume plan or session
-- `/do:list` - Show project plans and active sessions
+- `/do:plan` (no arguments) - Show project plans and active sessions
 - `/do:configure` - Project AI questioning settings
 - `/do:status` - System health and cleanup recommendations
 - `/do:install` - Copy commands to current project
@@ -184,7 +184,7 @@ git commit -m "Add Do:PE AI for team use"
 
 # Check status and cleanup
 /do:status
-/do:list
+/do:plan
 ```
 
 ## Installation Instructions

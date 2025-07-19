@@ -251,7 +251,7 @@ Calculate validation score based on responses:
 ### Step 6: Generate Lean Validation Document (LVD)
 Create comprehensive validation document:
 
-1. **Generate filename**: `do-[feature-name]-validation-[YYYYMMDD-HHMMSS].md`
+1. **Generate filename**: `validation-[YYYYMMDD-HHMMSS]-[feature-slug].md`
 
 2. **Create LVD content** using lean template adapted for validation:
    - Executive summary with go/no-go recommendation
@@ -272,6 +272,17 @@ Create comprehensive validation document:
 Finalize validation and guide next actions:
 
 1. **Archive session** to `.do/sessions/archive/`
+   ```bash
+   # Create archive directory if needed
+   mkdir -p .do/sessions/archive
+   
+   # Move completed session to archive with completion timestamp
+   SESSION_FILE=".do/sessions/validation-session-[session-id].json"
+   if [[ -f "$SESSION_FILE" ]]; then
+       ARCHIVE_NAME="$(basename "$SESSION_FILE" .json)-completed-$(date +%Y%m%d-%H%M%S).json"
+       mv "$SESSION_FILE" ".do/sessions/archive/$ARCHIVE_NAME"
+   fi
+   ```
 
 2. **Present validation summary**:
    ```

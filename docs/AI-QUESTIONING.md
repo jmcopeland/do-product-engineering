@@ -210,7 +210,7 @@ The AI questioning system gracefully handles:
 
 - `/do:status` - Check system health and recommendations
 - `/do:configure` - Adjust AI questioning settings
-- `/do:list` - See all sessions and their status
+- `/do:plan` - See all sessions and their status (no arguments mode)
 
 ## Upgrading to v2.2.0+
 

@@ -2,9 +2,186 @@
 
 Act as a Senior AI Product Manager to transform vague requirements into detailed, actionable PRDs through intelligent, adaptive questioning.
 
-## Task: AI-Powered Requirements Gathering
+## Task: Dual-Mode Operation - List View or AI-Powered Requirements Gathering
 
 Given the user requirement: "$ARGUMENTS"
+
+### Mode Detection and Routing
+**Determine operation mode and execute appropriate logic:**
+
+### Mode 1: Integrated List View (No Arguments)
+If no arguments are provided, display integrated ideas and plans view:
+
+```bash
+# Early mode detection - if no arguments, execute list mode immediately
+if [[ -z "$ARGUMENTS" ]]; then
+    # Mode 1: Integrated List View (Performance Optimized)
+    
+    # Step 1: Check cache validity with extended invalidation
+    mkdir -p .do/.cache 2>/dev/null
+    
+    # Extended cache validation for both ideas and plans
+    LATEST_FILE=$(ls -t .do/plans/*.md .do/ideas/*.md .do/.cache/list-cache.txt 2>/dev/null | head -1)
+    
+    if [[ "$LATEST_FILE" == *"list-cache.txt" ]] && [[ -f ".do/.cache/list-cache.txt" ]]; then
+        # Cache is valid - display cached results
+        echo "⚡ Using cached results"
+        echo ""
+        cat .do/.cache/list-cache.txt
+        exit 0
+    fi
+    
+    # Step 2: Build fresh integrated view (cache invalid or missing)
+    echo "🔄 Cache updated"
+    echo ""
+    
+    # Count files for overview
+    PLAN_COUNT=$(ls -1 .do/plans/*.md 2>/dev/null | wc -l | xargs)
+    SESSION_COUNT=$(ls -1 .do/sessions/*.json 2>/dev/null | grep -v archive | wc -l | xargs)
+    IDEA_COUNT=$(ls -1 .do/ideas/idea-*.md 2>/dev/null | wc -l | xargs)
+    
+    # Build output
+    OUTPUT="## Ideas & Plans Overview
+
+**Total Ideas:** $IDEA_COUNT | **Total Plans:** $PLAN_COUNT | **Active Sessions:** $SESSION_COUNT
+
+---
+
+"
+    
+    # Step 3: Ideas Section
+    OUTPUT+="## 💡 Ideas
+
+"
+    
+    if [[ -f ".do/ideas/ideas.md" ]]; then
+        # Read ideas and add status detection
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^•\ (.+)\ \((.+)\)$ ]]; then
+                IDEA_TEXT="${BASH_REMATCH[1]}"
+                IDEA_FILE="${BASH_REMATCH[2]}"
+                
+                # Extract slug for status detection (standardized naming: stage-timestamp-slug.md)
+                if [[ "$IDEA_FILE" =~ idea-[0-9]{8}-[0-9]{6}-(.+)\.md$ ]]; then
+                    SLUG="${BASH_REMATCH[1]}"
+                elif [[ "$IDEA_FILE" =~ idea-(.+)-[0-9]{8}-[0-9]{6}\.md$ ]]; then
+                    # Support transition period naming
+                    SLUG="${BASH_REMATCH[1]}"
+                else
+                    # Fallback for non-standard names
+                    SLUG=$(echo "$IDEA_FILE" | sed 's/idea-//g' | sed 's/\.md//g')
+                fi
+                
+                # Determine status through file existence (check for standardized naming)
+                if ls .do/plans/plan-*-"$SLUG".md 2>/dev/null | grep -q .; then
+                    STATUS="📋 Planned"
+                elif ls .do/validations/validation-*-"$SLUG".md 2>/dev/null | grep -q .; then
+                    STATUS="✅ Validated"
+                else
+                    STATUS="📝 Captured"
+                fi
+                
+                # Get creation date
+                if [[ -f ".do/ideas/$IDEA_FILE" ]]; then
+                    CREATED=$(stat -f "%Sm" -t "%Y-%m-%d" ".do/ideas/$IDEA_FILE" 2>/dev/null || echo "unknown")
+                else
+                    CREATED="unknown"
+                fi
+                
+                OUTPUT+="$IDEA_TEXT
+
+file: $IDEA_FILE
+
+**Created:** $CREATED | **Status:** $STATUS
+
+---
+
+"
+            fi
+        done < .do/ideas/ideas.md
+    else
+        OUTPUT+="No ideas captured yet.
+
+💡 Add new idea: /do:think \"your idea here\"
+
+"
+    fi
+    
+    OUTPUT+="---
+
+"
+    
+    # Step 4: Plans Section (reuse existing logic from list.md)
+    OUTPUT+="## 📋 Plans
+
+"
+    
+    if [[ $PLAN_COUNT -gt 0 ]]; then
+        # Process each plan file
+        for plan_file in .do/plans/*.md; do
+            if [[ -f "$plan_file" ]]; then
+                filename=$(basename "$plan_file")
+                
+                # Extract title
+                title=$(head -10 "$plan_file" | grep "^# " | head -1 | sed 's/^# //' | sed 's/PRD: //')
+                
+                # Extract status
+                status=$(head -10 "$plan_file" | grep "^\*\*Status\*\*:" | cut -d: -f2- | xargs)
+                if [[ -z "$status" ]]; then
+                    status="Ready for Development"
+                fi
+                
+                # Extract description
+                description=$(awk '/^## Context/{flag=1; next} /^##/{flag=0} flag && NF>0 {print; exit}' "$plan_file")
+                
+                # Get dates
+                created=$(stat -f "%Sm" -t "%Y-%m-%d" "$plan_file" 2>/dev/null || echo "unknown")
+                
+                # Status icon
+                case "$status" in
+                    *"Ready for Development"*|*"Ready for Review"*|*"Ready for Design"*) icon="🚀" ;;
+                    *"Completed"*|*"Implemented"*|*"Done"*) icon="✅" ;;
+                    *) icon="📋" ;;
+                esac
+                
+                OUTPUT+="### $icon $title
+
+file: $filename
+
+$description
+
+**Created:** $created | **Status:** $icon $status
+
+---
+
+"
+            fi
+        done
+    else
+        OUTPUT+="No plans created yet.
+
+📋 Create plan: /do:plan \"your requirement here\"
+
+"
+    fi
+    
+    # Step 5: Next steps guidance
+    OUTPUT+="🚀 Next steps:
+• Plan an idea: /do:plan <idea-filename>
+• Continue planning: /do:plan \"new requirement\"
+• Validate ideas: /do:validate <idea-filename>
+• List all ideas: /do:think"
+    
+    # Step 6: Cache the output and display
+    echo "$OUTPUT" > .do/.cache/list-cache.txt
+    echo "$OUTPUT"
+    
+    exit 0
+fi
+```
+
+### Mode 2: AI-Powered Requirements Gathering (Arguments Provided)
+If arguments are provided, execute standard planning workflow:
 
 ### 🎛️ Argument Parsing, File Detection, and Template Override (Step 0)
 **Parse command arguments, detect idea files, and handle template flag override:**
@@ -469,7 +646,7 @@ Create comprehensive PRD using all gathered information:
 Finalize the PRD and present to user:
 
 1. **Generate PRD content** based on all collected information and the selected template (either from --template flag override or config.json `prdTemplate`)
-2. **Create PRD file** with timestamped filename: `do-[feature-name]-[YYYYMMDD-HHMMSS].md`
+2. **Create PRD file** with timestamped filename: `plan-[YYYYMMDD-HHMMSS]-[feature-slug].md`
    - MUST create file in `.do/plans/` directory
    - MUST write complete PRD content to file
    - MUST verify file was created successfully
@@ -480,8 +657,17 @@ Finalize the PRD and present to user:
    - If verification fails: STOP and report error
 4. **Update session** with PRD filename and completion status
 5. **Archive session** to `.do/sessions/archive/`
-   - DO NOT delete original session file
-   - Copy to archive with completion timestamp
+   ```bash
+   # Create archive directory if needed
+   mkdir -p .do/sessions/archive
+   
+   # Move completed session to archive with completion timestamp
+   SESSION_FILE=".do/sessions/plan-session-[session-id].json"
+   if [[ -f "$SESSION_FILE" ]]; then
+       ARCHIVE_NAME="$(basename "$SESSION_FILE" .json)-completed-$(date +%Y%m%d-%H%M%S).json"
+       mv "$SESSION_FILE" ".do/sessions/archive/$ARCHIVE_NAME"
+   fi
+   ```
 6. **Only after verification**, present summary:
    ```
    🎉 PRD Successfully Created!

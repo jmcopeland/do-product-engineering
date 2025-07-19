@@ -168,7 +168,7 @@ Complete evolution from product management tool to universal development lifecyc
 | `/pm:review` | `/do:review` | Engineering review and technical analysis |
 | `/pm:build` | `/do:build` | Feature implementation |
 | `/pm:design` | `/do:design` | UI/UX design analysis |
-| `/pm:list` | `/do:list` | Show existing plans and sessions |
+| `/pm:list` | `/do:plan` (no args) | Show existing plans and sessions |
 | `/pm:continue` | `/do:continue` | Resume plan or session |
 | `/pm:configure` | `/do:configure` | Configuration management |
 | `/pm:status` | `/do:status` | System health and status |
@@ -425,7 +425,7 @@ Updated `.do/config.json` schema:
 **Focus**: Smart Caching & Performance
 
 ### 🚀 Major Performance Breakthrough
-The `/do:list` command now delivers **sub-second response times** through intelligent caching!
+The `/do:plan` command (list mode) now delivers **sub-second response times** through intelligent caching!
 
 #### Performance Improvements
 | Metric | Before | After | Improvement |
@@ -453,7 +453,7 @@ The `/do:list` command now delivers **sub-second response times** through intell
 - **No Interruptions**: Zero user prompts or permission requests
 
 ### 📦 Updated Commands
-- **Enhanced `/do:list`**: Smart caching with native output
+- **Enhanced `/do:plan`**: Smart caching with integrated list view
 - **Updated Documentation**: Clear cache validation instructions
 - **Improved Error Handling**: Graceful fallbacks if cache system unavailable
 
