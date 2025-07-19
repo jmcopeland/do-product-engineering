@@ -50,7 +50,7 @@ Load and validate the specified PRD file with comprehensive error handling:
    ❌ PRD file not found: [filename]
    
    Let me show you available PRDs:
-   [Run /do:list command to show available files]
+   [Run /do:plan command to show available files]
    
    💡 Options:
    • Use an existing PRD from the list above
@@ -386,7 +386,7 @@ Present review results and provide implementation options:
 - **Missing session directory**: Create directory structure as needed
 
 ### PRD File Errors
-- **File not found**: Show `/do:list` and offer PRD creation
+- **File not found**: Show `/do:plan` and offer PRD creation
 - **Corrupted PRD**: Attempt partial parsing, offer manual review
 - **No PRD content**: Guide user to create proper PRD first
 - **Access permission errors**: Provide clear file access guidance

@@ -1,4 +1,4 @@
-# PM Update - Update Commands to Latest Version
+# Do Update Commands to Latest Version
 
 Updates AI Product Manager commands to the latest or specified version with automatic backup.
 

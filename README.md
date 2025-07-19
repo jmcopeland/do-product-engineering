@@ -219,11 +219,10 @@ After installation:
   do/
     do:think.md           # Rapid idea capture
     do:validate.md        # Lean validation methodology
-    do:plan.md            # Senior PM planning command
+    do:plan.md            # Dual-mode planning and list view
     do:design.md          # Senior UI/UX design analysis
     do:review.md          # Senior engineer AI review of PRD
     do:build.md           # Feature implementation from enhanced PRD
-    do:list.md            # List plans and sessions
     do:continue.md        # Resume plan development
     do:configure.md        # AI questioning settings
     do:status.md          # System health dashboard

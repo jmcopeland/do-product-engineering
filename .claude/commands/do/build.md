@@ -19,7 +19,7 @@ Load the enhanced PRD file with engineering context:
    ❌ PRD file not found: [filename]
    
    Let me show you available PRDs:
-   [Run /do:list command to show available files]
+   [Run /do:plan command to show available files]
    
    💡 Options:
    • Use an existing PRD from the list above

@@ -1,4 +1,4 @@
-# PM Status - Show Current Session State
+# Do Status - Show Current Session State
 
 Display the current state of PM sessions and plans.
 
@@ -88,7 +88,7 @@ Show actionable items for maintaining system health:
 
 ### Quick Actions
 - `/pm "[requirement]"` - Create new plan
-- `/do:list` - View all plans
+- `/do:plan` - View all plans
 - `/do:configure` - Update settings
 ```
 

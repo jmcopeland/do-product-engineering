@@ -288,7 +288,7 @@ EOF
 # ... answers 3 questions then gets interrupted
 
 # Later, resume the session
-/user:do:list
+/user:do:plan
 # Shows: 🔄 multi-tenant-support-20250701-140000 - In Progress
 
 /user:do:continue multi-tenant-support-20250701-140000

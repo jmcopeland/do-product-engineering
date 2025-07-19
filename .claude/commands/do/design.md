@@ -51,7 +51,7 @@ Load and validate the specified PRD file:
    ❌ PRD file not found: [filename]
    
    Let me show you available PRDs:
-   [Run /do:list command to show available files]
+   [Run /do:plan command to show available files]
    
    💡 Options:
    • Use an existing PRD from the list above
@@ -438,7 +438,7 @@ The design process adapts based on `.do/config.json` settings:
 - Do not proceed without session
 
 ### PRD Loading Errors
-- File not found: Show available PRDs via /do:list
+- File not found: Show available PRDs via /do:plan
 - Corrupted PRD: Attempt partial parsing
 - Invalid format: Provide structure guidance
 

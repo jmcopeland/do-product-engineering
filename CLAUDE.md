@@ -195,11 +195,10 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 │   └── do/
 │       ├── do:think.md      # NEW v2.6: Rapid idea capture with dual-mode operation
 │       ├── do:validate.md   # NEW v2.6: Feature validation with lean methodology
-│       ├── do:plan.md       # Main AI-powered planning command to create PRD
+│       ├── do:plan.md       # AI planning with integrated list view (dual-mode)
 │       ├── do:design.md     # AI-powered UI/UX design analysis
 │       ├── do:review.md     # AI-powered engineering review of PRD
 │       ├── do:build.md      # Engineering implementation command
-│       ├── do:list.md       # Show existing plans
 │       ├── do:continue.md   # Resume plan development
 │       ├── do:configure.md  # Settings management
 │       ├── do:status.md     # Status overview

@@ -50,10 +50,10 @@ Provide guidance for team usage:
 ## PM Commands Installed Successfully!
 
 ### Project Commands Available:
+- `/do:plan` - Show project plans
 - `/do:plan "[requirement]"` - Create new PRD (project-scoped)
 - `/do:review <prd-file>` - Senior engineering PRD review
 - `/do:build <prd-file>` - Feature implementation from enhanced PRD
-- `/do:list` - Show project plans
 - `/do:continue <plan>` - Resume plan development
 - `/do:configure` - Manage project settings
 - `/do:status` - Show project PM status

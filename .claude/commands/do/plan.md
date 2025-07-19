@@ -682,7 +682,7 @@ Finalize the PRD and present to user:
    • [Any TODOs or assumptions]
    
    🚀 **Ready for implementation?** 
-   Say "proceed" to begin development or "/do:list" to see all plans.
+   Say "proceed" to begin development or "/do:plan" to see all plans.
    ```
 
 ## Configuration-Driven Behavior

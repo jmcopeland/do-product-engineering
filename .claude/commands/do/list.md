@@ -1,4 +1,4 @@
-# PM List - Show Existing Plans
+# Do List - Show Existing Plans
 
 List all existing PRD plans in the current project with optimized caching for sub-second performance.
 
