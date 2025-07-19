@@ -1,8 +1,8 @@
 # Do:PE - AI Product Engineering Lifecycle for Claude Code
 
-🤖 **v2.6.0 Complete Validation Workflow** - Full development lifecycle: `/do:think` → `/do:validate` → `/do:plan` → `/do:design` → `/do:review` → `/do:build` with idea capture and lean validation methodology.
+🤖 **v2.7.0 Intelligent Workflow Router** - Smart routing with `/do` command that analyzes input and suggests optimal workflow entry point: think → validate → plan → design → review → build.
 
-[![Version](https://img.shields.io/badge/version-2.6.0-blue.svg)](https://github.com/jmcopeland/do-product-engineering)
+[![Version](https://img.shields.io/badge/version-2.7.0-blue.svg)](https://github.com/jmcopeland/do-product-engineering)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-green.svg)](https://claude.ai/code)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -84,23 +84,17 @@ git commit -m "Add Do:PE AI for team use"
 
 ## Available Commands
 
-### User Commands (Available Everywhere)
-- `/user:do:think "idea"` - **NEW v2.6**: Rapid idea capture with workflow integration
-- `/user:do:validate "requirement"` - **NEW v2.6**: Lean validation methodology for go/no-go decisions
-- `/user:do:plan "requirement"` - AI-powered PRD creation with codebase analysis
-- `/user:do:design <prd-file>` - UI/UX design analysis and specifications
-- `/user:do:review <prd-file>` - Senior engineer AI review of PRD
-- `/user:do:build <prd-file>` - Feature implementation from enhanced PRD
-- `/user:do:continue <plan>` - Resume plan development
-- `/user:do:list` - Show existing plans
-- `/user:do:configure` - Manage settings
-- `/user:do:status` - Show current state
-- `/user:do:install` - Copy commands to current project
-- `/user:do:update` - Update user-scope commands to latest version
+### 🎯 Main Command (Smart Routing)
+- **`/do "feature description"`** - **Intelligent workflow router** that analyzes your input and existing files to recommend the next logical step
+  - Analyzes `.do/ideas/`, `.do/validations/`, and `.do/plans/` for related files
+  - Suggests appropriate workflow step (think → validate → plan → design → review → build)
+  - Presents interactive menu with all options for user choice
+  - Defaults to "think" (idea capture) for new concepts
 
-### Project Commands (After Installation)
-- `/do:think "idea"` - **NEW v2.6**: Capture ideas and list existing ideas
-- `/do:validate "requirement" [--type=product|feature]` - **NEW v2.6**: Validate with configurable scoring
+### 📋 Specific Commands (Direct Access)
+- `/do:think` - List captured ideas
+- `/do:think "my new idea"` - Quickly capture new ideas
+- `/do:validate "requirement" OR <my-new-idea-file> [--type=product|feature]` - Validate with configurable scoring
 - `/do:plan "requirement" [--template=<name>]` - AI-powered PRD creation for project
 - `/do:design <prd-file>` - UI/UX design analysis with design specifications
 - `/do:review <prd-file>` - Senior engineer AI review of PRD
@@ -109,57 +103,71 @@ git commit -m "Add Do:PE AI for team use"
 - `/do:list` - Show project plans and active sessions
 - `/do:configure` - Project AI questioning settings
 - `/do:status` - System health and cleanup recommendations
+- `/do:install` - Copy commands to current project
 - `/do:update` - Update commands to latest version
 
 ## Example Usage
 
 ### 🎯 Complete Development Lifecycle (NEW v2.6)
 ```bash
-# Start with idea capture
+# Use the intelligent router - it will guide you through the workflow
+/do "Add user profile management with social login"
+
+# The router will:
+# 1. 🔍 Analyze your input and check for existing related files
+# 2. 💡 Recommend the next logical step (likely "think" for new ideas)
+# 3. 📋 Present interactive menu with all workflow options
+# 4. 🚀 Execute your chosen step with proper context
+
+# Example workflow the router might suggest:
+# 1. Start with idea capture
 /do:think "Add user profile management with social login"
 
-# Validate the business case
+# 2. Validate the business case  
 /do:validate idea-20250706-user-profile.md
 
-# v2.6 validation system will:
-# 1. 🎯 Detect product vs feature validation type
-# 2. 🤔 Ask focused validation questions with lean methodology
-# 3. 📊 Calculate validation score with configurable criteria
-# 4. 📋 Generate Lean Validation Document (LVD) with go/no-go recommendation
-
-# Plan the validated feature
+# 3. Plan the validated feature
 /do:plan validation-20250706-user-profile.md
 
-# v2 AI system will:
-# 1. 🔍 Analyze your codebase (React? Django? existing auth?)
-# 2. 🎯 Ask ~6-10 focused questions with context
-# 3. 💬 Adapt based on your responses
-# 4. 📋 Generate comprehensive PRD with assumptions
+# 4. Design and implement
+/do:design user-profile-20250706.md
+/do:review user-profile-20250706.md
+/do:build user-profile-20250706.md
 ```
 
 ### ⚡ Quick Options for Speed
 ```bash
-# Idea capture and list
-/do:think "Add CRUD operations"    # Capture idea
-/do:think                          # List all captured ideas
+# Use the smart router for any feature
+/do "Add CRUD operations"         # Router will suggest starting with "think"
+/do "Add user dashboard"          # Router analyzes and suggests next step
 
-# Direct validation
+# Or use specific commands directly
+/do:think "Add CRUD operations"   # Capture idea directly
+/do:think                         # List all captured ideas
+
+# Direct validation and planning
 /do:validate "Add user dashboard" --type=feature
-
-# Generate with assumptions only
 /do:plan "Add CRUD operations, skip questions"
-/do:plan "Add user dashboard, make assumptions"
 ```
 
 ### 🔧 Implementation Flow
 ```bash
-# Complete development lifecycle
-/do:think "Feature idea"                    # 💡 Capture
-/do:validate idea-file.md                   # ✅ Validate  
-/do:plan validation-file.md                 # 📋 Plan
-/do:design user-profile-20250706.md         # 🎨 Design
-/do:review user-profile-20250706.md         # 🔍 Review
-/do:build user-profile-20250706.md          # 🚀 Build
+# Smart router guides you through the complete development lifecycle
+/do "Feature idea"                          # 🤖 Router analyzes and suggests next step
+
+# The router intelligently determines where you are in the workflow:
+# - No related files → Suggests /do:think (capture idea)
+# - Idea files exist → Suggests /do:validate (validate next)
+# - Validation files exist → Suggests /do:plan (plan next)
+# - Plan files exist → Suggests /do:design or /do:review (design/review next)
+
+# Manual workflow (if you prefer direct control):
+/do:think "Feature idea"                   # 💡 Capture
+/do:validate idea-file.md                  # ✅ Validate  
+/do:plan validation-file.md                # 📋 Plan
+/do:design user-profile-20250706.md        # 🎨 Design
+/do:review user-profile-20250706.md        # 🔍 Review
+/do:build user-profile-20250706.md         # 🚀 Build
 
 # Each step adds context for the next:
 # - Validation provides business justification
@@ -187,15 +195,17 @@ git commit -m "Add Do:PE AI for team use"
 mkdir -p ~/.claude/commands/do
 
 # Copy files
+cp .claude/commands/do.md ~/.claude/commands/
 cp .claude/commands/do/*.md ~/.claude/commands/do/
 ```
 
 ### Team Setup
 ```bash
 # In your project directory
-/user:do:install
+/do:install
 
 # Commit team commands
+git add .claude/commands/do.md
 git add .claude/commands/do/*
 git commit -m "Add Do:PE AI commands for team use"
 ```
@@ -205,31 +215,34 @@ git commit -m "Add Do:PE AI commands for team use"
 After installation:
 ```
 ~/.claude/commands/
+  do.md                   # 🎯 Main intelligent routing command
   do/
-    do:think.md           # NEW v2.6: Rapid idea capture
-    do:validate.md        # NEW v2.6: Lean validation methodology
-    do:plan.md            # Main AI-powered planning command
-    do:design.md          # UI/UX design analysis
+    do:think.md           # Rapid idea capture
+    do:validate.md        # Lean validation methodology
+    do:plan.md            # Senior PM planning command
+    do:design.md          # Senior UI/UX design analysis
     do:review.md          # Senior engineer AI review of PRD
     do:build.md           # Feature implementation from enhanced PRD
     do:list.md            # List plans and sessions
     do:continue.md        # Resume plan development
-    do:configure.md       # AI questioning settings
+    do:configure.md        # AI questioning settings
     do:status.md          # System health dashboard
     do:install.md         # Project installation
 
-# In your projects (after /user:do:install):
+# In your projects (after /do:install):
 .claude/commands/         # Team-shared commands
+  do.md                   # 🎯 Main intelligent routing command
+  do/                     # Specific workflow commands
 .do/
   config.json              # AI questioning configuration
-  ideas/                   # NEW v2.6: Captured ideas
-    ideas.md               # Central list of all ideas
-    idea-*.md              # Individual idea files
-  validations/             # NEW v2.6: Lean Validation Documents
-  plans/                   # Generated PRDs
-  sessions/                # Active AI questioning sessions
-  questions/               # Custom question templates
-  templates/               # NEW v2.6: Validation scoring templates
+  ideas/                  # Captured ideas
+    ideas.md              # Central list of all ideas
+    idea-*.md             # Individual idea files
+  validations/            # Lean Validation Documents
+  plans/                  # Generated PRDs
+  sessions/               # Active AI questioning sessions
+  questions/              # Custom question templates
+  templates/              # Validation scoring templates
 ```
 
 ## Generated PRD Format

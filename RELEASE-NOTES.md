@@ -1,5 +1,42 @@
 # Do:PE AI Release Notes
 
+## v2.7.0 - Intelligent Workflow Router
+**Release Date**: July 19, 2025  
+**Focus**: Smart Workflow Routing with Intelligent Decision Making
+
+### 🎯 Major Features
+
+#### NEW: `/do` Command - Intelligent Workflow Router
+- **Smart Input Analysis**: Analyzes user input and existing files to determine optimal workflow entry point
+- **File System Scanning**: Automatically checks `.do/ideas/`, `.do/validations/`, and `.do/plans/` for related files
+- **Intelligent Recommendations**: Suggests next logical step based on existing project state
+- **Interactive Menu**: Presents clear options with reasoning for user choice
+- **Seamless Integration**: Works with all existing workflow commands while maintaining backward compatibility
+
+#### 🧠 Smart Routing Logic
+- **New Ideas** (no related files) → Recommends `/do:think` (capture idea first)
+- **Existing Ideas** (idea files found) → Recommends `/do:validate` (validate next)
+- **Validated Features** (validation files found) → Recommends `/do:plan` (plan next)
+- **Planned Features** (plan files found) → Recommends `/do:design` or `/do:review` (design/review next)
+
+#### 📋 Enhanced User Experience
+```bash
+# One command entry point for everything
+/do "Add user authentication"
+
+# Router analyzes and presents:
+# 🤖 Smart Routing Analysis
+# 💡 Recommendation: think
+# 🚀 Choose your next step: [1-8 options]
+```
+
+### 🔧 Technical Improvements
+- **Command Architecture**: Moved main router to `.claude/commands/do.md` for cleaner hierarchy
+- **Fallback Safety**: Always defaults to `/do:think` when routing is unclear
+- **Documentation Updates**: Updated all docs to reflect new routing capabilities
+
+---
+
 ## v2.6.0 - Complete Validation Workflow and Idea Capture
 **Release Date**: July 6, 2025  
 **Focus**: Full Development Lifecycle with Idea Capture and Lean Validation

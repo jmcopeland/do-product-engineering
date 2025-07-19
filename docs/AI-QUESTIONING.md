@@ -13,7 +13,12 @@ The AI-powered questioning system combines:
 ## How It Works
 
 ### 1. Requirement Analysis
-When you run `/do "Add user profile management"`, Do:PE AI:
+When you run `/do "Add user profile management"`, the intelligent router:
+- **Analyzes your input** and checks for existing related files
+- **Suggests the appropriate workflow step** (think → validate → plan → design → review → build)
+- **Presents interactive options** for user choice
+
+When you proceed to `/do:plan` (either through router suggestion or direct command), Do:PE AI:
 - Analyzes your requirement for complexity and type
 - Identifies relevant question categories (auth, CRUD, UI, API)
 - Scans your codebase for existing patterns and technologies

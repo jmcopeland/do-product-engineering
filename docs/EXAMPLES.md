@@ -1,11 +1,51 @@
 # Usage Examples
 
-Real-world examples of using Do:PE AI with AI-powered questioning and complete development lifecycle.
+Real-world examples of using Do:PE AI with intelligent workflow routing and complete development lifecycle.
+
+## 🎯 Smart Routing Examples (NEW v2.7)
+
+### Main Command - Intelligent Analysis
+```bash
+# Smart router analyzes your input and suggests the best starting point
+/do "Add user authentication to my React app"
+
+# Router will:
+# 1. 🔍 Check for existing related files in .do/ideas/, .do/validations/, .do/plans/
+# 2. 💡 Recommend next step (likely "think" for new ideas)
+# 3. 📋 Present interactive menu with all workflow options
+# 4. 🚀 Execute your choice with proper context
+
+# Example router output:
+# 🤖 Smart Routing Analysis
+# Input: "Add user authentication to my React app"
+# 💡 Recommendation: think
+# Reason: Start by capturing this idea for proper workflow tracking
+# 
+# 🚀 Choose your next step:
+# 1. ✅ Continue with recommendation → /do:think
+# 2. 💡 Capture idea → /do:think
+# 3. ✅ Validate idea → /do:validate  
+# 4. 📋 Plan feature → /do:plan
+# [... etc]
+```
 
 ## 🚀 Quick Start Examples
 
-### Authentication Feature
+### Complete Workflow with Smart Routing
 ```bash
+# Step 1: Start with smart routing
+/do "Add user authentication to my React app"
+# → Router suggests /do:think, user chooses option 1
+
+# Step 2: Router detects idea file and suggests validation
+/do "user authentication"
+# → Router finds idea file, suggests /do:validate
+
+# Step 3: Router detects validation file and suggests planning
+/do "user authentication" 
+# → Router finds validation file, suggests /do:plan
+
+# Alternative: Direct command access when you know exactly what you want
 /user:do:plan "Add user authentication to my React app"
 
 # AI will analyze your React codebase and ask focused questions like:
@@ -16,7 +56,12 @@ Real-world examples of using Do:PE AI with AI-powered questioning and complete d
 
 ### Using Template Flags
 ```bash
-# Use lean template for rapid development
+# Smart router with template override
+/do "Add user authentication"
+# → Router suggests /do:plan, user chooses option 4
+# → Then use template flag: /do:plan "Add user authentication" --template=lean
+
+# Direct command with templates
 /user:do:plan "Add user authentication" --template=lean
 # 🚀 Analyzing: "Add user authentication" (using lean template)
 
@@ -29,6 +74,11 @@ Real-world examples of using Do:PE AI with AI-powered questioning and complete d
 
 ### CRUD Operations
 ```bash
+# Smart routing for CRUD features
+/do "Add blog post management"
+# → Router analyzes existing files and suggests appropriate step
+
+# Or direct planning
 /user:do:plan "Add blog post management"
 
 # AI detects your existing patterns and asks:
@@ -39,6 +89,11 @@ Real-world examples of using Do:PE AI with AI-powered questioning and complete d
 
 ### UI Components
 ```bash
+# Smart routing for UI features
+/do "Add user dashboard"
+# → Router checks for existing related files and suggests next step
+
+# Or direct planning
 /user:do:plan "Add user dashboard"
 
 # AI analyzes your UI framework and asks:

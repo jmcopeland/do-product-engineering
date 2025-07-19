@@ -55,11 +55,12 @@ This guidance helps ensure users get comprehensive feature planning before imple
 
 ## Project Overview
 
-Do:PE AI is an intelligent product engineering extension for Claude Code that transforms vague business requirements into detailed, actionable deliverables through AI-powered intelligent questioning. v2.6 introduces the complete development lifecycle with idea capture: think → validate → plan → design → review → build, featuring rapid idea capture, lean validation methodology, adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.
+Do:PE AI is an intelligent product engineering extension for Claude Code that transforms vague business requirements into detailed, actionable deliverables through AI-powered intelligent questioning. v2.7 introduces intelligent workflow routing with the `/do` command that analyzes input and suggests optimal entry points. Complete development lifecycle: think → validate → plan → design → review → build, featuring smart routing, rapid idea capture, lean validation methodology, adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.
 
 ## Architecture
 
 **Command-based Architecture**: The system is built as modular slash commands stored in markdown files:
+- `commands/do.md` - **🎯 Main intelligent routing command** that analyzes input and suggests workflow steps
 - `commands/do/think.md` - Rapid idea capture command with dual-mode operation (capture/list)
 - `commands/do/validate.md` - Feature validation command with lean methodology for go/no-go decisions
 - `commands/do/plan.md` - Main planning command with AI-powered questioning logic for PRD creation
@@ -67,7 +68,7 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 - `commands/do/review.md` - Engineering review command with technical questioning
 - `commands/do/build.md` - Engineering implementation command
 - `commands/do/*.md` - Subcommands for specific functionality (list, continue, configure, status, install, update)
-- Enhanced with 8-step AI process: config → analysis → codebase scan → template selection → questioning → deliverable generation → cleanup
+- Enhanced with intelligent workflow routing and 8-step AI process: config → analysis → codebase scan → template selection → questioning → deliverable generation → cleanup
 
 **Dual Installation Model**: 
 - User-scoped commands (`/user:do*`) installed to `~/.claude/commands/` work across all projects
@@ -95,28 +96,35 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 
 ### Core Usage
 ```bash
-# Complete development lifecycle (NEW v2.6: Full workflow with idea capture)
-/user:do:think "Add user authentication to my web app"     # Rapid idea capture (NEW in v2.6)
-/user:do:validate idea-file.md                             # Feature validation from captured idea
-/user:do:plan validation-file.md                           # Product requirements from validation
-/user:do:design <prd-filename>                             # UI/UX design analysis
-/user:do:review <prd-filename>                             # Engineering review
-/user:do:build <prd-filename>                              # Implementation
+# 🎯 MAIN COMMAND: Intelligent workflow router (NEW v2.7)
+/do "Add user authentication to my web app"          # Smart routing - analyzes input and suggests next step
 
-# Idea capture workflow (NEW in v2.6)
-/user:do:think "your idea here"                            # Capture new ideas
-/user:do:think                                             # List all captured ideas
-/user:do:validate idea-filename.md                         # Validate captured ideas
+# Complete development lifecycle (v2.6: Full workflow with idea capture)
+/do:think "Add user authentication to my web app"    # Rapid idea capture
+/do:validate idea-file.md                             # Feature validation from captured idea
+/do:plan validation-file.md                           # Product requirements from validation
+/do:design <prd-filename>                             # UI/UX design analysis
+/do:review <prd-filename>                             # Engineering review
+/do:build <prd-filename>                              # Implementation
 
-# Validation workflow (NEW in v2.6)
-/user:do:validate "feature idea" --type=feature            # Feature validation with type override
-/user:do:plan "Add user auth" --template=lean              # Direct planning with template override
+# Smart routing behavior:
+# - No related files → Suggests /do:think (capture idea)
+# - Idea files exist → Suggests /do:validate (validate next)
+# - Validation files exist → Suggests /do:plan (plan next)
+# - Plan files exist → Suggests /do:design or /do:review (design/review next)
+
+# Direct command access (when you know exactly what you want)
+/do:think "your idea here"                           # Capture new ideas
+/do:think                                            # List all captured ideas
+/do:validate idea-filename.md                         # Validate captured ideas
+/do:validate "feature idea" --type=feature           # Feature validation with type override
+/do:plan "Add user auth" --template=lean             # Direct planning with template override
 
 # Session management
-/user:do:list                                              # List existing plans
-/user:do:continue <session-id-or-plan-filename>            # Resume session
-/user:do:configure                                         # Configure settings
-/user:do:status                                            # Check status
+/do:list                                             # List existing plans
+/do:continue <session-id-or-plan-filename>            # Resume session
+/do:configure                                         # Configure settings
+/do:status                                           # Check status
 ```
 
 ## Key Implementation Details
@@ -183,6 +191,7 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 ```
 .claude/
 ├── commands/
+│   ├── do.md                # main routing command
 │   └── do/
 │       ├── do:think.md      # NEW v2.6: Rapid idea capture with dual-mode operation
 │       ├── do:validate.md   # NEW v2.6: Feature validation with lean methodology
@@ -249,7 +258,7 @@ Generated project structure:
 
 ## Command Development Workflow
 
-- **Single Source of Truth**: Commands in `.claude/commands/do/*` are the only authoritative source
+- **Single Source of Truth**: Commands in `.claude/commands/do.md` and `.claude/commands/do/*` are the only authoritative source
 - **Simplified Distribution Process**:
   1. Make changes to commands in `.claude/commands/do/*`
   2. Changes are immediately ready for distribution via install.sh
