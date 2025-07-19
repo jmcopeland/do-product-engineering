@@ -16,7 +16,7 @@ Use the TodoWrite tool to create todos for each mandatory step:
 5. "Perform design system discovery"
 6. "Conduct design questioning flow"
 7. "Generate mockups and prototypes"
-8. "Create design specifications and enhance PRD"
+8. "Create design notes and enhance PRD"
 9. "Complete handoff and verify session exists"
 
 Mark each step as "in_progress" when starting and "completed" when finished.
@@ -65,9 +65,9 @@ Load and validate the specified PRD file:
    - Analyze functional requirements for design implications
    - Note any existing design constraints
 
-4. **Check for existing Design Specifications**:
-   - If Design Specifications already exist, offer to:
-     - Continue with existing specs
+4. **Check for existing Design Notes**:
+   - If Design Notes already exist, offer to:
+     - Continue with existing notes
      - Restart design analysis
      - Append additional design review
 
@@ -305,10 +305,10 @@ Create interactive mockups based on design decisions:
    - Update current symlink
    - Document iteration rationale
 
-### Step 7: Design Specifications Generation (MANDATORY)
+### Step 7: Design Notes Generation (MANDATORY)
 Create comprehensive design specs and enhance PRD:
 
-1. **Update session** status to "generating-specifications"
+1. **Update session** status to "generating-design-notes"
 
 2. **Compile design decisions**:
    - Information architecture choices
@@ -317,9 +317,9 @@ Create comprehensive design specs and enhance PRD:
    - Interaction patterns
    - Accessibility requirements
 
-3. **Generate Design Specifications section**:
+3. **Generate Design Notes section**:
    ```markdown
-   ## Design Specifications
+   ## Design Notes
    _Added by do:design from design-[prd-name]-[timestamp].json on [date]_
    
    ### Design System
@@ -365,7 +365,7 @@ Create comprehensive design specs and enhance PRD:
 
 4. **Update PRD file (CRITICAL - VERIFY)**:
    - Read original PRD content successfully
-   - Generate complete Design Specifications section
+   - Generate complete Design Notes section
    - Append to PRD without modifying existing content
    - MUST write updated PRD back to file
    - MUST verify file was updated successfully
@@ -390,7 +390,7 @@ Finalize design phase and prepare for next steps:
    ✅ Design Analysis Complete!
    
    📋 **Design Deliverables:**
-   • Design Specifications added to PRD
+   • Design Notes added to PRD
    • Mockups: .do/mockups/[prd-name]/
    • Design System: [Updated/Created]
    • Session: [session-id] (archived)
@@ -446,14 +446,14 @@ The design process adapts based on `.do/config.json` settings:
 **BEFORE STARTING: Use TodoWrite to create a plan with all mandatory steps**
 
 Use the TodoWrite tool to create todos for each mandatory step:
-1. "🚨 CRITICAL: Create session file (NEVER SKIP)"
+1. "Create session file"
 2. "Load and validate PRD file"
 3. "Load configuration and design context"
 4. "Run guided configuration if needed"
 5. "Perform design system discovery"
 6. "Conduct design questioning flow"
 7. "Generate mockups and prototypes"
-8. "Create design specifications and enhance PRD"
+8. "Create design notes and enhance PRD"
 9. "Complete handoff and verify session exists"
 
 Mark each step as "in_progress" when starting and "completed" when finished.

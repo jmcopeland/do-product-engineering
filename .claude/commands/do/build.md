@@ -27,8 +27,24 @@ Load the enhanced PRD file with engineering context:
    • Review an existing PRD with: /do:review [prd-filename]
    ```
 
-3. **Validate PRD has engineering context**:
-   - Check for "Engineering Notes" section
+3. **Validate PRD has design and engineering context**:
+   
+   **a) Check for Design Notes section**:
+   - Look for "Design Notes", "Design Specifications", or "UI/UX Design Analysis" section
+   - If missing, suggest running /do:design first:
+     ```
+     ⚠️ This PRD hasn't been analyzed for UI/UX design yet.
+     
+     For best results, run the design analysis first:
+     /do:design [prd-filename]
+     
+     This will add design specifications and UI implementation guidance.
+     
+     Continue without design context? (y/n)
+     ```
+   
+   **b) Check for Engineering Notes section**:
+   - Look for "Engineering Notes" or "Technical Implementation" section
    - If missing, suggest running /do:review first:
      ```
      ⚠️ This PRD hasn't been reviewed by engineering yet.
@@ -40,6 +56,19 @@ Load the enhanced PRD file with engineering context:
      
      Continue with implementation anyway? (y/n)
      ```
+   
+   **c) Optimal workflow validation**:
+   - If both Design and Engineering Notes are missing, recommend full workflow:
+     ```
+     ⚠️ This PRD is missing both design and engineering context.
+     
+     For optimal implementation, complete the full workflow:
+     1. /do:design [prd-filename]  - Add UI/UX design specifications
+     2. /do:review [prd-filename]  - Add technical implementation guidance
+     3. /do:build [prd-filename]   - Implement with complete context
+     
+     Or continue with basic PRD only? (y/n)
+     ```
 
 ### Step 2: Extract Implementation Context
 Parse the enhanced PRD for implementation guidance:
@@ -49,13 +78,20 @@ Parse the enhanced PRD for implementation guidance:
    - Functional requirements
    - Success metrics and validation criteria
 
-2. **Extract engineering context**:
+2. **Extract design context** (if Design Notes section exists):
+   - UI/UX design specifications and wireframes
+   - Component library and design system guidelines
+   - User interaction patterns and flows
+   - Accessibility requirements and design standards
+   - Responsive design and layout specifications
+
+3. **Extract engineering context** (if Engineering Notes section exists):
    - Technical architecture decisions
    - Implementation strategy and approach
    - Security and performance requirements
    - Testing strategy and quality gates
 
-3. **Extract technical constraints**:
+4. **Extract technical constraints**:
    - Framework and library choices
    - Integration patterns and dependencies
    - Code organization and patterns
@@ -92,16 +128,21 @@ Execute the implementation following the PRD guidance:
    📋 **Feature:** [Feature name from PRD]
    📄 **Source:** [PRD filename]
    
-   🏗️ **Implementation Approach:**
+   🎨 **Design Context:** [If Design Notes exist]
+   • UI Framework: [Component library and design system]
+   • User Experience: [Key interaction patterns and flows]
+   • Design Standards: [Accessibility and responsive design requirements]
+   
+   🏗️ **Engineering Context:** [If Engineering Notes exist]
    • Architecture: [Key architectural decisions from Engineering Notes]
    • Implementation: [High-level technical approach]
    • Security: [Security considerations]
    • Testing: [Testing strategy]
    
    🔧 **Implementation Plan:**
-   1. [Phase 1 description]
-   2. [Phase 2 description]
-   3. [Phase 3 description]
+   1. [Phase 1 description - including UI components if applicable]
+   2. [Phase 2 description - including backend/API work if applicable]
+   3. [Phase 3 description - including integration and testing]
    
    📝 **Files to modify:** [List of anticipated file changes]
    
@@ -110,7 +151,8 @@ Execute the implementation following the PRD guidance:
 
 2. **Execute implementation with Claude Code**:
    - Use the enhanced PRD as primary context
-   - Follow engineering decisions and architectural choices
+   - Follow design specifications and UI/UX guidelines (if Design Notes exist)
+   - Follow engineering decisions and architectural choices (if Engineering Notes exist)
    - Implement security and performance requirements
    - Apply testing strategy from engineering notes
    - Handle errors automatically where possible
@@ -118,10 +160,13 @@ Execute the implementation following the PRD guidance:
 
 3. **Implementation guidance for Claude Code**:
    ```
-   Please implement this feature following the PRD requirements and Engineering Notes.
+   Please implement this feature following the PRD requirements, Design Notes, and Engineering Notes.
    
    Key implementation context:
-   • Follow the architectural decisions documented in Engineering Notes
+   • Follow design specifications and UI/UX guidelines from Design Notes (if available)
+   • Adhere to component library and design system standards
+   • Implement accessibility and responsive design requirements
+   • Follow the architectural decisions documented in Engineering Notes (if available)
    • Implement security measures as specified
    • Apply the testing strategy outlined
    • Use the code patterns and conventions identified
@@ -139,13 +184,20 @@ Validate the implementation against PRD requirements:
    - Validate functional requirements
    - Check non-functional requirements
 
-2. **Engineering requirements validation**:
+2. **Design requirements validation** (if Design Notes exist):
+   - Verify UI/UX design specifications are implemented
+   - Test user interaction patterns and flows
+   - Validate accessibility requirements
+   - Check responsive design and layout specifications
+   - Confirm component library and design system compliance
+
+3. **Engineering requirements validation** (if Engineering Notes exist):
    - Verify security implementations
    - Test performance requirements
    - Validate integration points
    - Check error handling and resilience
 
-3. **Code quality validation**:
+4. **Code quality validation**:
    - Run linting and formatting checks
    - Execute unit and integration tests
    - Validate code patterns and conventions
@@ -163,12 +215,14 @@ Provide implementation summary and suggest next steps:
    
    🎯 **Implementation Results:**
    • ✅ All acceptance criteria met
-   • ✅ Engineering requirements implemented
+   • ✅ Design specifications implemented (if Design Notes existed)
+   • ✅ Engineering requirements implemented (if Engineering Notes existed)
    • ✅ Testing strategy applied
    • ✅ Security measures in place
    
    📊 **Quality Metrics:**
    • Code quality: [Status]
+   • Design compliance: [UI/UX validation status]
    • Test coverage: [Coverage percentage]
    • Performance: [Performance metrics]
    • Security: [Security validation]
@@ -200,7 +254,9 @@ The implementation process adapts based on `.do/config.json` settings:
 
 ### PRD Loading Errors
 - **File not found**: Show available PRDs and suggest alternatives
-- **Missing engineering context**: Suggest running /do:review first
+- **Missing design context**: Suggest running /do:design first for UI/UX implementation guidance
+- **Missing engineering context**: Suggest running /do:review first for technical implementation guidance
+- **Missing both contexts**: Recommend complete workflow (/do:design → /do:review → /do:build)
 - **Invalid format**: Provide guidance on PRD structure requirements
 
 ### Implementation Errors
