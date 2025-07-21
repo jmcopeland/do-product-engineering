@@ -9,9 +9,9 @@ set -e
 AUTO_DETECTION=false
 if [[ "$1" == "--with-auto-detection" ]]; then
     AUTO_DETECTION=true
-    echo "🤖 Installing Do:PE AI v2.6 with complete development lifecycle and auto-detection..."
+    echo "🤖 Installing Do:PE AI with auto-detection..."
 else
-    echo "🤖 Installing Do:PE AI v2.6 with complete development lifecycle..."
+    echo "🤖 Installing Do:PE AI..."
 fi
 
 # Create directories
@@ -21,7 +21,7 @@ mkdir -p ~/.do/{questions,sessions,plans,ideas,validations,templates}
 
 # Copy command files
 echo "Copying command files..."
-cp .claude/commands/do.md ~/.claude/commands/do.md
+cp .claude/commands/do.md ~/.claude/commands/
 cp .claude/commands/do/*.md ~/.claude/commands/do/
 
 # Copy question templates and validation templates
@@ -87,7 +87,7 @@ fi
 
 # Verify installation
 if [ -f ~/.claude/commands/do.md ] && [ -f ~/.claude/commands/do/plan.md ] && [ -f ~/.claude/commands/do/think.md ] && [ -f ~/.claude/commands/do/validate.md ] && [ -f ~/.do/config.json ]; then
-    echo "✅ Do:PE AI v2.6 installation successful!"
+    echo "✅ Do:PE AI installation successful!"
     echo ""
     echo "🚀 Complete Development Lifecycle Commands Available:"
     echo "  /do:think \"idea\"                              - Rapid idea capture"
@@ -101,6 +101,7 @@ if [ -f ~/.claude/commands/do.md ] && [ -f ~/.claude/commands/do/plan.md ] && [ 
     echo "  /do:configure                                    - Configure AI questioning"
     echo "  /do:status                                      - System health dashboard"
     echo "  /do:install                                     - Install to current project"
+    echo "  /do:iupdate                                     - Update Do:PE AI to latest version"
     echo ""
     echo "⚡ Complete Workflow Examples:"
     echo "  /do:think \"Add user authentication\"           # Capture idea"

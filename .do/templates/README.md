@@ -7,7 +7,7 @@ This directory contains Product Requirements Document (PRD) templates and valida
 ### 📋 PRD Templates
 Product Requirements Document templates for various development approaches.
 
-### ✅ Validation Templates (NEW v2.6)
+### ✅ Validation Templates
 Lean validation frameworks and scoring systems for feature validation.
 
 ## Available Templates
@@ -105,7 +105,7 @@ Lean validation frameworks and scoring systems for feature validation.
 
 ---
 
-## Validation Templates (NEW v2.6)
+## Validation Templates
 
 ### ✅ Validation Scoring Framework (`validation_score.md`)
 **Best for**: Consistent go/no-go decisions, team alignment on validation criteria
@@ -162,7 +162,7 @@ Lean validation frameworks and scoring systems for feature validation.
    # Note: Use --template=<name> syntax (with equals sign)
    ```
 
-#### Validation Templates (NEW v2.6)
+#### Validation Templates
 
 1. **Configure validation scoring** in `.do/config.json`:
    ```json
@@ -189,18 +189,18 @@ Lean validation frameworks and scoring systems for feature validation.
    - Adjust weights for your industry or context
    - Add custom criteria specific to your business
 
-### New in v2.6.0: Complete Workflow Integration
+### Complete Workflow Integration
 
-Templates now work seamlessly across the complete development lifecycle:
+Templates now work across the complete development lifecycle:
 
 ```bash
 # Complete workflow with templates
-/do:think "Add user authentication"           # Capture idea
+/do:think "Add user authentication"          # Capture idea
 /do:validate idea-file.md                     # Validate with scoring framework
 /do:plan validation-file.md --template=agile  # Plan with specific template
 ```
 
-### Template Flag Override (v2.5.0)
+### Template Flag Override
 
 You can override the default template using the `--template` flag:
 

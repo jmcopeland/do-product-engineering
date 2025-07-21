@@ -55,7 +55,7 @@ This guidance helps ensure users get comprehensive feature planning before imple
 
 ## Project Overview
 
-Do:PE AI is an intelligent product engineering extension for Claude Code that transforms vague business requirements into detailed, actionable deliverables through AI-powered intelligent questioning. v2.7 introduces intelligent workflow routing with the `/do` command that analyzes input and suggests optimal entry points. Complete development lifecycle: think → validate → plan → design → review → build, featuring smart routing, rapid idea capture, lean validation methodology, adaptive conversation flows, codebase analysis, smart question filtering, and high-performance caching for sub-second response times.
+Do:PE AI is an intelligent product engineering extension for Claude Code that transforms vague business requirements into detailed, actionable deliverables through AI-powered intelligent questioning. Workflow routing with the `/do` command that analyzes input and suggests optimal entry points. Complete development lifecycle: think → validate → plan → design → review → build, featuring smart routing, rapid idea capture, lean validation methodology, adaptive conversation flows, codebase analysis, and smart question filtering.
 
 ## Architecture
 
@@ -67,7 +67,7 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 - `commands/do/design.md` - UI/UX design analysis command with design specifications
 - `commands/do/review.md` - Engineering review command with technical questioning
 - `commands/do/build.md` - Engineering implementation command
-- `commands/do/*.md` - Subcommands for specific functionality (list, continue, configure, status, install, update)
+- `commands/do/*.md` - Subcommands for specific functionality (configure, status, install, update)
 - Enhanced with intelligent workflow routing and 8-step AI process: config → analysis → codebase scan → template selection → questioning → deliverable generation → cleanup
 
 **Dual Installation Model**: 
@@ -91,18 +91,18 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 ./install.sh
 
 # Install to current project for team sharing
-/user:do:install
+/do:install
 ```
 
 ### Core Usage
 ```bash
-# 🎯 MAIN COMMAND: Intelligent workflow router (NEW v2.7)
+# 🎯 MAIN COMMAND: Intelligent workflow router
 /do "Add user authentication to my web app"          # Smart routing - analyzes input and suggests next step
 
-# Complete development lifecycle (v2.6: Full workflow with idea capture)
+# Direct command access (when you know exactly what you want)
 /do:think "Add user authentication to my web app"    # Rapid idea capture
-/do:validate idea-file.md                             # Feature validation from captured idea
-/do:plan validation-file.md                           # Product requirements from validation
+/do:validate "my new idea" OR idea-file.md --type=feature            # Feature validation from captured idea
+/do:plan "my new idea" OR validation-file.md --template=lean          # Product requirements from validation
 /do:design <prd-filename>                             # UI/UX design analysis
 /do:review <prd-filename>                             # Engineering review
 /do:build <prd-filename>                              # Implementation
@@ -113,15 +113,10 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 # - Validation files exist → Suggests /do:plan (plan next)
 # - Plan files exist → Suggests /do:design or /do:review (design/review next)
 
-# Direct command access (when you know exactly what you want)
-/do:think "your idea here"                           # Capture new ideas
-/do:think                                            # List all captured ideas
-/do:validate idea-filename.md                         # Validate captured ideas
-/do:validate "feature idea" --type=feature           # Feature validation with type override
-/do:plan "Add user auth" --template=lean             # Direct planning with template override
 
 # Session management
-/do:plan                                             # List existing plans (no arguments) or create new plans
+/do:think                                            # List all captured ideas
+/do:plan                                             # List existing plans
 /do:continue <session-id-or-plan-filename>            # Resume session
 /do:configure                                         # Configure settings
 /do:status                                           # Check status
@@ -129,7 +124,7 @@ Do:PE AI is an intelligent product engineering extension for Claude Code that tr
 
 ## Key Implementation Details
 
-**AI-Powered Questioning (v2)**: The main `plan.md` command implements intelligent questioning:
+**AI-Powered Questioning**: The main `plan.md` command implements intelligent questioning:
 - **Senior PM AI Persona**: Acts as experienced Product Manager to create initial PRD for review
 - **Template-guided AI**: Uses question templates as guides, not rigid structures
 - **Codebase pre-analysis**: Scans project for frameworks, patterns, existing features

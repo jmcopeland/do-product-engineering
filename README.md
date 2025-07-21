@@ -14,7 +14,6 @@ Do:PE AI adds intelligent product engineering capabilities to Claude Code via cu
 
 - [Claude Code CLI](https://claude.ai/code) - The AI coding assistant
 - Git repository (recommended for context analysis)
-- Markdown support (for PRD generation)
 
 ## Features
 
@@ -75,11 +74,7 @@ Enable Claude Code to automatically suggest `/do:plan` or `/do:validate` for fea
 ### 👥 Team Installation
 ```bash
 # After individual install, add to your project with auto-detection:
-/user:do:install --with-auto-detection
-
-# Commit for team sharing (includes CLAUDE.md auto-detection)
-git add .claude/commands/do/* CLAUDE.md
-git commit -m "Add Do:PE AI for team use"
+/do:install --with-auto-detection
 ```
 
 ## Available Commands
@@ -91,7 +86,7 @@ git commit -m "Add Do:PE AI for team use"
   - Presents interactive menu with all options for user choice
   - Defaults to "think" (idea capture) for new concepts
 
-### 📋 Specific Commands (Direct Access)
+### 📋 Specific Commands (Direct Workflow Access)
 - `/do:think` - List captured ideas
 - `/do:think "my new idea"` - Quickly capture new ideas
 - `/do:validate "requirement" OR <my-new-idea-file> [--type=product|feature]` - Validate with configurable scoring
@@ -108,7 +103,7 @@ git commit -m "Add Do:PE AI for team use"
 
 ## Example Usage
 
-### 🎯 Complete Development Lifecycle (NEW v2.6)
+### 🎯 Complete Development Lifecycle
 ```bash
 # Use the intelligent router - it will guide you through the workflow
 /do "Add user profile management with social login"
@@ -150,33 +145,6 @@ git commit -m "Add Do:PE AI for team use"
 /do:plan "Add CRUD operations, skip questions"
 ```
 
-### 🔧 Implementation Flow
-```bash
-# Smart router guides you through the complete development lifecycle
-/do "Feature idea"                          # 🤖 Router analyzes and suggests next step
-
-# The router intelligently determines where you are in the workflow:
-# - No related files → Suggests /do:think (capture idea)
-# - Idea files exist → Suggests /do:validate (validate next)
-# - Validation files exist → Suggests /do:plan (plan next)
-# - Plan files exist → Suggests /do:design or /do:review (design/review next)
-
-# Manual workflow (if you prefer direct control):
-/do:think "Feature idea"                   # 💡 Capture
-/do:validate idea-file.md                  # ✅ Validate  
-/do:plan validation-file.md                # 📋 Plan
-/do:design user-profile-20250706.md        # 🎨 Design
-/do:review user-profile-20250706.md        # 🔍 Review
-/do:build user-profile-20250706.md         # 🚀 Build
-
-# Each step adds context for the next:
-# - Validation provides business justification
-# - Planning adds detailed requirements
-# - Design adds UI/UX specifications  
-# - Review adds technical implementation details
-# - Build implements with complete context
-```
-
 ### 🔄 Session Management
 ```bash
 # Resume if interrupted
@@ -185,29 +153,6 @@ git commit -m "Add Do:PE AI for team use"
 # Check status and cleanup
 /do:status
 /do:plan
-```
-
-## Installation Instructions
-
-### Manual Installation
-```bash
-# Create directories
-mkdir -p ~/.claude/commands/do
-
-# Copy files
-cp .claude/commands/do.md ~/.claude/commands/
-cp .claude/commands/do/*.md ~/.claude/commands/do/
-```
-
-### Team Setup
-```bash
-# In your project directory
-/do:install
-
-# Commit team commands
-git add .claude/commands/do.md
-git add .claude/commands/do/*
-git commit -m "Add Do:PE AI commands for team use"
 ```
 
 ## Directory Structure
@@ -243,17 +188,6 @@ After installation:
   questions/              # Custom question templates
   templates/              # Validation scoring templates
 ```
-
-## Generated PRD Format
-
-Each PRD includes:
-- **Context** - Feature background and rationale
-- **User Stories** - "As a... I want... so that..." format
-- **Core Requirements** - Detailed functional requirements
-- **Acceptance Criteria** - Specific, testable criteria
-- **Implementation Notes** - Technical considerations
-- **Success Metrics** - Measurement criteria
-- **TODOs** - Unresolved questions
 
 ## Configuration
 

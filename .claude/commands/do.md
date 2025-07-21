@@ -70,8 +70,8 @@ Reason: [WHY_THIS_STEP]
 2. 💡 Capture idea → /do:think
 3. ✅ Validate idea → /do:validate  
 4. 📋 Plan feature → /do:plan
-5. 🎨 Design UI/UX → /do:design
-6. 🔍 Review engineering → /do:review
+5. 🎨 Design UI/UX review → /do:design
+6. 🔍 Engineering review → /do:review
 7. 🚀 Build feature → /do:build
 8. ❌ Cancel
 
