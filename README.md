@@ -17,7 +17,7 @@ Do:PE AI adds intelligent product engineering capabilities to Claude Code via cu
 
 ## Features
 
-### 💡 Complete Development Lifecycle (NEW v2.6)
+### 💡 Complete Development Lifecycle
 - **Idea Capture** - Rapid idea capture with `/do:think` and seamless workflow integration
 - **Lean Validation** - Validate ideas before development with `/do:validate` using lean methodology
 - **Smart Planning** - AI-powered PRD creation with codebase analysis
